@@ -1,0 +1,47 @@
+.post {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  min-height: 100px;
+  padding: 20px 15px;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.post img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-info span {
+  font-weight: 500;
+  opacity: 0.8;
+  display: block;
+  margin-left: 10px;
+}
+
+.content {
+  opacity: 0.8;
+  padding-left: 60px;
+}
+
+.statistic {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.statistic img {
+  object-fit: contain;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
