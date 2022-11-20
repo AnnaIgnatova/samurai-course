@@ -1,7 +1,7 @@
 import { Posts } from "./Posts";
 import styles from "./style.module.css";
 
-export const Profile = () => {
+export const Profile: React.FC = () => {
   return (
     <div className={styles.content}>
       <img src="./assets/bg-profile.jpg" alt="user-bg" />

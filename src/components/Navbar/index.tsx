@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   return (
     <nav className={styles.nav}>
       <ul>
