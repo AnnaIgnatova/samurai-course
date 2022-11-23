@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 
 export const Navbar: React.FC = () => {
@@ -5,19 +6,19 @@ export const Navbar: React.FC = () => {
     <nav className={styles.nav}>
       <ul>
         <li>
-          <a href="#">Profile</a>
+          <Link to="/profile">Profile</Link>
         </li>
         <li>
-          <a href="#">Messages</a>
+          <Link to="/dialogs">Messages</Link>
         </li>
         <li>
-          <a href="#">News</a>
+          <Link to="/news">News</Link>
         </li>
         <li>
-          <a href="#">Music</a>
+          <Link to="/music">Music</Link>
         </li>
         <li>
-          <a href="#">Settings</a>
+          <Link to="/settings">Settings</Link>
         </li>
       </ul>
     </nav>
