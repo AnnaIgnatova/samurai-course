@@ -1,6 +1,11 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 20px;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  padding: 20px;
+}
+
+.dialog,
+.message {
+  padding: 10px;
 }
