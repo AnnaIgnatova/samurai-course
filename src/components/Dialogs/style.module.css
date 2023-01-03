@@ -4,8 +4,3 @@
   grid-template-columns: 2fr 10fr;
   padding: 20px;
 }
-
-.dialog,
-.message {
-  padding: 10px;
-}

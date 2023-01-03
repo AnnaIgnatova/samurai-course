@@ -1,30 +1,21 @@
-import { Link } from "react-router-dom";
+import { Dialog } from "./Dialog";
+import { Message } from "./Message";
 import styles from "./style.module.css";
 
 export const Dialogs = () => {
   return (
     <div className={styles.container}>
       <div className={styles["dialogs-items"]}>
-        <div className={styles.dialog}>
-          <Link to="/dialogs/1">Anna</Link>
-        </div>
-        <div className={styles.dialog}>
-          <Link to="/dialogs/2">Sasha</Link>
-        </div>
-        <div className={styles.dialog}>
-          <Link to="/dialogs/3">Olya</Link>
-        </div>
-        <div className={styles.dialog}>
-          <Link to="/dialogs/4">Kirill</Link>
-        </div>
-        <div className={styles.dialog}>
-          <Link to="/dialogs/5">Dima</Link>
-        </div>
+        <Dialog id={1} name="Anna" />
+        <Dialog id={2} name="Sasha" />
+        <Dialog id={3} name="Olya" />
+        <Dialog id={4} name="Misha" />
+        <Dialog id={5} name="Dima" />
       </div>
       <div className={styles["messages"]}>
-        <div className={styles.message}>Hi</div>
-        <div className={styles.message}>Good morning</div>
-        <div className={styles.message}>How are you</div>
+        <Message text="Hi" />
+        <Message text="Good morning" />
+        <Message text="How are you" />
       </div>
     </div>
   );
