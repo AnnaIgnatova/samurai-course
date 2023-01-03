@@ -1,14 +1,25 @@
+import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 
 export const Dialogs = () => {
   return (
     <div className={styles.container}>
       <div className={styles["dialogs-items"]}>
-        <div className={styles.dialog}>Anna</div>
-        <div className={styles.dialog}>Sasha</div>
-        <div className={styles.dialog}>Olya</div>
-        <div className={styles.dialog}>Kirill</div>
-        <div className={styles.dialog}>Dima</div>
+        <div className={styles.dialog}>
+          <Link to="/dialogs/1">Anna</Link>
+        </div>
+        <div className={styles.dialog}>
+          <Link to="/dialogs/2">Sasha</Link>
+        </div>
+        <div className={styles.dialog}>
+          <Link to="/dialogs/3">Olya</Link>
+        </div>
+        <div className={styles.dialog}>
+          <Link to="/dialogs/4">Kirill</Link>
+        </div>
+        <div className={styles.dialog}>
+          <Link to="/dialogs/5">Dima</Link>
+        </div>
       </div>
       <div className={styles["messages"]}>
         <div className={styles.message}>Hi</div>
