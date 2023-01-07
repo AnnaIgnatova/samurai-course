@@ -36,11 +36,9 @@ export const Posts: React.FC = () => {
         <button>Add post</button>
       </div>
       <div>
-        <Post message={postsData[0].text} likes={postsData[0].likes} />
-        <Post message={postsData[1].text} likes={postsData[1].likes} />
-        <Post message={postsData[2].text} likes={postsData[2].likes} />
-        <Post message={postsData[3].text} likes={postsData[3].likes} />
-        <Post message={postsData[4].text} likes={postsData[4].likes} />
+        {postsData.map(({ text, likes }) => (
+          <Post message={text} likes={likes} />
+        ))}
       </div>
     </div>
   );
