@@ -13,8 +13,8 @@ export const Dialogs: React.FC<DialogsPageData> = ({ state }) => {
         ))}
       </div>
       <div className={styles["messages"]}>
-        {messages.map(({ text }) => (
-          <Message text={text} />
+        {messages.map(({ text, from }) => (
+          <Message text={text} from={from} />
         ))}
       </div>
     </div>

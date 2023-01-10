@@ -5,6 +5,7 @@ export interface Dialog {
 
 export interface Message {
   text: string;
+  from: string;
 }
 
 export interface Post {

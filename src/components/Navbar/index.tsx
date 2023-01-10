@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
         <span>Friends</span>
         <div className={styles.friends}>
           {friendsIds.map((friend) => (
-            <img src={`./assets/friends/friend-${friend}.png`} />
+            <img src={`./assets/friends/friend-${friend}.png`} alt="friend" />
           ))}
         </div>
       </div>

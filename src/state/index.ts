@@ -27,14 +27,17 @@ const messagesData = [
   {
     id: 1,
     text: "Hi",
+    from: 'me'
   },
   {
     id: 2,
     text: "Good morning",
+    from: 'them'
   },
   {
     id: 3,
     text: "How are you",
+    from: 'me'
   },
 ];
 
