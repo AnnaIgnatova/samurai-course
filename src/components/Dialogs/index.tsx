@@ -1,9 +1,10 @@
-import { DialogsData } from "../../interfaces";
+import { DialogsPageData } from "../../interfaces";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
-export const Dialogs: React.FC<DialogsData> = ({ dialogs, messages }) => {
+export const Dialogs: React.FC<DialogsPageData> = ({ state }) => {
+  const { dialogs, messages } = state;
   return (
     <div className={styles.container}>
       <div className={styles["dialogs-items"]}>
