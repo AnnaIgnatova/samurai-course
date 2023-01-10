@@ -2,9 +2,15 @@
   grid-area: n;
   background-color: rgba(127, 255, 212, 0.158);
   font-weight: 500;
+  padding: 30px;
 }
 
-.nav a {
+ul {
+  padding: 0;
+}
+
+.nav a,
+.friends-container > span {
   color: black;
   font-size: 20px;
 }
@@ -14,9 +20,35 @@
 }
 
 .nav li {
-  padding: 10px 20px;
+  padding: 10px 0;
 }
 
 .active {
   color: deeppink;
+}
+
+.friends-container {
+  margin-top: 50px;
+}
+
+.friends {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.friends > img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.friends > img:hover {
+  transform: scale(1.05);
 }

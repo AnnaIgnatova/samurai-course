@@ -9,7 +9,7 @@ import { Settings } from "./components/Settings";
 import "./App.css";
 import { AppData } from "./interfaces";
 
-const App: React.FC<AppData> = ({ dialogs, messages, posts }) => {
+const App: React.FC<AppData> = ({ state }) => {
   return (
     <BrowserRouter>
       <div className="container">
@@ -17,11 +17,8 @@ const App: React.FC<AppData> = ({ dialogs, messages, posts }) => {
         <Navbar />
         <div className="content">
           <Routes>
-            <Route path="/profile" element={<Profile posts={posts} />} />
-            <Route
-              path="/dialogs/*"
-              element={<Dialogs dialogs={dialogs} messages={messages} />}
-            />
+            <Route path="/profile" element={<Profile state={state.profile} />} />
+            <Route path="/dialogs/*" element={<Dialogs state={state.dialogs} />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />

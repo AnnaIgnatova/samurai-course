@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { friendsIds } from "./constants";
 import styles from "./style.module.css";
 
 export const Navbar: React.FC = () => {
@@ -21,6 +22,14 @@ export const Navbar: React.FC = () => {
           <Link to="/settings">Settings</Link>
         </li>
       </ul>
+      <div className={styles["friends-container"]}>
+        <span>Friends</span>
+        <div className={styles.friends}>
+          {friendsIds.map((friend) => (
+            <img src={`./assets/friends/friend-${friend}.png`} alt="friend" />
+          ))}
+        </div>
+      </div>
     </nav>
   );
 };

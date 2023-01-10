@@ -1,12 +1,12 @@
-import { PostsData } from "../../interfaces";
+import { ProfilePageData } from "../../interfaces";
 import { Posts } from "./Posts";
 import { ProfileInfo } from "./ProfileInfo";
 
-export const Profile: React.FC<PostsData> = ({ posts }) => {
+export const Profile: React.FC<ProfilePageData> = ({ state }) => {
   return (
     <>
       <ProfileInfo />
-      <Posts posts={posts} />
+      <Posts posts={state.posts} />
     </>
   );
 };

@@ -5,6 +5,7 @@ export interface Dialog {
 
 export interface Message {
   text: string;
+  from: string;
 }
 
 export interface Post {
@@ -13,10 +14,13 @@ export interface Post {
   likes: number;
 }
 
+export interface StateData {
+  profile: PostsData;
+  dialogs: DialogsData;
+}
+
 export interface AppData {
-  dialogs: Dialog[];
-  messages: Message[];
-  posts: Post[];
+  state: StateData;
 }
 
 export interface DialogsData {
@@ -26,4 +30,12 @@ export interface DialogsData {
 
 export interface PostsData {
   posts: Post[];
+}
+
+export interface ProfilePageData {
+  state: PostsData;
+}
+
+export interface DialogsPageData {
+  state: DialogsData;
 }
