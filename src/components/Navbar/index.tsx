@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { friendsIds } from "./constants";
+import { NavbarData } from "../../interfaces";
 import styles from "./style.module.css";
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<NavbarData> = ({ state }) => {
+  const { friendsIds } = state;
+
   return (
     <nav className={styles.nav}>
       <ul>
