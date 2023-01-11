@@ -14,11 +14,17 @@ const App: React.FC<AppData> = ({ state }) => {
     <BrowserRouter>
       <div className="container">
         <Header />
-        <Navbar />
+        <Navbar state={state.navbar} />
         <div className="content">
           <Routes>
-            <Route path="/profile" element={<Profile state={state.profile} />} />
-            <Route path="/dialogs/*" element={<Dialogs state={state.dialogs} />} />
+            <Route
+              path="/profile"
+              element={<Profile state={state.profile} />}
+            />
+            <Route
+              path="/dialogs/*"
+              element={<Dialogs state={state.dialogs} />}
+            />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />

@@ -14,9 +14,14 @@ export interface Post {
   likes: number;
 }
 
+export interface Navbar {
+  friendsIds: number[];
+}
+
 export interface StateData {
   profile: PostsData;
   dialogs: DialogsData;
+  navbar: Navbar;
 }
 
 export interface AppData {
@@ -38,4 +43,8 @@ export interface ProfilePageData {
 
 export interface DialogsPageData {
   state: DialogsData;
+}
+
+export interface NavbarData {
+    state: Navbar;
 }

@@ -27,17 +27,17 @@ const messagesData = [
   {
     id: 1,
     text: "Hi",
-    from: 'me'
+    from: "me",
   },
   {
     id: 2,
     text: "Good morning",
-    from: 'them'
+    from: "them",
   },
   {
     id: 3,
     text: "How are you",
-    from: 'me'
+    from: "me",
   },
 ];
 
@@ -76,5 +76,8 @@ export const state: StateData = {
   dialogs: {
     dialogs: dialogsData,
     messages: messagesData,
+  },
+  navbar: {
+    friendsIds: [1, 2, 3, 4, 5, 6],
   },
 };

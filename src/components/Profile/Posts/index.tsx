@@ -1,20 +1,23 @@
-import React, { RefObject } from "react";
+import React from "react";
 import { PostsData } from "../../../interfaces";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
 export const Posts: React.FC<PostsData> = ({ posts }) => {
-  const postField = React.useRef<HTMLTextAreaElement>(null);
+  const postRef = React.useRef<HTMLTextAreaElement>(null);
 
   const createPost = () => {
-    const text = postField.current && postField.current.value;
-    console.log(text);
+    if (postRef.current) {
+      const text = postRef.current.value;
+      postRef.current.value = "";
+      console.log(text);
+    }
   };
 
   return (
     <div className={styles["posts-container"]}>
       <div className={styles["create-post"]}>
-        <textarea placeholder="type something" ref={postField} ></textarea>
+        <textarea placeholder="type something" ref={postRef}></textarea>
         <button onClick={createPost}>Add post</button>
       </div>
       <div>
