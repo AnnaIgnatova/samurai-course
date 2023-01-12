@@ -4,15 +4,15 @@ import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
-export const Dialogs: React.FC<DialogsPageData> = ({ state }) => {
+export const Dialogs: React.FC<DialogsPageData> = ({ state, sendMessage }) => {
   const { dialogs, messages } = state;
   const messageRef = React.useRef<HTMLTextAreaElement>(null);
 
-  const sendMessage = () => {
+  const createMessage = () => {
     if (messageRef.current) {
       const text = messageRef.current.value;
       messageRef.current.value = "";
-      console.log(text);
+      sendMessage(text);
     }
   };
   return (
@@ -27,7 +27,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({ state }) => {
           <Message text={text} from={from} />
         ))}
         <textarea ref={messageRef}></textarea>
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={createMessage}>Send</button>
       </div>
     </div>
   );
