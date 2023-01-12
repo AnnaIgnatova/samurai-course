@@ -1,4 +1,10 @@
+import ReactDOM from "react-dom/client";
 import { StateData } from "../interfaces";
+import { renderDOM } from "../render";
+
+export const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 const dialogsData = [
   {
@@ -89,6 +95,7 @@ export const createPost = (text: string) => {
     likes: Math.floor(Math.random() * 10),
   };
   state.profile.posts.push(post);
+  renderDOM(root, state, sendMessage, createPost);
 };
 
 export const sendMessage = (text: string) => {
@@ -98,4 +105,5 @@ export const sendMessage = (text: string) => {
     from: "me",
   };
   state.dialogs.messages.push(message);
+  renderDOM(root, state, sendMessage, createPost);
 };
