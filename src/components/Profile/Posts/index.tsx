@@ -1,16 +1,16 @@
 import React from "react";
-import { PostsData } from "../../../interfaces";
+import { PostsComponentData } from "../../../interfaces";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
-export const Posts: React.FC<PostsData> = ({ posts }) => {
+export const Posts: React.FC<PostsComponentData> = ({ posts, createPost }) => {
   const postRef = React.useRef<HTMLTextAreaElement>(null);
 
-  const createPost = () => {
+  const sendPost = () => {
     if (postRef.current) {
       const text = postRef.current.value;
       postRef.current.value = "";
-      console.log(text);
+      createPost(text);
     }
   };
 
@@ -18,7 +18,7 @@ export const Posts: React.FC<PostsData> = ({ posts }) => {
     <div className={styles["posts-container"]}>
       <div className={styles["create-post"]}>
         <textarea placeholder="type something" ref={postRef}></textarea>
-        <button onClick={createPost}>Add post</button>
+        <button onClick={sendPost}>Add post</button>
       </div>
       <div>
         {posts.map(({ text, likes }) => (

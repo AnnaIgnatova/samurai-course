@@ -81,3 +81,21 @@ export const state: StateData = {
     friendsIds: [1, 2, 3, 4, 5, 6],
   },
 };
+
+export const createPost = (text: string) => {
+  const post = {
+    id: postsData[postsData.length - 1].id + 1,
+    text,
+    likes: Math.floor(Math.random() * 10),
+  };
+  state.profile.posts.push(post);
+};
+
+export const sendMessage = (text: string) => {
+  const message = {
+    id: messagesData[messagesData.length - 1].id + 1,
+    text,
+    from: "me",
+  };
+  state.dialogs.messages.push(message);
+};

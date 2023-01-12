@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { state } from "./state";
+import { createPost, sendMessage, state } from "./state";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App state={state} />
+    <App state={state} sendMessage={sendMessage} createPost={createPost} />
   </React.StrictMode>
 );
 

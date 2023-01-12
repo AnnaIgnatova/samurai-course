@@ -26,6 +26,8 @@ export interface StateData {
 
 export interface AppData {
   state: StateData;
+  sendMessage: (text: string) => void;
+  createPost: (text: string) => void;
 }
 
 export interface DialogsData {
@@ -39,12 +41,18 @@ export interface PostsData {
 
 export interface ProfilePageData {
   state: PostsData;
+  createPost: (text: string) => void;
 }
 
 export interface DialogsPageData {
   state: DialogsData;
+  sendMessage: (text: string) => void;
+}
+
+export interface PostsComponentData extends PostsData {
+  createPost: (text: string) => void;
 }
 
 export interface NavbarData {
-    state: Navbar;
+  state: Navbar;
 }
