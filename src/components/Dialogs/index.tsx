@@ -4,17 +4,27 @@ import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
-export const Dialogs: React.FC<DialogsPageData> = ({ state, sendMessage }) => {
-  const { dialogs, messages } = state;
+export const Dialogs: React.FC<DialogsPageData> = ({
+  state,
+  sendMessage,
+  updateMessageText,
+}) => {
+  const { dialogs, messages, newMessage } = state;
   const messageRef = React.useRef<HTMLTextAreaElement>(null);
 
   const createMessage = () => {
     if (messageRef.current) {
-      const text = messageRef.current.value;
-      messageRef.current.value = "";
-      sendMessage(text);
+      sendMessage();
     }
   };
+
+  const handleChange = () => {
+    if (messageRef.current) {
+      const text = messageRef.current.value;
+      updateMessageText(text);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles["dialogs-items"]}>
@@ -26,7 +36,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({ state, sendMessage }) => {
         {messages.map(({ text, from }) => (
           <Message text={text} from={from} />
         ))}
-        <textarea ref={messageRef}></textarea>
+        <textarea ref={messageRef} onChange={handleChange} value={newMessage} />
         <button onClick={createMessage}>Send</button>
       </div>
     </div>
