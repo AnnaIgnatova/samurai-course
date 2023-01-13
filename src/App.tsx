@@ -9,7 +9,13 @@ import { Settings } from "./components/Settings";
 import "./App.css";
 import { AppData } from "./interfaces";
 
-const App: React.FC<AppData> = ({ state, createPost, sendMessage }) => {
+const App: React.FC<AppData> = ({
+  state,
+  createPost,
+  sendMessage,
+  updateMessageText,
+  updatePostText,
+}) => {
   return (
     <BrowserRouter>
       <div className="container">
@@ -20,13 +26,21 @@ const App: React.FC<AppData> = ({ state, createPost, sendMessage }) => {
             <Route
               path="/profile"
               element={
-                <Profile state={state.profile} createPost={createPost} />
+                <Profile
+                  state={state.profile}
+                  createPost={createPost}
+                  updatePostText={updatePostText}
+                />
               }
             />
             <Route
               path="/dialogs/*"
               element={
-                <Dialogs state={state.dialogs} sendMessage={sendMessage} />
+                <Dialogs
+                  state={state.dialogs}
+                  sendMessage={sendMessage}
+                  updateMessageText={updateMessageText}
+                />
               }
             />
             <Route path="/news" element={<News />} />

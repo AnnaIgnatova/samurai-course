@@ -78,32 +78,57 @@ const postsData = [
 export const state: StateData = {
   profile: {
     posts: postsData,
+    newPost: "",
   },
   dialogs: {
     dialogs: dialogsData,
     messages: messagesData,
+    newMessage: "",
   },
   navbar: {
     friendsIds: [1, 2, 3, 4, 5, 6],
   },
 };
 
-export const createPost = (text: string) => {
+export const updateDOM = () => {
+  renderDOM(
+    root,
+    state,
+    sendMessage,
+    createPost,
+    updateMessageText,
+    updatePostText
+  );
+};
+
+export const createPost = () => {
   const post = {
     id: postsData[postsData.length - 1].id + 1,
-    text,
+    text: state.profile.newPost,
     likes: Math.floor(Math.random() * 10),
   };
   state.profile.posts.push(post);
-  renderDOM(root, state, sendMessage, createPost);
+  state.profile.newPost = "";
+  updateDOM();
 };
 
-export const sendMessage = (text: string) => {
+export const updatePostText = (text: string) => {
+  state.profile.newPost = text;
+  updateDOM();
+};
+
+export const sendMessage = () => {
   const message = {
     id: messagesData[messagesData.length - 1].id + 1,
-    text,
+    text: state.dialogs.newMessage,
     from: "me",
   };
   state.dialogs.messages.push(message);
-  renderDOM(root, state, sendMessage, createPost);
+  state.dialogs.newMessage = "";
+  updateDOM();
+};
+
+export const updateMessageText = (text: string) => {
+  state.dialogs.newMessage = text;
+  updateDOM();
 };

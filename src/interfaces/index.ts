@@ -26,31 +26,38 @@ export interface StateData {
 
 export interface AppData {
   state: StateData;
-  sendMessage: (text: string) => void;
-  createPost: (text: string) => void;
+  sendMessage: () => void;
+  createPost: () => void;
+  updateMessageText: (text: string) => void;
+  updatePostText: (text: string) => void;
 }
 
 export interface DialogsData {
   dialogs: Dialog[];
   messages: Message[];
+  newMessage: string;
 }
 
 export interface PostsData {
   posts: Post[];
+  newPost: string;
 }
 
 export interface ProfilePageData {
   state: PostsData;
-  createPost: (text: string) => void;
+  createPost: () => void;
+  updatePostText: (text: string) => void;
 }
 
 export interface DialogsPageData {
   state: DialogsData;
-  sendMessage: (text: string) => void;
+  sendMessage: () => void;
+  updateMessageText: (text: string) => void;
 }
 
 export interface PostsComponentData extends PostsData {
-  createPost: (text: string) => void;
+  createPost: () => void;
+  updatePostText: (text: string) => void;
 }
 
 export interface NavbarData {

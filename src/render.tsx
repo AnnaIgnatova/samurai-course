@@ -6,12 +6,20 @@ import { StateData } from "./interfaces";
 export const renderDOM = (
   root: ReactDOM.Root,
   state: StateData,
-  sendMessage: (text: string) => void,
-  createPost: (text: string) => void
+  sendMessage: () => void,
+  createPost: () => void,
+  updateMessageText: (text: string) => void,
+  updatePostText: (text: string) => void
 ) => {
   root.render(
     <React.StrictMode>
-      <App state={state} sendMessage={sendMessage} createPost={createPost} />
+      <App
+        state={state}
+        sendMessage={sendMessage}
+        createPost={createPost}
+        updateMessageText={updateMessageText}
+        updatePostText={updatePostText}
+      />
     </React.StrictMode>
   );
 };
