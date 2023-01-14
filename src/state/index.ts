@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { StateData } from "../interfaces";
-import { renderDOM } from "../render";
+import { RenderDOMData, StateData } from "../interfaces";
 
 export const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -90,15 +89,17 @@ export const state: StateData = {
   },
 };
 
-export const updateDOM = () => {
-  renderDOM(
+let rerender = (data: RenderDOMData) => {};
+
+const updateDOM = () => {
+  rerender({
     root,
     state,
     sendMessage,
     createPost,
     updateMessageText,
-    updatePostText
-  );
+    updatePostText,
+  });
 };
 
 export const createPost = () => {
@@ -131,4 +132,8 @@ export const sendMessage = () => {
 export const updateMessageText = (text: string) => {
   state.dialogs.newMessage = text;
   updateDOM();
+};
+
+export const subscriber = (observer: (data: RenderDOMData) => void) => {
+  rerender = observer;
 };
