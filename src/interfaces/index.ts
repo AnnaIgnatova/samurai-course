@@ -1,3 +1,5 @@
+import ReactDOM from "react-dom/client";
+
 export interface Dialog {
   id: number;
   name: string;
@@ -62,4 +64,13 @@ export interface PostsComponentData extends PostsData {
 
 export interface NavbarData {
   state: Navbar;
+}
+
+export interface RenderDOMData {
+  root: ReactDOM.Root;
+  state: StateData;
+  sendMessage: () => void;
+  createPost: () => void;
+  updateMessageText: (text: string) => void;
+  updatePostText: (text: string) => void;
 }
