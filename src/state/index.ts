@@ -1,139 +1,124 @@
-import ReactDOM from "react-dom/client";
-import { RenderDOMData, StateData } from "../interfaces";
+import { StateData } from "../interfaces";
 
-export const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-
-const dialogsData = [
-  {
-    id: 1,
-    name: "Anna",
+export const store = {
+  _rerender(state: StateData) {},
+  _state: {
+    profilePage: {
+      posts: [
+        {
+          id: 1,
+          text: "post 1",
+          likes: 1,
+        },
+        {
+          id: 2,
+          text: "post 2",
+          likes: 3,
+        },
+        {
+          id: 3,
+          text: "post 3",
+          likes: 2,
+        },
+        {
+          id: 4,
+          text: "post 4",
+          likes: 5,
+        },
+        {
+          id: 5,
+          text: "post 5",
+          likes: 1,
+        },
+      ],
+      newPost: "",
+    },
+    dialogsPage: {
+      dialogs: [
+        {
+          id: 1,
+          name: "Anna",
+        },
+        {
+          id: 2,
+          name: "Sasha",
+        },
+        {
+          id: 3,
+          name: "Olya",
+        },
+        {
+          id: 4,
+          name: "Misha",
+        },
+        {
+          id: 5,
+          name: "Dima",
+        },
+      ],
+      messages: [
+        {
+          id: 1,
+          text: "Hi",
+          from: "me",
+        },
+        {
+          id: 2,
+          text: "Good morning",
+          from: "them",
+        },
+        {
+          id: 3,
+          text: "How are you",
+          from: "me",
+        },
+      ],
+      newMessage: "",
+    },
+    navbar: {
+      friendsIds: [1, 2, 3, 4, 5, 6],
+    },
   },
-  {
-    id: 2,
-    name: "Sasha",
+  getState() {
+    return this._state;
   },
-  {
-    id: 3,
-    name: "Olya",
+  _updateDOM() {
+    this._rerender(this._state);
   },
-  {
-    id: 4,
-    name: "Misha",
+  createPost() {
+    const post = {
+      id:
+        this._state.profilePage.posts[this._state.profilePage.posts.length - 1]
+          .id + 1,
+      text: this._state.profilePage.newPost,
+      likes: Math.floor(Math.random() * 10),
+    };
+    this._state.profilePage.posts.push(post);
+    this._state.profilePage.newPost = "";
+    this._updateDOM();
   },
-  {
-    id: 5,
-    name: "Dima",
+  updatePostText(text: string) {
+    this._state.profilePage.newPost = text;
+    this._updateDOM();
   },
-];
-
-const messagesData = [
-  {
-    id: 1,
-    text: "Hi",
-    from: "me",
+  sendMessage() {
+    const message = {
+      id:
+        this._state.dialogsPage.messages[
+          this._state.dialogsPage.messages.length - 1
+        ].id + 1,
+      text: this._state.dialogsPage.newMessage,
+      from: "me",
+    };
+    this._state.dialogsPage.messages.push(message);
+    this._state.dialogsPage.newMessage = "";
+    this._updateDOM();
   },
-  {
-    id: 2,
-    text: "Good morning",
-    from: "them",
+  updateMessageText(text: string) {
+    this._state.dialogsPage.newMessage = text;
+    this._updateDOM();
   },
-  {
-    id: 3,
-    text: "How are you",
-    from: "me",
+  subscriber(observer: (state: StateData) => void) {
+    this._rerender = observer;
   },
-];
-
-const postsData = [
-  {
-    id: 1,
-    text: "post 1",
-    likes: 1,
-  },
-  {
-    id: 2,
-    text: "post 2",
-    likes: 3,
-  },
-  {
-    id: 3,
-    text: "post 3",
-    likes: 2,
-  },
-  {
-    id: 4,
-    text: "post 4",
-    likes: 5,
-  },
-  {
-    id: 5,
-    text: "post 5",
-    likes: 1,
-  },
-];
-
-export const state: StateData = {
-  profile: {
-    posts: postsData,
-    newPost: "",
-  },
-  dialogs: {
-    dialogs: dialogsData,
-    messages: messagesData,
-    newMessage: "",
-  },
-  navbar: {
-    friendsIds: [1, 2, 3, 4, 5, 6],
-  },
-};
-
-let rerender = (data: RenderDOMData) => {};
-
-const updateDOM = () => {
-  rerender({
-    root,
-    state,
-    sendMessage,
-    createPost,
-    updateMessageText,
-    updatePostText,
-  });
-};
-
-export const createPost = () => {
-  const post = {
-    id: postsData[postsData.length - 1].id + 1,
-    text: state.profile.newPost,
-    likes: Math.floor(Math.random() * 10),
-  };
-  state.profile.posts.push(post);
-  state.profile.newPost = "";
-  updateDOM();
-};
-
-export const updatePostText = (text: string) => {
-  state.profile.newPost = text;
-  updateDOM();
-};
-
-export const sendMessage = () => {
-  const message = {
-    id: messagesData[messagesData.length - 1].id + 1,
-    text: state.dialogs.newMessage,
-    from: "me",
-  };
-  state.dialogs.messages.push(message);
-  state.dialogs.newMessage = "";
-  updateDOM();
-};
-
-export const updateMessageText = (text: string) => {
-  state.dialogs.newMessage = text;
-  updateDOM();
-};
-
-export const subscriber = (observer: (data: RenderDOMData) => void) => {
-  rerender = observer;
 };

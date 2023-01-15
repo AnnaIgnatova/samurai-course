@@ -1,47 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import {
-  createPost,
-  root,
-  sendMessage,
-  state,
-  subscriber,
-  updateMessageText,
-  updatePostText,
-} from "./state";
-import { RenderDOMData } from "./interfaces";
+import { store } from "./state";
+import { StateData } from "./interfaces";
 import App from "./App";
 
-const renderDOM = (data: RenderDOMData) => {
-  const {
-    root,
-    state,
-    sendMessage,
-    createPost,
-    updateMessageText,
-    updatePostText,
-  } = data;
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
+const renderDOM = (state: StateData) => {
   root.render(
     <React.StrictMode>
       <App
         state={state}
-        sendMessage={sendMessage}
-        createPost={createPost}
-        updateMessageText={updateMessageText}
-        updatePostText={updatePostText}
+        sendMessage={store.sendMessage.bind(store)}
+        createPost={store.createPost.bind(store)}
+        updateMessageText={store.updateMessageText.bind(store)}
+        updatePostText={store.updatePostText.bind(store)}
       />
     </React.StrictMode>
   );
 };
 
-renderDOM({
-  root,
-  state,
-  sendMessage,
-  createPost,
-  updateMessageText,
-  updatePostText,
-});
+renderDOM(store.getState());
 
-subscriber(renderDOM);
+store.subscriber(renderDOM);

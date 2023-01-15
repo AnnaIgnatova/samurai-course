@@ -27,7 +27,7 @@ const App: React.FC<AppData> = ({
               path="/profile"
               element={
                 <Profile
-                  state={state.profile}
+                  state={state.profilePage}
                   createPost={createPost}
                   updatePostText={updatePostText}
                 />
@@ -37,7 +37,7 @@ const App: React.FC<AppData> = ({
               path="/dialogs/*"
               element={
                 <Dialogs
-                  state={state.dialogs}
+                  state={state.dialogsPage}
                   sendMessage={sendMessage}
                   updateMessageText={updateMessageText}
                 />
