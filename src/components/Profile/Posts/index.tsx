@@ -6,19 +6,18 @@ import styles from "./style.module.css";
 export const Posts: React.FC<PostsComponentData> = ({
   posts,
   newPost,
-  createPost,
-  updatePostText,
+  dispatch,
 }) => {
   const postRef = React.useRef<HTMLTextAreaElement>(null);
 
   const sendPost = () => {
-    createPost();
+    dispatch({ type: "CREATE-POST" });
   };
 
   const handleChange = () => {
     if (postRef.current) {
       const text = postRef.current.value;
-      updatePostText(text);
+      dispatch({ type: "UPDATE-POST-TEXT", data: text });
     }
   };
 

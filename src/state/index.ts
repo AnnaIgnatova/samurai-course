@@ -1,4 +1,4 @@
-import { StateData } from "../interfaces";
+import { Action, StateData } from "../interfaces";
 
 export const store = {
   _rerender(state: StateData) {},
@@ -85,38 +85,50 @@ export const store = {
   _updateDOM() {
     this._rerender(this._state);
   },
-  createPost() {
-    const post = {
-      id:
-        this._state.profilePage.posts[this._state.profilePage.posts.length - 1]
-          .id + 1,
-      text: this._state.profilePage.newPost,
-      likes: Math.floor(Math.random() * 10),
-    };
-    this._state.profilePage.posts.push(post);
-    this._state.profilePage.newPost = "";
-    this._updateDOM();
-  },
-  updatePostText(text: string) {
-    this._state.profilePage.newPost = text;
-    this._updateDOM();
-  },
-  sendMessage() {
-    const message = {
-      id:
-        this._state.dialogsPage.messages[
-          this._state.dialogsPage.messages.length - 1
-        ].id + 1,
-      text: this._state.dialogsPage.newMessage,
-      from: "me",
-    };
-    this._state.dialogsPage.messages.push(message);
-    this._state.dialogsPage.newMessage = "";
-    this._updateDOM();
-  },
-  updateMessageText(text: string) {
-    this._state.dialogsPage.newMessage = text;
-    this._updateDOM();
+  dispatch({ type, data }: Action) {
+    switch (type) {
+      case "CREATE-POST": {
+        const post = {
+          id:
+            this._state.profilePage.posts[
+              this._state.profilePage.posts.length - 1
+            ].id + 1,
+          text: this._state.profilePage.newPost,
+          likes: Math.floor(Math.random() * 10),
+        };
+        this._state.profilePage.posts.push(post);
+        this._state.profilePage.newPost = "";
+        this._updateDOM();
+        break;
+      }
+      case "UPDATE-POST-TEXT": {
+        this._state.profilePage.newPost = data;
+        this._updateDOM();
+        break;
+      }
+      case "SEND-MESSAGE": {
+        const message = {
+          id:
+            this._state.dialogsPage.messages[
+              this._state.dialogsPage.messages.length - 1
+            ].id + 1,
+          text: this._state.dialogsPage.newMessage,
+          from: "me",
+        };
+        this._state.dialogsPage.messages.push(message);
+        this._state.dialogsPage.newMessage = "";
+        this._updateDOM();
+        break;
+      }
+      case "UPDATE-MESSAGE-TEXT": {
+        this._state.dialogsPage.newMessage = data;
+        this._updateDOM();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   },
   subscriber(observer: (state: StateData) => void) {
     this._rerender = observer;
