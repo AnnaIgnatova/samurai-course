@@ -1,3 +1,8 @@
+export interface Action {
+  type: string;
+  data?: any;
+}
+
 export interface Dialog {
   id: number;
   name: string;
@@ -26,10 +31,7 @@ export interface StateData {
 
 export interface AppData {
   state: StateData;
-  sendMessage: () => void;
-  createPost: () => void;
-  updateMessageText: (text: string) => void;
-  updatePostText: (text: string) => void;
+  dispatch: (action: Action) => void;
 }
 
 export interface DialogsData {
@@ -45,19 +47,16 @@ export interface PostsData {
 
 export interface ProfilePageData {
   state: PostsData;
-  createPost: () => void;
-  updatePostText: (text: string) => void;
+  dispatch: (action: Action) => void;
 }
 
 export interface DialogsPageData {
   state: DialogsData;
-  sendMessage: () => void;
-  updateMessageText: (text: string) => void;
+  dispatch: (action: Action) => void;
 }
 
 export interface PostsComponentData extends PostsData {
-  createPost: () => void;
-  updatePostText: (text: string) => void;
+  dispatch: (action: Action) => void;
 }
 
 export interface NavbarData {
@@ -68,9 +67,6 @@ export interface StoreData {
   _rerender: (state: StateData) => void;
   _state: StateData;
   getState: () => StateData;
-  createPost: () => void;
-  updatePostText: (text: string) => void;
-  sendMessage: () => void;
-  updateMessageText: (text: string) => void;
+  dispatch: (action: Action) => void;
   subscriber: (observer: (state: StateData) => void) => void;
 }

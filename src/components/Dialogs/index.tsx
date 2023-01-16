@@ -4,24 +4,20 @@ import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
-export const Dialogs: React.FC<DialogsPageData> = ({
-  state,
-  sendMessage,
-  updateMessageText,
-}) => {
+export const Dialogs: React.FC<DialogsPageData> = ({ state, dispatch }) => {
   const { dialogs, messages, newMessage } = state;
   const messageRef = React.useRef<HTMLTextAreaElement>(null);
 
   const createMessage = () => {
     if (messageRef.current) {
-      sendMessage();
+      dispatch({ type: "SEND-MESSAGE" });
     }
   };
 
   const handleChange = () => {
     if (messageRef.current) {
       const text = messageRef.current.value;
-      updateMessageText(text);
+      dispatch({ type: "UPDATE-MESSAGE-TEXT", data: text });
     }
   };
 
