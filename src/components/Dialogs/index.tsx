@@ -1,24 +1,23 @@
 import React from "react";
 import { DialogsPageData } from "../../interfaces";
+import {
+  sendMessageActionCreator,
+  updateMessageTextActionCreator,
+} from "../../state";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
 export const Dialogs: React.FC<DialogsPageData> = ({ state, dispatch }) => {
   const { dialogs, messages, newMessage } = state;
-  const messageRef = React.useRef<HTMLTextAreaElement>(null);
 
   const createMessage = () => {
-    if (messageRef.current) {
-      dispatch({ type: "SEND-MESSAGE" });
-    }
+    dispatch(sendMessageActionCreator());
   };
 
-  const handleChange = () => {
-    if (messageRef.current) {
-      const text = messageRef.current.value;
-      dispatch({ type: "UPDATE-MESSAGE-TEXT", data: text });
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    dispatch(updateMessageTextActionCreator(text));
   };
 
   return (
@@ -32,7 +31,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({ state, dispatch }) => {
         {messages.map(({ text, from }) => (
           <Message text={text} from={from} />
         ))}
-        <textarea ref={messageRef} onChange={handleChange} value={newMessage} />
+        <textarea onChange={handleChange} value={newMessage} />
         <button onClick={createMessage}>Send</button>
       </div>
     </div>

@@ -1,5 +1,9 @@
 import React from "react";
 import { PostsComponentData } from "../../../interfaces";
+import {
+  createPostActionCreator,
+  updatePostTextActionCreator,
+} from "../../../state";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
@@ -8,17 +12,13 @@ export const Posts: React.FC<PostsComponentData> = ({
   newPost,
   dispatch,
 }) => {
-  const postRef = React.useRef<HTMLTextAreaElement>(null);
-
   const sendPost = () => {
-    dispatch({ type: "CREATE-POST" });
+    dispatch(createPostActionCreator());
   };
 
-  const handleChange = () => {
-    if (postRef.current) {
-      const text = postRef.current.value;
-      dispatch({ type: "UPDATE-POST-TEXT", data: text });
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    dispatch(updatePostTextActionCreator(text));
   };
 
   return (
@@ -26,7 +26,6 @@ export const Posts: React.FC<PostsComponentData> = ({
       <div className={styles["create-post"]}>
         <textarea
           placeholder="type something"
-          ref={postRef}
           onChange={handleChange}
           value={newPost}
         />
