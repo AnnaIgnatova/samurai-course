@@ -1,5 +1,10 @@
 import { Action, StateData } from "../interfaces";
 
+const CREATE_POST = "CREATE-POST";
+const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
+const SEND_MESSAGE = "SEND-MESSAGE";
+const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT";
+
 export const store = {
   _rerender(state: StateData) {},
   _state: {
@@ -87,7 +92,7 @@ export const store = {
   },
   dispatch({ type, data }: Action) {
     switch (type) {
-      case "CREATE-POST": {
+      case CREATE_POST: {
         const post = {
           id:
             this._state.profilePage.posts[
@@ -101,12 +106,12 @@ export const store = {
         this._updateDOM();
         break;
       }
-      case "UPDATE-POST-TEXT": {
+      case UPDATE_POST_TEXT: {
         this._state.profilePage.newPost = data;
         this._updateDOM();
         break;
       }
-      case "SEND-MESSAGE": {
+      case SEND_MESSAGE: {
         const message = {
           id:
             this._state.dialogsPage.messages[
@@ -120,7 +125,7 @@ export const store = {
         this._updateDOM();
         break;
       }
-      case "UPDATE-MESSAGE-TEXT": {
+      case UPDATE_MESSAGE_TEXT: {
         this._state.dialogsPage.newMessage = data;
         this._updateDOM();
         break;
@@ -134,3 +139,17 @@ export const store = {
     this._rerender = observer;
   },
 };
+
+export const createPostActionCreator = () => ({ type: CREATE_POST });
+
+export const updatePostTextActionCreator = (text: string) => ({
+  type: UPDATE_POST_TEXT,
+  data: text,
+});
+
+export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+
+export const updateMessageTextActionCreator = (text: string) => ({
+  type: UPDATE_MESSAGE_TEXT,
+  data: text,
+});
