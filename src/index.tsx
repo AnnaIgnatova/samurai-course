@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { store } from "./state";
+import { store } from "./store";
 import { StateData } from "./interfaces";
 import App from "./App";
 

@@ -9,6 +9,7 @@ export interface Dialog {
 }
 
 export interface Message {
+  id: number;
   text: string;
   from: string;
 }
