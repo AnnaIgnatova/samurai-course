@@ -3,7 +3,7 @@ import { PostsComponentData } from "../../../interfaces";
 import {
   createPostActionCreator,
   updatePostTextActionCreator,
-} from "../../../store/reducers/ProfileReducer";
+} from "../../../redux/reducers/ProfileReducer";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 

@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { store } from "./store";
-import { StateData } from "./interfaces";
 import App from "./App";
+import { store } from "./redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const renderDOM = (state: StateData) => {
+const renderDOM = (state: any) => {
   root.render(
     <React.StrictMode>
       <App state={state} dispatch={store.dispatch.bind(store)} />
@@ -19,4 +18,7 @@ const renderDOM = (state: StateData) => {
 
 renderDOM(store.getState());
 
-store.subscriber(renderDOM);
+store.subscribe(() => {
+  const state = store.getState();
+  renderDOM(state)
+});
