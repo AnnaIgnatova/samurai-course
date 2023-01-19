@@ -1,24 +1,21 @@
 import React from "react";
 import { PostsComponentData } from "../../../interfaces";
-import {
-  createPostActionCreator,
-  updatePostTextActionCreator,
-} from "../../../redux/reducers/ProfileReducer";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
 export const Posts: React.FC<PostsComponentData> = ({
   posts,
   newPost,
-  dispatch,
+  sendPost,
+  handleChange,
 }) => {
-  const sendPost = () => {
-    dispatch(createPostActionCreator());
+  const sendPostData = () => {
+    sendPost();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changePostText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
-    dispatch(updatePostTextActionCreator(text));
+    handleChange(text);
   };
 
   return (
@@ -26,10 +23,10 @@ export const Posts: React.FC<PostsComponentData> = ({
       <div className={styles["create-post"]}>
         <textarea
           placeholder="type something"
-          onChange={handleChange}
+          onChange={changePostText}
           value={newPost}
         />
-        <button onClick={sendPost}>Add post</button>
+        <button onClick={sendPostData}>Add post</button>
       </div>
       <div>
         {posts.map(({ text, likes }) => (

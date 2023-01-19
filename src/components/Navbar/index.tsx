@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { NavbarData } from "../../interfaces";
 import styles from "./style.module.css";
 
-export const Navbar: React.FC<NavbarData> = ({ state }) => {
-  const { friendsIds } = state;
+export const Navbar: React.FC<any> = ({ store }) => {
+  const friendsIds = store.getState().navbar.friendsIds;
 
   return (
     <nav className={styles.nav}>
@@ -27,7 +26,7 @@ export const Navbar: React.FC<NavbarData> = ({ state }) => {
       <div className={styles["friends-container"]}>
         <span>Friends</span>
         <div className={styles.friends}>
-          {friendsIds.map((friend) => (
+          {friendsIds.map((friend: any) => (
             <img src={`./assets/friends/friend-${friend}.png`} alt="friend" />
           ))}
         </div>
