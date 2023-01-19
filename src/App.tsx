@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dialogs } from "./components/Dialogs";
 import { Header } from "./components/Header";
 import { Music } from "./components/Music";
 import { Navbar } from "./components/Navbar";
@@ -7,27 +6,20 @@ import { News } from "./components/News";
 import { Profile } from "./components/Profile";
 import { Settings } from "./components/Settings";
 import "./App.css";
-import { AppData } from "./interfaces";
+import { DialogsContainer } from "./containers/DialogsContainer";
 
-const App: React.FC<AppData> = ({ state, dispatch }) => {
+const App: React.FC<any> = ({ store }) => {
   return (
     <BrowserRouter>
       <div className="container">
         <Header />
-        <Navbar state={state.navbar} />
+        <Navbar store={store} />
         <div className="content">
           <Routes>
-            <Route
-              path="/profile"
-              element={
-                <Profile state={state.profilePage} dispatch={dispatch} />
-              }
-            />
+            <Route path="/profile" element={<Profile store={store} />} />
             <Route
               path="/dialogs/*"
-              element={
-                <Dialogs state={state.dialogsPage} dispatch={dispatch} />
-              }
+              element={<DialogsContainer store={store} />}
             />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

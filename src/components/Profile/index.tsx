@@ -1,12 +1,11 @@
-import { ProfilePageData } from "../../interfaces";
-import { Posts } from "./Posts";
+import { PostsContainer } from "../../containers/PostsContainer";
 import { ProfileInfo } from "./ProfileInfo";
 
-export const Profile: React.FC<ProfilePageData> = ({ state, dispatch }) => {
+export const Profile: React.FC<any> = ({store}) => {
   return (
     <>
       <ProfileInfo />
-      <Posts posts={state.posts} newPost={state.newPost} dispatch={dispatch} />
+      <PostsContainer store={store} />
     </>
   );
 };

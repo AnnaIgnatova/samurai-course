@@ -52,12 +52,14 @@ export interface ProfilePageData {
 }
 
 export interface DialogsPageData {
-  state: DialogsData;
-  dispatch: (action: Action) => void;
+  dialogsPage: DialogsData;
+  createMessage: () => void;
+  handleChange: (text: string) => void;
 }
 
 export interface PostsComponentData extends PostsData {
-  dispatch: (action: Action) => void;
+  sendPost: () => void;
+  handleChange: (text: string) => void;
 }
 
 export interface NavbarData {

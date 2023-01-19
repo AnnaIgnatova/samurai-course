@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 const renderDOM = (state: any) => {
   root.render(
     <React.StrictMode>
-      <App state={state} dispatch={store.dispatch.bind(store)} />
+      <App store={store} />
     </React.StrictMode>
   );
 };
@@ -20,5 +20,5 @@ renderDOM(store.getState());
 
 store.subscribe(() => {
   const state = store.getState();
-  renderDOM(state)
+  renderDOM(state);
 });

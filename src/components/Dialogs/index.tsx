@@ -1,23 +1,23 @@
 import React from "react";
 import { DialogsPageData } from "../../interfaces";
-import {
-  sendMessageActionCreator,
-  updateMessageTextActionCreator,
-} from "../../redux/reducers/DialogsReducer";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
-export const Dialogs: React.FC<DialogsPageData> = ({ state, dispatch }) => {
-  const { dialogs, messages, newMessage } = state;
+export const Dialogs: React.FC<DialogsPageData> = ({
+  dialogsPage,
+  createMessage,
+  handleChange,
+}) => {
+  const { dialogs, messages, newMessage } = dialogsPage;
 
-  const createMessage = () => {
-    dispatch(sendMessageActionCreator());
+  const createNewMessage = () => {
+    createMessage();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changeMessageText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
-    dispatch(updateMessageTextActionCreator(text));
+    handleChange(text);
   };
 
   return (
@@ -31,8 +31,8 @@ export const Dialogs: React.FC<DialogsPageData> = ({ state, dispatch }) => {
         {messages.map(({ text, from }) => (
           <Message text={text} from={from} />
         ))}
-        <textarea onChange={handleChange} value={newMessage} />
-        <button onClick={createMessage}>Send</button>
+        <textarea onChange={changeMessageText} value={newMessage} />
+        <button onClick={createNewMessage}>Send</button>
       </div>
     </div>
   );
