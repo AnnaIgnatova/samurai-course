@@ -3,7 +3,7 @@ import { DialogsPageData } from "../../interfaces";
 import {
   sendMessageActionCreator,
   updateMessageTextActionCreator,
-} from "../../store/reducers/DialogsReducer";
+} from "../../redux/reducers/DialogsReducer";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
