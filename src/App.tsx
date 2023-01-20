@@ -8,19 +8,16 @@ import { Settings } from "./components/Settings";
 import "./App.css";
 import { DialogsContainer } from "./containers/DialogsContainer";
 
-const App: React.FC<any> = ({ store }) => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className="container">
         <Header />
-        <Navbar store={store} />
+        <Navbar />
         <div className="content">
           <Routes>
-            <Route path="/profile" element={<Profile store={store} />} />
-            <Route
-              path="/dialogs/*"
-              element={<DialogsContainer store={store} />}
-            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />

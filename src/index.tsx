@@ -3,22 +3,24 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { store } from "./redux";
+import { Provider } from "./context/Provider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const renderDOM = (state: any) => {
+const renderDOM = () => {
   root.render(
     <React.StrictMode>
-      <App store={store} />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   );
 };
 
-renderDOM(store.getState());
+renderDOM();
 
 store.subscribe(() => {
-  const state = store.getState();
-  renderDOM(state);
+  renderDOM();
 });
