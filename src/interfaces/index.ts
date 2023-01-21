@@ -20,19 +20,14 @@ export interface Post {
   likes: number;
 }
 
-export interface Navbar {
+export interface NavbarData {
   friendsIds: number[];
 }
 
 export interface StateData {
   profilePage: PostsData;
   dialogsPage: DialogsData;
-  navbar: Navbar;
-}
-
-export interface AppData {
-  state: StateData;
-  dispatch: (action: Action) => void;
+  navbar: NavbarData;
 }
 
 export interface DialogsData {
@@ -46,11 +41,6 @@ export interface PostsData {
   newPost: string;
 }
 
-export interface ProfilePageData {
-  state: PostsData;
-  dispatch: (action: Action) => void;
-}
-
 export interface DialogsPageData {
   dialogsPage: DialogsData;
   createMessage: () => void;
@@ -62,9 +52,6 @@ export interface PostsComponentData extends PostsData {
   handleChange: (text: string) => void;
 }
 
-export interface NavbarData {
-  state: Navbar;
-}
 
 export interface StoreData {
   _rerender: (state: StateData) => void;
@@ -73,3 +60,4 @@ export interface StoreData {
   dispatch: (action: Action) => void;
   subscriber: (observer: (state: StateData) => void) => void;
 }
+
