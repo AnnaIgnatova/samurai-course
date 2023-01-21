@@ -52,13 +52,17 @@ export const profileReducer = (
         text: state.newPost,
         likes: Math.floor(Math.random() * 10),
       };
-      state.posts.push(post);
-      state.newPost = "";
-      return state;
+      return {
+        ...state,
+        posts: [...state.posts, post],
+        newPost: "",
+      };
     }
     case UPDATE_POST_TEXT: {
-      state.newPost = data;
-      return state;
+      return {
+        ...state,
+        newPost: data,
+      };
     }
     default:
       return state;

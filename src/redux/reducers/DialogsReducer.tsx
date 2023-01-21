@@ -64,13 +64,14 @@ export const dialogsReducer = (
         text: state.newMessage,
         from: "me",
       };
-      state.messages.push(message);
-      state.newMessage = "";
-      return state;
+      return {
+        ...state,
+        messages: [...state.messages, message],
+        newMessage: "",
+      };
     }
     case UPDATE_MESSAGE_TEXT: {
-      state.newMessage = data;
-      return state;
+      return { ...state, newMessage: data };
     }
     default:
       return state;
