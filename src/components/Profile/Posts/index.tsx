@@ -22,7 +22,7 @@ export const Posts: React.FC<PostsComponentData> = ({
     <div className={styles["posts-container"]}>
       <div className={styles["create-post"]}>
         <textarea
-          placeholder="type something"
+          placeholder="Type something"
           onChange={changePostText}
           value={newPost}
         />

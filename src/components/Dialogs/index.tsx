@@ -31,7 +31,11 @@ export const Dialogs: React.FC<DialogsPageData> = ({
         {messages.map(({ text, from }) => (
           <Message text={text} from={from} />
         ))}
-        <textarea onChange={changeMessageText} value={newMessage} />
+        <textarea
+          onChange={changeMessageText}
+          value={newMessage}
+          placeholder="Type something here"
+        />
         <button onClick={createNewMessage}>Send</button>
       </div>
     </div>
