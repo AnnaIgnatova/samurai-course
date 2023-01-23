@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.users {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.users img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
