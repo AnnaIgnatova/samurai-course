@@ -29,8 +29,8 @@ export const Posts: React.FC<PostsComponentData> = ({
         <button onClick={sendPostData}>Add post</button>
       </div>
       <div>
-        {posts.map(({ text, likes }) => (
-          <Post message={text} likes={likes} />
+        {posts.map(({ id, text, likes }) => (
+          <Post key={id} message={text} likes={likes} />
         ))}
       </div>
     </div>

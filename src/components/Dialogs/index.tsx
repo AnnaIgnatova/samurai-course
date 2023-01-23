@@ -24,12 +24,12 @@ export const Dialogs: React.FC<DialogsPageData> = ({
     <div className={styles.container}>
       <div className={styles["dialogs-items"]}>
         {dialogs.map(({ id, name }) => (
-          <Dialog id={id} name={name} />
+          <Dialog key={id} id={id} name={name} />
         ))}
       </div>
       <div className={styles["messages"]}>
-        {messages.map(({ text, from }) => (
-          <Message text={text} from={from} />
+        {messages.map(({ id, text, from }) => (
+          <Message key={id} text={text} from={from} />
         ))}
         <textarea
           onChange={changeMessageText}
