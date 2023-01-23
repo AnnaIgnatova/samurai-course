@@ -7,6 +7,7 @@ import { Settings } from "./components/Settings";
 import "./App.css";
 import { DialogsContainer } from "./containers/DialogsContainer";
 import { NavbarContainer } from "./containers/NavbarContainer";
+import { UsersContainer } from "./containers/UsersContainer";
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/users" element={<UsersContainer />} />
           </Routes>
         </div>
       </div>

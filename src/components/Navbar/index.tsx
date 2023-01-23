@@ -10,6 +10,9 @@ export const Navbar: React.FC<NavbarData> = ({ friendsIds }) => {
           <Link to="/profile">Profile</Link>
         </li>
         <li>
+          <Link to="/users">Users</Link>
+        </li>
+        <li>
           <Link to="/dialogs">Messages</Link>
         </li>
         <li>
@@ -26,7 +29,11 @@ export const Navbar: React.FC<NavbarData> = ({ friendsIds }) => {
         <span>Friends</span>
         <div className={styles.friends}>
           {friendsIds.map((friend: any) => (
-            <img key={friend} src={`./assets/friends/friend-${friend}.png`} alt="friend" />
+            <img
+              key={friend}
+              src={`./assets/friends/friend-${friend}.png`}
+              alt="friend"
+            />
           ))}
         </div>
       </div>

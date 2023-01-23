@@ -27,6 +27,7 @@ export interface NavbarData {
 export interface StateData {
   profilePage: PostsData;
   dialogsPage: DialogsData;
+  usersPage: UsersData;
   navbar: NavbarData;
 }
 
@@ -52,7 +53,6 @@ export interface PostsComponentData extends PostsData {
   handleChange: (text: string) => void;
 }
 
-
 export interface StoreData {
   _rerender: (state: StateData) => void;
   _state: StateData;
@@ -61,3 +61,21 @@ export interface StoreData {
   subscriber: (observer: (state: StateData) => void) => void;
 }
 
+export interface UserData {
+  id: number;
+  name: string;
+  isFollow: boolean;
+  imgUrl: string;
+  location: { city: string; country: string };
+}
+
+export interface UsersData {
+  users: UserData[];
+}
+
+export interface UsersPageData {
+  users: UserData[];
+  followUser: (id: number) => void;
+  unfollowUser: (id: number) => void;
+  setUsersData: (users: UserData[]) => void;
+}
