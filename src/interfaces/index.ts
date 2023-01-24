@@ -62,11 +62,15 @@ export interface StoreData {
 }
 
 export interface UserData {
-  id: number;
   name: string;
-  isFollow: boolean;
-  imgUrl: string;
-  location: { city: string; country: string };
+  id: number;
+  uniqueUrlName: string;
+  photos: {
+    small: string;
+    large: string;
+  };
+  status: string;
+  followed: boolean;
 }
 
 export interface UsersData {

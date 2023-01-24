@@ -3,14 +3,17 @@
   flex-direction: column;
 }
 
-.users {
+.user {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #000;
 }
 
-.users img {
-  width: 100px;
-  height: 100px;
+.user img {
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
