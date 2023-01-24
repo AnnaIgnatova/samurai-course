@@ -1,5 +1,7 @@
 import { UsersPageData } from "../../interfaces";
 import styles from "./style.module.css";
+import axios from "axios";
+import imgUrl from "./../../assets/avatar.png";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -7,18 +9,24 @@ export const Users: React.FC<UsersPageData> = ({
   unfollowUser,
   setUsersData,
 }) => {
+  if (!users.length) {
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then(({data}: any) => setUsersData(data.items));
+  }
+
   return (
     <div className={styles.container}>
-      {users.map(({ id, name, imgUrl, location, isFollow }) => (
-        <div key={id} className={styles.users}>
-          <img src={imgUrl} alt={name} />
+      {users.map(({ id, name, photos, followed }) => (
+        <div key={id} className={styles.user}>
+          <img src={photos.small ? photos.small : imgUrl} alt={name} />
           <span>{name}</span>
-          <span>{location.city}</span>
-          <span>{location.country}</span>
-          {isFollow && (
+          <span>city</span>
+          <span>country</span>
+          {followed && (
             <button onClick={() => unfollowUser(id)}>unfollow</button>
           )}
-          {!isFollow && <button onClick={() => followUser(id)}>follow</button>}
+          {!followed && <button onClick={() => followUser(id)}>follow</button>}
         </div>
       ))}
     </div>

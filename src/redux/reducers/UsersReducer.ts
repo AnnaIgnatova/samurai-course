@@ -20,29 +20,7 @@ export const setUsersActionCreator = (users: UserData[]) => ({
 });
 
 export const initialState: UsersData = {
-  users: [
-    {
-      id: 1,
-      name: "Anna",
-      isFollow: true,
-      imgUrl: "./assets/friends/friend-1.png",
-      location: { city: "Perm", country: "Russia" },
-    },
-    {
-      id: 2,
-      name: "Sasha",
-      isFollow: false,
-      imgUrl: "./assets/friends/friend-2.png",
-      location: { city: "Moscow", country: "Russia" },
-    },
-    {
-      id: 3,
-      name: "Andrew",
-      isFollow: true,
-      imgUrl: "./assets/friends/friend-5.png",
-      location: { city: "Kazan", country: "Russia" },
-    },
-  ],
+  users: [],
 };
 
 export const usersReducer = (
@@ -54,7 +32,7 @@ export const usersReducer = (
       return {
         ...state,
         users: state.users.map((user) => {
-          if (user.id === data) return { ...user, isFollow: true };
+          if (user.id === data) return { ...user, followed: true };
           return user;
         }),
       };
@@ -63,7 +41,7 @@ export const usersReducer = (
       return {
         ...state,
         users: state.users.map((user) => {
-          if (user.id === data) return { ...user, isFollow: false };
+          if (user.id === data) return { ...user, followed: false };
           return user;
         }),
       };
