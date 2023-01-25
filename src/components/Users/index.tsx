@@ -2,36 +2,36 @@ import { UsersPageData } from "../../interfaces";
 import styles from "./style.module.css";
 import axios from "axios";
 import imgUrl from "./../../assets/avatar.png";
+import React from "react";
 
-export const Users: React.FC<UsersPageData> = ({
-  users,
-  followUser,
-  unfollowUser,
-  setUsersData,
-}) => {
-  const getUsers = () => {
-    if (!users.length) {
-      axios
-        .get("https://social-network.samuraijs.com/api/1.0/users")
-        .then(({ data }: any) => setUsersData(data.items));
-    }
-  };
+export class Users extends React.Component<UsersPageData> {
+  constructor(props: UsersPageData) {
+    super(props);
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then(({ data }: any) => this.props.setUsersData(data.items));
+  }
 
-  return (
-    <div className={styles.container}>
-      <button onClick={getUsers}>get users</button>
-      {users.map(({ id, name, photos, followed }) => (
-        <div key={id} className={styles.user}>
-          <img src={photos.small ? photos.small : imgUrl} alt={name} />
-          <span>{name}</span>
-          <span>city</span>
-          <span>country</span>
-          {followed && (
-            <button onClick={() => unfollowUser(id)}>unfollow</button>
-          )}
-          {!followed && <button onClick={() => followUser(id)}>follow</button>}
-        </div>
-      ))}
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className={styles.container}>
+        {this.props.users.map(({ id, name, photos, followed }) => (
+          <div key={id} className={styles.user}>
+            <img src={photos.small ? photos.small : imgUrl} alt={name} />
+            <span>{name}</span>
+            <span>city</span>
+            <span>country</span>
+            {followed && (
+              <button onClick={() => this.props.unfollowUser(id)}>
+                unfollow
+              </button>
+            )}
+            {!followed && (
+              <button onClick={() => this.props.followUser(id)}>follow</button>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
