@@ -49,7 +49,7 @@ export const usersReducer = (
     case SET_USERS: {
       return {
         ...state,
-        users: [...state.users, ...data],
+        users: [...data],
       };
     }
     default:
