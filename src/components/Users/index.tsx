@@ -9,14 +9,17 @@ export const Users: React.FC<UsersPageData> = ({
   unfollowUser,
   setUsersData,
 }) => {
-  if (!users.length) {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then(({data}: any) => setUsersData(data.items));
-  }
+  const getUsers = () => {
+    if (!users.length) {
+      axios
+        .get("https://social-network.samuraijs.com/api/1.0/users")
+        .then(({ data }: any) => setUsersData(data.items));
+    }
+  };
 
   return (
     <div className={styles.container}>
+      <button onClick={getUsers}>get users</button>
       {users.map(({ id, name, photos, followed }) => (
         <div key={id} className={styles.user}>
           <img src={photos.small ? photos.small : imgUrl} alt={name} />
