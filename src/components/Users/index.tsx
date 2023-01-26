@@ -5,8 +5,7 @@ import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 
 export class Users extends React.Component<UsersPageData> {
-  constructor(props: UsersPageData) {
-    super(props);
+  componentDidMount(): void {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then(({ data }: any) => this.props.setUsersData(data.items));
