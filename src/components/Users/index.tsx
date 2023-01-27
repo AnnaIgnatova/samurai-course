@@ -14,6 +14,7 @@ export class Users extends React.Component<UsersPageData> {
   render() {
     return (
       <div className={styles.container}>
+        <div>{(this.props.totalCount / this.props.pageCount)}</div>
         {this.props.users.map(({ id, name, photos, followed }) => (
           <div key={id} className={styles.user}>
             <img src={photos.small ? photos.small : imgUrl} alt={name} />

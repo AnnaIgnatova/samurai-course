@@ -21,6 +21,9 @@ export const setUsersActionCreator = (users: UserData[]) => ({
 
 export const initialState: UsersData = {
   users: [],
+  totalCount: 0,
+  pageCount: 5,
+  currentPage: 1,
 };
 
 export const usersReducer = (
