@@ -1,6 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
+  padding: 25px;
+  padding-top: 50px;
 }
 
 .user {
@@ -16,4 +18,28 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
+}
+
+.pages {
+  width: 400px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.page {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.281);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 30px;
+}
+
+.page:hover {
+  background-color: rgba(0, 0, 0, 0.144);
 }

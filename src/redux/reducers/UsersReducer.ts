@@ -3,6 +3,8 @@ import { Action, UserData, UsersData } from "../../interfaces";
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 
 export const followUserActionCreator = (id: number) => ({
   type: FOLLOW,
@@ -17,6 +19,16 @@ export const unfollowUserActionCreator = (id: number) => ({
 export const setUsersActionCreator = (users: UserData[]) => ({
   type: SET_USERS,
   data: users,
+});
+
+export const setCurrentPageActionCreator = (page: number) => ({
+  type: SET_CURRENT_PAGE,
+  data: page,
+});
+
+export const setTotalUsersCountActionCreator = (count: number) => ({
+  type: SET_TOTAL_USERS_COUNT,
+  data: count,
 });
 
 export const initialState: UsersData = {
@@ -53,6 +65,18 @@ export const usersReducer = (
       return {
         ...state,
         users: [...data],
+      };
+    }
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: data,
+      };
+    }
+    case SET_TOTAL_USERS_COUNT: {
+      return {
+        ...state,
+        totalCount: data,
       };
     }
     default:
