@@ -75,11 +75,18 @@ export interface UserData {
 
 export interface UsersData {
   users: UserData[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
 }
 
 export interface UsersPageData {
   users: UserData[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
   setUsersData: (users: UserData[]) => void;
+  setTotalUserCount: (count: number) => void;
 }
