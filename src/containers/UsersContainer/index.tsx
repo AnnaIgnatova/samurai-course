@@ -3,6 +3,7 @@ import { StateData, UserData } from "../../interfaces";
 import {
   followUserActionCreator,
   setCurrentPageActionCreator,
+  setFetchingDataActionCreator,
   setTotalUsersCountActionCreator,
   setUsersActionCreator,
   unfollowUserActionCreator,
@@ -14,6 +15,7 @@ const mapStateToProps = (state: StateData) => ({
   totalCount: state.usersPage.totalCount,
   pageCount: state.usersPage.pageCount,
   currentPage: state.usersPage.currentPage,
+  isFetchingData: state.usersPage.isFetchingData,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -23,6 +25,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   setCurrentPage: (page: number) => dispatch(setCurrentPageActionCreator(page)),
   setTotalUserCount: (count: number) =>
     dispatch(setTotalUsersCountActionCreator(count)),
+  setFetchingData: (isFetching: boolean) =>
+    dispatch(setFetchingDataActionCreator(isFetching)),
 });
 
 export const UsersContainer = connect(

@@ -2,6 +2,7 @@ import { UsersPageData } from "../../interfaces";
 import styles from "./style.module.css";
 import imgUrl from "./../../assets/avatar.png";
 import React from "react";
+import { Loader } from "../Loader";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -9,6 +10,7 @@ export const Users: React.FC<UsersPageData> = ({
   unfollowUser,
   followUser,
   currentPage,
+  isFetchingData,
 }) => {
   return (
     <div className={styles.container}>
@@ -23,19 +25,28 @@ export const Users: React.FC<UsersPageData> = ({
             {page + 1}
           </div>
         ))}
-      </div>
-      {users.map(({ id, name, photos, followed }) => (
-        <div key={id} className={styles.user}>
-          <img src={photos.small ? photos.small : imgUrl} alt={name} />
-          <span>{name}</span>
-          <span>city</span>
-          <span>country</span>
-          {followed && (
-            <button onClick={() => unfollowUser(id)}>unfollow</button>
-          )}
-          {!followed && <button onClick={() => followUser(id)}>follow</button>}
-        </div>
-      ))}
+      </div>{" "}
+      {isFetchingData ? (
+        <Loader />
+      ) : (
+        <>
+          {" "}
+          {users.map(({ id, name, photos, followed }) => (
+            <div key={id} className={styles.user}>
+              <img src={photos.small ? photos.small : imgUrl} alt={name} />
+              <span>{name}</span>
+              <span>city</span>
+              <span>country</span>
+              {followed && (
+                <button onClick={() => unfollowUser(id)}>unfollow</button>
+              )}
+              {!followed && (
+                <button onClick={() => followUser(id)}>follow</button>
+              )}
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };
