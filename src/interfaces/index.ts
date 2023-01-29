@@ -87,6 +87,17 @@ export interface UsersPageData {
   currentPage: number;
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
+  handlePage(page: number): void;
+}
+
+export interface UsersAPIData {
+  users: UserData[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
+  followUser: (id: number) => void;
+  unfollowUser: (id: number) => void;
   setUsersData: (users: UserData[]) => void;
   setTotalUserCount: (count: number) => void;
+  setCurrentPage: (page: number) => void;
 }
