@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { Users } from "../../components/Users";
 import { StateData, UserData } from "../../interfaces";
 import {
   followUserActionCreator,
@@ -8,6 +7,7 @@ import {
   setUsersActionCreator,
   unfollowUserActionCreator,
 } from "../../redux/reducers/UsersReducer";
+import { UsersAPIContainer } from "./UsersAPIContainer";
 
 const mapStateToProps = (state: StateData) => ({
   users: state.usersPage.users,
@@ -28,4 +28,4 @@ const mapDispatchToProps = (dispatch: any) => ({
 export const UsersContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Users);
+)(UsersAPIContainer);
