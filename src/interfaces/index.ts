@@ -78,26 +78,20 @@ export interface UsersData {
   totalCount: number;
   pageCount: number;
   currentPage: number;
+  isFetchingData: boolean;
 }
 
-export interface UsersPageData {
-  users: UserData[];
-  totalCount: number;
-  pageCount: number;
-  currentPage: number;
+export interface UsersPageData extends UsersData {
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
   handlePage(page: number): void;
 }
 
-export interface UsersAPIData {
-  users: UserData[];
-  totalCount: number;
-  pageCount: number;
-  currentPage: number;
+export interface UsersAPIData extends UsersData {
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
   setUsersData: (users: UserData[]) => void;
   setTotalUserCount: (count: number) => void;
   setCurrentPage: (page: number) => void;
+  setFetchingData: (isFetchind: boolean) => void;
 }
