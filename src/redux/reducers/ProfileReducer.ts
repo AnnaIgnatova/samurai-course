@@ -3,9 +3,9 @@ import { Action, PostsData } from "../../interfaces";
 const CREATE_POST = "CREATE-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 
-export const createPostActionCreator = () => ({ type: CREATE_POST });
+export const sendPost = () => ({ type: CREATE_POST });
 
-export const updatePostTextActionCreator = (text: string) => ({
+export const updatePostText = (text: string) => ({
   type: UPDATE_POST_TEXT,
   data: text,
 });

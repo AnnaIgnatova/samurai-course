@@ -3,9 +3,9 @@ import { Action, DialogsData } from "../../interfaces";
 const SEND_MESSAGE = "SEND-MESSAGE";
 const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT";
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+export const sendMessage = () => ({ type: SEND_MESSAGE });
 
-export const updateMessageTextActionCreator = (text: string) => ({
+export const updateMessageText = (text: string) => ({
   type: UPDATE_MESSAGE_TEXT,
   data: text,
 });

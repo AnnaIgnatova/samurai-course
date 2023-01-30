@@ -6,18 +6,18 @@ import styles from "./style.module.css";
 
 export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
-  createMessage,
-  handleChange,
+  sendMessage,
+  updateMessageText,
 }) => {
   const { dialogs, messages, newMessage } = dialogsPage;
 
   const createNewMessage = () => {
-    createMessage();
+    sendMessage();
   };
 
   const changeMessageText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
-    handleChange(text);
+    updateMessageText(text);
   };
 
   return (

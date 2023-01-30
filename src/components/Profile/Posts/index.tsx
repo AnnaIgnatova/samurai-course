@@ -7,7 +7,7 @@ export const Posts: React.FC<PostsComponentData> = ({
   posts,
   newPost,
   sendPost,
-  handleChange,
+  updatePostText,
 }) => {
   const sendPostData = () => {
     sendPost();
@@ -15,7 +15,7 @@ export const Posts: React.FC<PostsComponentData> = ({
 
   const changePostText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
-    handleChange(text);
+    updatePostText(text);
   };
 
   return (

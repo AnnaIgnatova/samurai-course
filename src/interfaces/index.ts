@@ -44,13 +44,13 @@ export interface PostsData {
 
 export interface DialogsPageData {
   dialogsPage: DialogsData;
-  createMessage: () => void;
-  handleChange: (text: string) => void;
+  sendMessage: () => void;
+  updateMessageText: (text: string) => void;
 }
 
 export interface PostsComponentData extends PostsData {
   sendPost: () => void;
-  handleChange: (text: string) => void;
+  updatePostText: (text: string) => void;
 }
 
 export interface StoreData {
@@ -90,8 +90,8 @@ export interface UsersPageData extends UsersData {
 export interface UsersAPIData extends UsersData {
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
-  setUsersData: (users: UserData[]) => void;
-  setTotalUserCount: (count: number) => void;
+  setUsers: (users: UserData[]) => void;
+  setTotalUsersCount: (count: number) => void;
   setCurrentPage: (page: number) => void;
   setFetchingData: (isFetchind: boolean) => void;
 }
