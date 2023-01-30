@@ -25,12 +25,11 @@ export const Users: React.FC<UsersPageData> = ({
             {page + 1}
           </div>
         ))}
-      </div>{" "}
+      </div>
       {isFetchingData ? (
         <Loader />
       ) : (
         <>
-          {" "}
           {users.map(({ id, name, photos, followed }) => (
             <div key={id} className={styles.user}>
               <img src={photos.small ? photos.small : imgUrl} alt={name} />

@@ -7,32 +7,32 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const SET_FETCHING_USERS = "SET_FETCHING_USERS";
 
-export const followUserActionCreator = (id: number) => ({
+export const followUser = (id: number) => ({
   type: FOLLOW,
   data: id,
 });
 
-export const unfollowUserActionCreator = (id: number) => ({
+export const unfollowUser = (id: number) => ({
   type: UNFOLLOW,
   data: id,
 });
 
-export const setUsersActionCreator = (users: UserData[]) => ({
+export const setUsers = (users: UserData[]) => ({
   type: SET_USERS,
   data: users,
 });
 
-export const setCurrentPageActionCreator = (page: number) => ({
+export const setCurrentPage = (page: number) => ({
   type: SET_CURRENT_PAGE,
   data: page,
 });
 
-export const setTotalUsersCountActionCreator = (count: number) => ({
+export const setTotalUsersCount = (count: number) => ({
   type: SET_TOTAL_USERS_COUNT,
   data: count,
 });
 
-export const setFetchingDataActionCreator = (isFetchind: boolean) => ({
+export const setFetchingData = (isFetchind: boolean) => ({
   type: SET_FETCHING_USERS,
   data: isFetchind,
 });

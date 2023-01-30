@@ -6,9 +6,4 @@ const mapStateToProps = (state: StateData) => ({
   friendsIds: state.navbar.friendsIds,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({});
-
-export const NavbarContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Navbar);
+export const NavbarContainer = connect(mapStateToProps, {})(Navbar);

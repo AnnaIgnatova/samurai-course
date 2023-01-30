@@ -1,14 +1,45 @@
 import { connect } from "react-redux";
-import { StateData, UserData } from "../../interfaces";
+import { StateData, UsersAPIData } from "../../interfaces";
 import {
-  followUserActionCreator,
-  setCurrentPageActionCreator,
-  setFetchingDataActionCreator,
-  setTotalUsersCountActionCreator,
-  setUsersActionCreator,
-  unfollowUserActionCreator,
+  followUser,
+  setCurrentPage,
+  setFetchingData,
+  setTotalUsersCount,
+  setUsers,
+  unfollowUser,
 } from "../../redux/reducers/UsersReducer";
-import { UsersAPIContainer } from "./UsersAPIContainer";
+
+import axios from "axios";
+import React from "react";
+import { Users } from "../../components/Users";
+
+class UsersAPIContainer extends React.Component<UsersAPIData> {
+  componentDidMount(): void {
+    this.props.setFetchingData(true);
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then(({ data }: any) => {
+        this.props.setTotalUsersCount(data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.setFetchingData(false);
+      });
+  }
+
+  handlePage(page: number): void {
+    this.props.setFetchingData(true);
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`)
+      .then(({ data }: any) => {
+        this.props.setUsers(data.items);
+        this.props.setCurrentPage(page);
+        this.props.setFetchingData(false);
+      });
+  }
+
+  render() {
+    return <Users {...this.props} handlePage={this.handlePage.bind(this)} />;
+  }
+}
 
 const mapStateToProps = (state: StateData) => ({
   users: state.usersPage.users,
@@ -18,18 +49,11 @@ const mapStateToProps = (state: StateData) => ({
   isFetchingData: state.usersPage.isFetchingData,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  followUser: (id: number) => dispatch(followUserActionCreator(id)),
-  unfollowUser: (id: number) => dispatch(unfollowUserActionCreator(id)),
-  setUsersData: (users: UserData[]) => dispatch(setUsersActionCreator(users)),
-  setCurrentPage: (page: number) => dispatch(setCurrentPageActionCreator(page)),
-  setTotalUserCount: (count: number) =>
-    dispatch(setTotalUsersCountActionCreator(count)),
-  setFetchingData: (isFetching: boolean) =>
-    dispatch(setFetchingDataActionCreator(isFetching)),
-});
-
-export const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersAPIContainer);
+export const UsersContainer = connect(mapStateToProps, {
+  followUser,
+  unfollowUser,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  setFetchingData,
+})(UsersAPIContainer);
