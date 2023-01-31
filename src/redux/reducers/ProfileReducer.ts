@@ -1,9 +1,15 @@
-import { Action, PostsData } from "../../interfaces";
+import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
+const SET_PROFILE_DATA = "SET_PROFILE_DATA";
 
 export const sendPost = () => ({ type: CREATE_POST });
+
+export const setProfileData = (data: ProfileUserData) => ({
+  type: SET_PROFILE_DATA,
+  data,
+});
 
 export const updatePostText = (text: string) => ({
   type: UPDATE_POST_TEXT,
@@ -39,10 +45,26 @@ export const initialState = {
     },
   ],
   newPost: "",
+  profileData: {
+    userId: 3,
+    lookingForAJob: false,
+    lookingForAJobDescription: "",
+    fullName: "",
+    contacts: {
+      github: "",
+      vk: "",
+      instagram: "",
+      youtube: "",
+    },
+    photos: {
+      small: "",
+      large: "",
+    },
+  },
 };
 
 export const profileReducer = (
-  state: PostsData = initialState,
+  state: ProfileData = initialState,
   { type, data }: Action
 ) => {
   switch (type) {
@@ -62,6 +84,12 @@ export const profileReducer = (
       return {
         ...state,
         newPost: data,
+      };
+    }
+    case SET_PROFILE_DATA: {
+      return {
+        ...state,
+        profileData: data,
       };
     }
     default:

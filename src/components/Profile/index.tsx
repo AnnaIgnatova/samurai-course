@@ -1,11 +1,12 @@
 import { PostsContainer } from "../../containers/PostsContainer";
+import { ProfileAPIData } from "../../interfaces";
 import { ProfileInfo } from "./ProfileInfo";
 
-export const Profile: React.FC = () => {
+export const Profile: React.FC<ProfileAPIData> = (props) => {
   return (
     <>
-      <ProfileInfo />
-      <PostsContainer  />
+      <ProfileInfo {...props} />
+      <PostsContainer {...props} />
     </>
   );
 };
