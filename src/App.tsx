@@ -8,6 +8,7 @@ import "./App.css";
 import { DialogsContainer } from "./containers/DialogsContainer";
 import { NavbarContainer } from "./containers/NavbarContainer";
 import { UsersContainer } from "./containers/UsersContainer";
+import { ProfileContainer } from "./containers/ProfileContainer";
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ const App: React.FC = () => {
         <NavbarContainer />
         <div className="content">
           <Routes>
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

@@ -25,7 +25,7 @@ export interface NavbarData {
 }
 
 export interface StateData {
-  profilePage: PostsData;
+  profilePage: ProfileData;
   dialogsPage: DialogsData;
   usersPage: UsersData;
   navbar: NavbarData;
@@ -37,9 +37,27 @@ export interface DialogsData {
   newMessage: string;
 }
 
-export interface PostsData {
+export interface ProfileUserData {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: {
+    github: string;
+    vk: string;
+    instagram: string;
+    youtube: string;
+  };
+  photos: {
+    small: string;
+    large: string;
+  };
+}
+
+export interface ProfileData {
   posts: Post[];
   newPost: string;
+  profileData: ProfileUserData;
 }
 
 export interface DialogsPageData {
@@ -48,7 +66,7 @@ export interface DialogsPageData {
   updateMessageText: (text: string) => void;
 }
 
-export interface PostsComponentData extends PostsData {
+export interface ProfileComponentData extends ProfileData {
   sendPost: () => void;
   updatePostText: (text: string) => void;
 }
@@ -94,4 +112,10 @@ export interface UsersAPIData extends UsersData {
   setTotalUsersCount: (count: number) => void;
   setCurrentPage: (page: number) => void;
   setFetchingData: (isFetchind: boolean) => void;
+}
+
+export interface ProfileAPIData extends ProfileData {
+  updatePostText: (text: string) => void;
+  setProfileData: (data: ProfileUserData) => void;
+  sendPost: () => void;
 }

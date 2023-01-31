@@ -1,9 +1,9 @@
 import React from "react";
-import { PostsComponentData } from "../../../interfaces";
+import { ProfileAPIData } from "../../../interfaces";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
-export const Posts: React.FC<PostsComponentData> = ({
+export const Posts: React.FC<ProfileAPIData> = ({
   posts,
   newPost,
   sendPost,
