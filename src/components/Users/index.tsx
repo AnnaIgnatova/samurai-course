@@ -3,6 +3,7 @@ import styles from "./style.module.css";
 import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../Loader";
+import { Link } from "react-router-dom";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -32,7 +33,9 @@ export const Users: React.FC<UsersPageData> = ({
         <>
           {users.map(({ id, name, photos, followed }) => (
             <div key={id} className={styles.user}>
-              <img src={photos.small ? photos.small : imgUrl} alt={name} />
+              <Link to={`/profile/${id}`}>
+                <img src={photos.small ? photos.small : imgUrl} alt={name} />
+              </Link>
               <span>{name}</span>
               <span>city</span>
               <span>country</span>

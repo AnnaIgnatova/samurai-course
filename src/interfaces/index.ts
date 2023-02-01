@@ -114,8 +114,11 @@ export interface UsersAPIData extends UsersData {
   setFetchingData: (isFetchind: boolean) => void;
 }
 
-export interface ProfileAPIData extends ProfileData {
+export interface ProfileRouteData extends ProfileData {
   updatePostText: (text: string) => void;
   setProfileData: (data: ProfileUserData) => void;
   sendPost: () => void;
+}
+export interface ProfileAPIData extends ProfileRouteData {
+  userId?: string;
 }
