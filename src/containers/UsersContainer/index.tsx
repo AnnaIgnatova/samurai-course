@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
 import { StateData, UsersAPIData } from "../../interfaces";
+import axios from "axios";
+import React from "react";
+import { Users } from "../../components/Users";
 import {
   followUser,
   setCurrentPage,
@@ -8,10 +11,6 @@ import {
   setUsers,
   unfollowUser,
 } from "../../redux/reducers/UsersReducer";
-
-import axios from "axios";
-import React from "react";
-import { Users } from "../../components/Users";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
