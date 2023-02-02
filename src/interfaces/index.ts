@@ -29,6 +29,7 @@ export interface StateData {
   dialogsPage: DialogsData;
   usersPage: UsersData;
   navbar: NavbarData;
+  header: AuthData;
 }
 
 export interface DialogsData {
@@ -121,4 +122,18 @@ export interface ProfileRouteData extends ProfileData {
 }
 export interface ProfileAPIData extends ProfileRouteData {
   userId?: string;
+}
+
+export interface UserAuthData {
+  id: number | null;
+  email: string;
+  login: string;
+}
+
+export interface AuthData extends UserAuthData {
+  isAuth: boolean;
+}
+
+export interface HeaderContainerData extends AuthData {
+  authUser: (data: UserAuthData) => void;
 }
