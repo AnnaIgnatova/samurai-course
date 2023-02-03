@@ -31,7 +31,7 @@ export const Navbar: React.FC<NavbarData> = ({ friendsIds }) => {
           {friendsIds.map((friend: any) => (
             <img
               key={friend}
-              src={`./assets/friends/friend-${friend}.png`}
+              src={`${process.env.PUBLIC_URL}/assets/friends/friend-${friend}.png`}
               alt="friend"
             />
           ))}

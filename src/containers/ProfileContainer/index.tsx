@@ -18,14 +18,13 @@ const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
 
 class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   componentDidMount(): void {
-    this.props.userId &&
-      axios
-        .get(
-          `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`
-        )
-        .then(({ data }: any) => {
-          this.props.setProfileData(data);
-        });
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`
+      )
+      .then(({ data }: any) => {
+        this.props.setProfileData(data);
+      });
   }
 
   render() {

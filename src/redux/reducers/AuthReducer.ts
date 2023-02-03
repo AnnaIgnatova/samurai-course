@@ -8,7 +8,7 @@ export const authUser = (data: UserAuthData) => ({
 });
 
 export const initialState = {
-  id: null,
+  id: 27789,
   email: "",
   login: "",
   isAuth: false,

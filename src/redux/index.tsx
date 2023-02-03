@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   profilePage: profileReducer,
   usersPage: usersReducer,
   navbar: navbarReducer,
-  // header: authReducer,
+  header: authReducer,
 });
 
 export const store = configureStore({ reducer: rootReducer });

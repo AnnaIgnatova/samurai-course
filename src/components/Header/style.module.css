@@ -2,9 +2,27 @@
   grid-area: h;
   background-color: rgba(255, 180, 249, 0.178);
   padding: 10px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header img {
   width: 40px;
   height: 40px;
+}
+
+.login-btn {
+  background-color: #008cba;
+  padding: 10px 40px;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #008cba;
+  transition: 0.2s;
+  border-radius: 4px;
+}
+
+.login-btn:hover {
+  background-color: transparent;
+  color: #008cba;
 }

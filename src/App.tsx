@@ -13,16 +13,16 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className="container">
-        {/* <AuthContainer /> */}
+        <AuthContainer />
         <NavbarContainer />
         <div className="content">
           <Routes>
-            {/* <Route path="/profile/:id" element={<ProfileContainer />} /> */}
+            <Route path="/profile/:id" element={<ProfileContainer />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
-            {/* <Route path="/users" element={<UsersContainer />} /> */}
+            <Route path="/users" element={<UsersContainer />} />
           </Routes>
         </div>
       </div>
