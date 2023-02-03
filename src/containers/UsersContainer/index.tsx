@@ -16,7 +16,9 @@ class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
     this.props.setFetchingData(true);
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .get("https://social-network.samuraijs.com/api/1.0/users", {
+        withCredentials: true,
+      })
       .then(({ data }: any) => {
         this.props.setTotalUsersCount(data.totalCount);
         this.props.setUsers(data.items);
@@ -27,7 +29,9 @@ class UsersAPIContainer extends React.Component<UsersAPIData> {
   handlePage(page: number): void {
     this.props.setFetchingData(true);
     axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`)
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`, {
+        withCredentials: true,
+      })
       .then(({ data }: any) => {
         this.props.setUsers(data.items);
         this.props.setCurrentPage(page);
