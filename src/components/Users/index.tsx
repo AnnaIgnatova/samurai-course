@@ -4,7 +4,7 @@ import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../Loader";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { followUserAPI, unfollowUserAPI } from "../../api";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -43,12 +43,7 @@ export const Users: React.FC<UsersPageData> = ({
               {followed && (
                 <button
                   onClick={() => {
-                    axios.delete(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-                      {
-                        withCredentials: true,
-                      }
-                    );
+                    unfollowUserAPI(id);
                     unfollowUser(id);
                   }}
                 >
@@ -58,13 +53,7 @@ export const Users: React.FC<UsersPageData> = ({
               {!followed && (
                 <button
                   onClick={() => {
-                    axios.post(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-                      {},
-                      {
-                        withCredentials: true,
-                      }
-                    );
+                    followUserAPI(id);
                     followUser(id);
                   }}
                 >
