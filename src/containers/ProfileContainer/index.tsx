@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import { ProfileAPIData, ProfileRouteData, StateData } from "../../interfaces";
-import axios from "axios";
 import React from "react";
 import { Profile } from "../../components/Profile";
 import {
@@ -10,6 +9,7 @@ import {
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
 import { useParams } from "react-router";
+import { getUserData } from "../../api";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
@@ -18,13 +18,9 @@ const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
 
 class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   componentDidMount(): void {
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`
-      )
-      .then(({ data }: any) => {
-        this.props.setProfileData(data);
-      });
+    getUserData().then((data) => {
+      this.props.setProfileData(data);
+    });
   }
 
   render() {

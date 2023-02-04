@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import { StateData, UsersAPIData } from "../../interfaces";
-import axios from "axios";
 import React from "react";
 import { Users } from "../../components/Users";
 import {
@@ -11,28 +10,25 @@ import {
   setUsers,
   unfollowUser,
 } from "../../redux/reducers/UsersReducer";
+import { getUsers } from "../../api";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
     this.props.setFetchingData(true);
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then(({ data }: any) => {
-        this.props.setTotalUsersCount(data.totalCount);
-        this.props.setUsers(data.items);
-        this.props.setFetchingData(false);
-      });
+    getUsers().then((data) => {
+      this.props.setTotalUsersCount(data.totalCount);
+      this.props.setUsers(data.items);
+      this.props.setFetchingData(false);
+    });
   }
 
   handlePage(page: number): void {
     this.props.setFetchingData(true);
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`)
-      .then(({ data }: any) => {
-        this.props.setUsers(data.items);
-        this.props.setCurrentPage(page);
-        this.props.setFetchingData(false);
-      });
+    getUsers(page).then((data) => {
+      this.props.setUsers(data.items);
+      this.props.setCurrentPage(page);
+      this.props.setFetchingData(false);
+    });
   }
 
   render() {
