@@ -13,12 +13,12 @@ import { getUserData } from "../../api";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
-  return <ProfileAPIContainer {...props} userId={id} />;
+  return <ProfileAPIContainer {...props} userId={id || '27789'} />;
 };
 
 class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   componentDidMount(): void {
-    getUserData().then((data) => {
+    getUserData(this.props.userId).then((data) => {
       this.props.setProfileData(data);
     });
   }

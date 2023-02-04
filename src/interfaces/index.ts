@@ -121,7 +121,7 @@ export interface ProfileRouteData extends ProfileData {
   sendPost: () => void;
 }
 export interface ProfileAPIData extends ProfileRouteData {
-  userId?: string;
+  userId: string;
 }
 
 export interface UserAuthData {

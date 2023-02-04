@@ -46,7 +46,7 @@ export const initialState = {
   ],
   newPost: "",
   profileData: {
-    userId: 3,
+    userId: 27789,
     lookingForAJob: false,
     lookingForAJobDescription: "",
     fullName: "",
