@@ -6,6 +6,7 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const SET_FETCHING_USERS = "SET_FETCHING_USERS";
+const SET_USER_FOLLOWED = "SET_USER_FOLLOWED";
 
 export const followUser = (id: number) => ({
   type: FOLLOW,
@@ -37,12 +38,18 @@ export const setFetchingData = (isFetchind: boolean) => ({
   data: isFetchind,
 });
 
+export const setUserFollowed = (id: number) => ({
+  type: SET_USER_FOLLOWED,
+  data: id,
+});
+
 export const initialState: UsersData = {
   users: [],
   totalCount: 0,
   pageCount: 5,
   currentPage: 1,
-  isFetchingData: false,
+  isFetchingData: true,
+  isUsersFollow: [],
 };
 
 export const usersReducer = (
@@ -90,6 +97,15 @@ export const usersReducer = (
       return {
         ...state,
         isFetchingData: data,
+      };
+    }
+    case SET_USER_FOLLOWED: {
+      console.log( state.isFetchingData);
+      return {
+        ...state,
+        isUsersFollow: state.isFetchingData
+          ? [...state.isUsersFollow, data]
+          : state.isUsersFollow.filter((val) => val !== data),
       };
     }
     default:
