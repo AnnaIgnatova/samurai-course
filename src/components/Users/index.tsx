@@ -10,10 +10,13 @@ export const Users: React.FC<UsersPageData> = ({
   users,
   handlePage,
   unfollowUser,
+  setUserFollowed,
   followUser,
   currentPage,
   isFetchingData,
+  isUsersFollow,
 }) => {
+  console.log(isUsersFollow);
   return (
     <div className={styles.container}>
       <div className={styles.pages}>
@@ -42,9 +45,13 @@ export const Users: React.FC<UsersPageData> = ({
               <span>country</span>
               {followed && (
                 <button
-                  onClick={() => {
-                    unfollowUserAPI(id);
-                    unfollowUser(id);
+                  disabled={isUsersFollow.some((val) => val === id)}
+                  onClick={async () => {
+                    setUserFollowed(id);
+                    unfollowUserAPI(id).then(() => {
+                      unfollowUser(id);
+                      setUserFollowed(id);
+                    });
                   }}
                 >
                   unfollow
@@ -52,9 +59,13 @@ export const Users: React.FC<UsersPageData> = ({
               )}
               {!followed && (
                 <button
-                  onClick={() => {
-                    followUserAPI(id);
-                    followUser(id);
+                  disabled={isUsersFollow.some((val) => val === id)}
+                  onClick={async () => {
+                    setUserFollowed(id);
+                    followUserAPI(id).then(() => {
+                      setUserFollowed(id);
+                      followUser(id);
+                    });
                   }}
                 >
                   follow
