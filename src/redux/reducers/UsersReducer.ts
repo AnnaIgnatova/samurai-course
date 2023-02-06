@@ -1,3 +1,4 @@
+import { followUserAPI, getUsers, unfollowUserAPI } from "../../api";
 import { Action, UserData, UsersData } from "../../interfaces";
 
 const FOLLOW = "FOLLOW";
@@ -23,9 +24,9 @@ export const setUsers = (users: UserData[]) => ({
   data: users,
 });
 
-export const setCurrentPage = (page: number) => ({
+export const setCurrentPage = (page?: number) => ({
   type: SET_CURRENT_PAGE,
-  data: page,
+  data: page || 1,
 });
 
 export const setTotalUsersCount = (count: number) => ({
@@ -110,4 +111,29 @@ export const usersReducer = (
     default:
       return state;
   }
+};
+
+export const getUsersThunk = (page?: number) => (dispatch: any) => {
+  dispatch(setFetchingData(true));
+  getUsers(page).then((data) => {
+    dispatch(setFetchingData(false));
+    dispatch(setUsers(data.items));
+    dispatch(setCurrentPage(page));
+  });
+};
+
+export const followUserThunk = (id: number) => (dispatch: any) => {
+  dispatch(setUserFollowed(id, true));
+  followUserAPI(id).then(() => {
+    dispatch(followUser(id));
+    dispatch(setUserFollowed(id, false));
+  });
+};
+
+export const unfollowUserThunk = (id: number) => (dispatch: any) => {
+  dispatch(setUserFollowed(id, true));
+  unfollowUserAPI(id).then(() => {
+    dispatch(unfollowUser(id));
+    dispatch(setUserFollowed(id, false));
+  });
 };

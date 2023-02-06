@@ -4,14 +4,12 @@ import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../Loader";
 import { Link } from "react-router-dom";
-import { followUserAPI, unfollowUserAPI } from "../../api";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
   handlePage,
-  unfollowUser,
-  setUserFollowed,
-  followUser,
+  unfollowUserThunk,
+  followUserThunk,
   currentPage,
   isFetchingData,
   isUsersFollow,
@@ -45,13 +43,7 @@ export const Users: React.FC<UsersPageData> = ({
               {followed && (
                 <button
                   disabled={isUsersFollow.some((val) => val === id)}
-                  onClick={async () => {
-                    setUserFollowed(id, true);
-                    unfollowUserAPI(id).then(() => {
-                      unfollowUser(id);
-                      setUserFollowed(id, false);
-                    });
-                  }}
+                  onClick={() => unfollowUserThunk(id)}
                 >
                   unfollow
                 </button>
@@ -59,13 +51,7 @@ export const Users: React.FC<UsersPageData> = ({
               {!followed && (
                 <button
                   disabled={isUsersFollow.some((val) => val === id)}
-                  onClick={async () => {
-                    setUserFollowed(id, true);
-                    followUserAPI(id).then(() => {
-                      setUserFollowed(id, false);
-                      followUser(id);
-                    });
-                  }}
+                  onClick={() => followUserThunk(id)}
                 >
                   follow
                 </button>
