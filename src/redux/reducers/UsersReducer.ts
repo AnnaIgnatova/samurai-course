@@ -38,9 +38,9 @@ export const setFetchingData = (isFetchind: boolean) => ({
   data: isFetchind,
 });
 
-export const setUserFollowed = (id: number) => ({
+export const setUserFollowed = (id: number, isFetching: boolean) => ({
   type: SET_USER_FOLLOWED,
-  data: id,
+  data: { id, isFetching },
 });
 
 export const initialState: UsersData = {
@@ -100,12 +100,11 @@ export const usersReducer = (
       };
     }
     case SET_USER_FOLLOWED: {
-      console.log( state.isFetchingData);
       return {
         ...state,
-        isUsersFollow: state.isFetchingData
-          ? [...state.isUsersFollow, data]
-          : state.isUsersFollow.filter((val) => val !== data),
+        isUsersFollow: data.isFetching
+          ? [...state.isUsersFollow, data.id]
+          : state.isUsersFollow.filter((val) => val !== data.id),
       };
     }
     default:

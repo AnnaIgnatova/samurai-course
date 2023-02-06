@@ -16,7 +16,6 @@ export const Users: React.FC<UsersPageData> = ({
   isFetchingData,
   isUsersFollow,
 }) => {
-  console.log(isUsersFollow);
   return (
     <div className={styles.container}>
       <div className={styles.pages}>
@@ -47,10 +46,10 @@ export const Users: React.FC<UsersPageData> = ({
                 <button
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={async () => {
-                    setUserFollowed(id);
+                    setUserFollowed(id, true);
                     unfollowUserAPI(id).then(() => {
                       unfollowUser(id);
-                      setUserFollowed(id);
+                      setUserFollowed(id, false);
                     });
                   }}
                 >
@@ -61,9 +60,9 @@ export const Users: React.FC<UsersPageData> = ({
                 <button
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={async () => {
-                    setUserFollowed(id);
+                    setUserFollowed(id, true);
                     followUserAPI(id).then(() => {
-                      setUserFollowed(id);
+                      setUserFollowed(id, false);
                       followUser(id);
                     });
                   }}

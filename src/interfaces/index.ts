@@ -105,7 +105,7 @@ export interface UsersPageData extends UsersData {
   followUser: (id: number) => void;
   unfollowUser: (id: number) => void;
   handlePage(page: number): void;
-  setUserFollowed: (id: number) => void;
+  setUserFollowed: (id: number, isFetchind: boolean) => void;
 }
 
 export interface UsersAPIData extends UsersData {
@@ -115,7 +115,7 @@ export interface UsersAPIData extends UsersData {
   setTotalUsersCount: (count: number) => void;
   setCurrentPage: (page: number) => void;
   setFetchingData: (isFetchind: boolean) => void;
-  setUserFollowed: (id: number) => void;
+  setUserFollowed: (id: number, isFetchind: boolean) => void;
 }
 
 export interface ProfileRouteData extends ProfileData {
