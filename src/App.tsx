@@ -8,6 +8,7 @@ import { NavbarContainer } from "./containers/NavbarContainer";
 import { UsersContainer } from "./containers/UsersContainer";
 import { ProfileContainer } from "./containers/ProfileContainer";
 import { AuthContainer } from "./containers/AuthContainer";
+import { Login } from "./components/Login";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/users" element={<UsersContainer />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

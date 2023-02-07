@@ -63,6 +63,7 @@ export interface ProfileData {
 
 export interface DialogsPageData {
   dialogsPage: DialogsData;
+  isAuth: boolean;
   sendMessage: () => void;
   updateMessageText: (text: string) => void;
 }
@@ -112,12 +113,14 @@ export interface UsersAPIData extends UsersData {
   getUsersThunk: any;
   followUserThunk: any;
   unfollowUserThunk: any;
+  isAuth: boolean;
 }
 
 export interface ProfileRouteData extends ProfileData {
   updatePostText: (text: string) => void;
   sendPost: () => void;
   getUserDataThunk: any;
+  isAuth: boolean;
 }
 export interface ProfileAPIData extends ProfileRouteData {
   userId: string;
