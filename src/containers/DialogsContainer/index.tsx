@@ -8,6 +8,7 @@ import {
 
 const mapStateToProps = (state: StateData) => ({
   dialogsPage: state.dialogsPage,
+  isAuth: state.header.isAuth
 });
 
 export const DialogsContainer = connect(mapStateToProps, {

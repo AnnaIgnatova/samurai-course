@@ -7,6 +7,7 @@ import {
   getUsersThunk,
   unfollowUserThunk,
 } from "../../redux/reducers/UsersReducer";
+import { Navigate } from "react-router-dom";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
@@ -18,7 +19,11 @@ class UsersAPIContainer extends React.Component<UsersAPIData> {
   }
 
   render() {
-    return <Users {...this.props} handlePage={this.handlePage.bind(this)} />;
+    return this.props.isAuth ? (
+      <Users {...this.props} handlePage={this.handlePage.bind(this)} />
+    ) : (
+      <Navigate to="/login" />
+    );
   }
 }
 
@@ -29,6 +34,7 @@ const mapStateToProps = (state: StateData) => ({
   currentPage: state.usersPage.currentPage,
   isFetchingData: state.usersPage.isFetchingData,
   isUsersFollow: state.usersPage.isUsersFollow,
+  isAuth: state.header.isAuth,
 });
 
 export const UsersContainer = connect(mapStateToProps, {

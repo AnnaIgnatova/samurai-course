@@ -5,11 +5,11 @@ import { Profile } from "../../components/Profile";
 import {
   getUserDataThunk,
   sendPost,
-  setProfileData,
   updatePostText,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
 import { useParams } from "react-router";
+import { Navigate } from "react-router-dom";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
@@ -22,6 +22,7 @@ class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   }
 
   render() {
+    if (!this.props.isAuth) return <Navigate to="/login" />;
     return (
       <>{this.props.profileData ? <Profile {...this.props} /> : <Loader />}</>
     );
@@ -32,6 +33,7 @@ const mapStateToProps = (state: StateData) => ({
   posts: state.profilePage.posts,
   newPost: state.profilePage.newPost,
   profileData: state.profilePage.profileData,
+  isAuth: state.header.isAuth,
 });
 
 export const ProfileContainer = connect(mapStateToProps, {
