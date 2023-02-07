@@ -1,3 +1,4 @@
+import { getUserData } from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
@@ -95,4 +96,10 @@ export const profileReducer = (
     default:
       return state;
   }
+};
+
+export const getUserDataThunk = (userId: string) => (dispatch: any) => {
+  getUserData(userId).then((data) => {
+    dispatch(setProfileData(data));
+  });
 };

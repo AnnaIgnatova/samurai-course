@@ -3,24 +3,22 @@ import { ProfileAPIData, ProfileRouteData, StateData } from "../../interfaces";
 import React from "react";
 import { Profile } from "../../components/Profile";
 import {
+  getUserDataThunk,
   sendPost,
   setProfileData,
   updatePostText,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
 import { useParams } from "react-router";
-import { getUserData } from "../../api";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
-  return <ProfileAPIContainer {...props} userId={id || '27789'} />;
+  return <ProfileAPIContainer {...props} userId={id || "27789"} />;
 };
 
 class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   componentDidMount(): void {
-    getUserData(this.props.userId).then((data) => {
-      this.props.setProfileData(data);
-    });
+    this.props.getUserDataThunk(this.props.userId);
   }
 
   render() {
@@ -38,6 +36,6 @@ const mapStateToProps = (state: StateData) => ({
 
 export const ProfileContainer = connect(mapStateToProps, {
   sendPost,
-  setProfileData,
   updatePostText,
+  getUserDataThunk,
 })(ProfileWithRouterContainer);

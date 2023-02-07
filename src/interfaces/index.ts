@@ -70,6 +70,7 @@ export interface DialogsPageData {
 export interface ProfileComponentData extends ProfileData {
   sendPost: () => void;
   updatePostText: (text: string) => void;
+  getUserDataThunk: any;
 }
 
 export interface StoreData {
@@ -115,8 +116,8 @@ export interface UsersAPIData extends UsersData {
 
 export interface ProfileRouteData extends ProfileData {
   updatePostText: (text: string) => void;
-  setProfileData: (data: ProfileUserData) => void;
   sendPost: () => void;
+  getUserDataThunk: any;
 }
 export interface ProfileAPIData extends ProfileRouteData {
   userId: string;
@@ -133,5 +134,5 @@ export interface AuthData extends UserAuthData {
 }
 
 export interface HeaderContainerData extends AuthData {
-  authUser: (data: UserAuthData) => void;
+  authUserThunk: any;
 }

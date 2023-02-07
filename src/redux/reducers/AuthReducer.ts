@@ -1,3 +1,4 @@
+import { authProfile } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
@@ -29,4 +30,10 @@ export const authReducer = (
       return { ...state };
     }
   }
+};
+
+export const authUserThunk = () => (dispatch: any) => {
+  authProfile().then((data) => {
+    if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
+  });
 };
