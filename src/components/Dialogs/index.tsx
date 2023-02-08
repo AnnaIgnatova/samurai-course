@@ -24,28 +24,24 @@ export const Dialogs: React.FC<DialogsPageData> = ({
 
   return (
     <>
-      {isAuth ? (
-        <div className={styles.container}>
-          <div className={styles["dialogs-items"]}>
-            {dialogs.map(({ id, name }) => (
-              <Dialog key={id} id={id} name={name} />
-            ))}
-          </div>
-          <div className={styles["messages"]}>
-            {messages.map(({ id, text, from }) => (
-              <Message key={id} text={text} from={from} />
-            ))}
-            <textarea
-              onChange={changeMessageText}
-              value={newMessage}
-              placeholder="Type something here"
-            />
-            <button onClick={createNewMessage}>Send</button>
-          </div>
+      <div className={styles.container}>
+        <div className={styles["dialogs-items"]}>
+          {dialogs.map(({ id, name }) => (
+            <Dialog key={id} id={id} name={name} />
+          ))}
         </div>
-      ) : (
-        <Navigate to="/login" />
-      )}
+        <div className={styles["messages"]}>
+          {messages.map(({ id, text, from }) => (
+            <Message key={id} text={text} from={from} />
+          ))}
+          <textarea
+            onChange={changeMessageText}
+            value={newMessage}
+            placeholder="Type something here"
+          />
+          <button onClick={createNewMessage}>Send</button>
+        </div>
+      </div>
     </>
   );
 };

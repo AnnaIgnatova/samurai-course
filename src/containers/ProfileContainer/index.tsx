@@ -10,6 +10,7 @@ import {
 import { Loader } from "../../components/Loader";
 import { useParams } from "react-router";
 import { Navigate } from "react-router-dom";
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
@@ -22,7 +23,6 @@ class ProfileAPIContainer extends React.Component<ProfileAPIData> {
   }
 
   render() {
-    if (!this.props.isAuth) return <Navigate to="/login" />;
     return (
       <>{this.props.profileData ? <Profile {...this.props} /> : <Loader />}</>
     );
@@ -36,8 +36,10 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
+const AuthRedirectComponent = WithAuthRedirect(ProfileWithRouterContainer);
+
 export const ProfileContainer = connect(mapStateToProps, {
   sendPost,
   updatePostText,
   getUserDataThunk,
-})(ProfileWithRouterContainer);
+})(AuthRedirectComponent);

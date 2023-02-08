@@ -7,7 +7,7 @@ import {
   getUsersThunk,
   unfollowUserThunk,
 } from "../../redux/reducers/UsersReducer";
-import { Navigate } from "react-router-dom";
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
@@ -19,11 +19,7 @@ class UsersAPIContainer extends React.Component<UsersAPIData> {
   }
 
   render() {
-    return this.props.isAuth ? (
-      <Users {...this.props} handlePage={this.handlePage.bind(this)} />
-    ) : (
-      <Navigate to="/login" />
-    );
+    return <Users {...this.props} handlePage={this.handlePage.bind(this)} />;
   }
 }
 
@@ -37,8 +33,10 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
+const AuthRedirectComponent = WithAuthRedirect(UsersAPIContainer);
+
 export const UsersContainer = connect(mapStateToProps, {
   followUserThunk,
   unfollowUserThunk,
   getUsersThunk,
-})(UsersAPIContainer);
+})(AuthRedirectComponent);
