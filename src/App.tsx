@@ -3,10 +3,10 @@ import { Music } from "./components/Music";
 import { News } from "./components/News";
 import { Settings } from "./components/Settings";
 import "./App.css";
-import { DialogsContainer } from "./containers/DialogsContainer";
+import DialogsContainer from "./containers/DialogsContainer";
 import { NavbarContainer } from "./containers/NavbarContainer";
-import { UsersContainer } from "./containers/UsersContainer";
-import { ProfileContainer } from "./containers/ProfileContainer";
+import UsersContainer from "./containers/UsersContainer";
+import ProfileContainer from "./containers/ProfileContainer";
 import { AuthContainer } from "./containers/AuthContainer";
 import { Login } from "./components/Login";
 

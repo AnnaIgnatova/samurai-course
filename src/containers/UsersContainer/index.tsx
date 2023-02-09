@@ -8,6 +8,7 @@ import {
   unfollowUserThunk,
 } from "../../redux/reducers/UsersReducer";
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
+import { compose } from "redux";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
@@ -33,10 +34,11 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
-const AuthRedirectComponent = WithAuthRedirect(UsersAPIContainer);
-
-export const UsersContainer = connect(mapStateToProps, {
-  followUserThunk,
-  unfollowUserThunk,
-  getUsersThunk,
-})(AuthRedirectComponent);
+export default compose(
+  WithAuthRedirect,
+  connect(mapStateToProps, {
+    followUserThunk,
+    unfollowUserThunk,
+    getUsersThunk,
+  })
+)(UsersAPIContainer);

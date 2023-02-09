@@ -11,6 +11,7 @@ import { Loader } from "../../components/Loader";
 import { useParams } from "react-router";
 import { Navigate } from "react-router-dom";
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
+import { compose } from "redux";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id } = useParams();
@@ -36,10 +37,11 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
-const AuthRedirectComponent = WithAuthRedirect(ProfileWithRouterContainer);
-
-export const ProfileContainer = connect(mapStateToProps, {
-  sendPost,
-  updatePostText,
-  getUserDataThunk,
-})(AuthRedirectComponent);
+export default compose(
+  WithAuthRedirect,
+  connect(mapStateToProps, {
+    sendPost,
+    updatePostText,
+    getUserDataThunk,
+  })
+)(ProfileWithRouterContainer);
