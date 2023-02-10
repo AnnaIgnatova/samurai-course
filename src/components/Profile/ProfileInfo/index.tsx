@@ -2,6 +2,7 @@ import { ProfileAPIData } from "../../../interfaces";
 import styles from "./style.module.css";
 import userImg from "./../../../assets/avatar.png";
 import profileBg from "./../../../assets/bg-profile.jpg";
+import { Status } from "../Status";
 
 export const ProfileInfo: React.FC<ProfileAPIData> = ({ profileData }) => {
   const {
@@ -18,6 +19,7 @@ export const ProfileInfo: React.FC<ProfileAPIData> = ({ profileData }) => {
       <div className={styles["user-info"]}>
         <img src={photos.small ? photos.small : userImg} alt={fullName} />
         <div className={styles["details-container"]}>
+          <Status />
           <span className={styles["user-details"]}>{fullName}</span>
           <span className={styles["user-details"]}>
             looking for a job: {lookingForAJob ? "yes" : "no"}
