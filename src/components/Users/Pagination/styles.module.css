@@ -1,0 +1,28 @@
+.pages {
+  width: 50%;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.page {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 30px;
+  border-radius: 50%;
+  color: #126E82;
+  background-color: #D8E3E7;
+}
+
+.page:hover,
+.active-page {
+  background-color: #126E82;
+  color: #fff;
+}
