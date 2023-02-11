@@ -4,6 +4,7 @@ import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../Loader";
 import { Link } from "react-router-dom";
+import { Pagination } from "./Pagination";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -16,30 +17,19 @@ export const Users: React.FC<UsersPageData> = ({
 }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.pages}>
-        {Array.from(Array(10).keys()).map((page) => (
-          <div
-            className={`${styles.page} ${
-              currentPage === page + 1 && styles["active-page"]
-            }`}
-            onClick={() => handlePage(page + 1)}
-          >
-            {page + 1}
-          </div>
-        ))}
-      </div>
       {isFetchingData ? (
         <Loader />
       ) : (
         <>
-          {users.map(({ id, name, photos, followed }) => (
+          {users.map(({ id, name, photos, followed, status }) => (
             <div key={id} className={styles.user}>
-              <Link to={`/profile/${id}`}>
-                <img src={photos.small ? photos.small : imgUrl} alt={name} />
-              </Link>
-              <span>{name}</span>
-              <span>city</span>
-              <span>country</span>
+              <div>
+                <Link to={`/profile/${id}`}>
+                  <img src={photos.small ? photos.small : imgUrl} alt={name} />
+                </Link>
+                <span>{name}</span>
+                {status && <span>{status}</span>}
+              </div>
               {followed && (
                 <button
                   disabled={isUsersFollow.some((val) => val === id)}
@@ -60,6 +50,7 @@ export const Users: React.FC<UsersPageData> = ({
           ))}
         </>
       )}
+      <Pagination currentPage={currentPage} handlePage={handlePage} />
     </div>
   );
 };

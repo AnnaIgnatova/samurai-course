@@ -9,38 +9,39 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
+  padding: 25px;
   margin-bottom: 10px;
-  border: 1px solid #000;
+  background-color: #D8E3E7;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.user > div {
+  display: flex;
+  align-items: center;
+}
+
+.user button {
+  background-color: #51C4D3;
+  padding: 12px 40px;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.user button:hover {
+  background-color: #126E82;
 }
 
 .user img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
-}
-
-.pages {
-  width: 400px;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-  margin: auto;
-}
-
-.page {
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.281);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.2s;
-  margin-bottom: 30px;
-}
-
-.page:hover,
-.active-page {
-  background-color: rgba(0, 0, 0, 0.144);
+  margin-right: 30px;
+  border-radius: 50%;
 }
