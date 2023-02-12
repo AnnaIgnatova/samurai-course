@@ -59,6 +59,7 @@ export interface ProfileData {
   posts: Post[];
   newPost: string;
   profileData: ProfileUserData;
+  status: string;
 }
 
 export interface DialogsPageData {
@@ -120,6 +121,8 @@ export interface ProfileRouteData extends ProfileData {
   updatePostText: (text: string) => void;
   sendPost: () => void;
   getUserDataThunk: any;
+  getStatusDataThunk: any;
+  updateStatusDataThunk: any;
   isAuth: boolean;
 }
 export interface ProfileAPIData extends ProfileRouteData {

@@ -1,9 +1,11 @@
-import { getUserData } from "../../api";
+import { getProfileStatus, getUserData, updateProfileStatus } from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 const SET_PROFILE_DATA = "SET_PROFILE_DATA";
+const GET_STATUS = "GET_STATUS";
+const UPDATE_STATUS = "UPDATE_STATUS";
 
 export const sendPost = () => ({ type: CREATE_POST });
 
@@ -15,6 +17,16 @@ export const setProfileData = (data: ProfileUserData) => ({
 export const updatePostText = (text: string) => ({
   type: UPDATE_POST_TEXT,
   data: text,
+});
+
+export const getStatus = (data: string) => ({
+  type: GET_STATUS,
+  data,
+});
+
+export const updateStatus = (data: string) => ({
+  type: UPDATE_STATUS,
+  data,
 });
 
 export const initialState = {
@@ -62,6 +74,7 @@ export const initialState = {
       large: "",
     },
   },
+  status: "",
 };
 
 export const profileReducer = (
@@ -93,6 +106,18 @@ export const profileReducer = (
         profileData: data,
       };
     }
+    case GET_STATUS: {
+      return {
+        ...state,
+        status: data,
+      };
+    }
+    case UPDATE_STATUS: {
+      return {
+        ...state,
+        status: data,
+      };
+    }
     default:
       return state;
   }
@@ -101,5 +126,17 @@ export const profileReducer = (
 export const getUserDataThunk = (userId: string) => (dispatch: any) => {
   getUserData(userId).then((data) => {
     dispatch(setProfileData(data));
+  });
+};
+
+export const getStatusDataThunk = (userId: string) => (dispatch: any) => {
+  getProfileStatus(userId).then((data) => {
+    dispatch(getStatus(data));
+  });
+};
+
+export const updateStatusDataThunk = (text: string) => (dispatch: any) => {
+  updateProfileStatus(text).then((data) => {
+    dispatch(updateStatus(data));
   });
 };

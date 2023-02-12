@@ -32,3 +32,13 @@ export const unfollowUserAPI = async (id: number) => {
 export const followUserAPI = async (id: number) => {
   return axiosInstance.post(`follow/${id}`).then(({ data }) => data);
 };
+
+export const getProfileStatus = async (id: string) => {
+  return axiosInstance.get(`/profile/status/${id}`).then(({ data }) => data);
+};
+
+export const updateProfileStatus = async (text: string) => {
+  return axiosInstance
+    .put(`/profile/status`, { status: text })
+    .then(({ data }) => data);
+};
