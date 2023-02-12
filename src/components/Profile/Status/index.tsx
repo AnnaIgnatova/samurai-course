@@ -1,18 +1,32 @@
-import React, { FocusEventHandler, useState } from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router";
 import styles from "./style.module.css";
 
-export const Status = () => {
-  const [statusText, setStatusText] = useState<string>("default");
+export interface StatusData {
+  text: string;
+  updateStatus: any;
+}
+
+export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
+  const { id } = useParams();
+  const [statusText, setStatusText] = useState<string>(text || "empty status");
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const handleStatusMode = () => {
-    setEditMode(!editMode);
+    id === "27789" && setEditMode(!editMode);
   };
 
   const changeStatusText = (e: any) => {
     setStatusText(e.target.value);
   };
-  
+
+  const handleUpdateStatus = () => {
+    if (id === "27789") {
+      handleStatusMode();
+      updateStatus(statusText);
+    }
+  };
+
   return (
     <div>
       {!editMode && <span onDoubleClick={handleStatusMode}>{statusText}</span>}
@@ -21,7 +35,7 @@ export const Status = () => {
           autoFocus
           type="text"
           onChange={changeStatusText}
-          onBlur={handleStatusMode}
+          onBlur={handleUpdateStatus}
           value={statusText}
         />
       )}
