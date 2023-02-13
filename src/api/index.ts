@@ -40,5 +40,5 @@ export const getProfileStatus = async (id: string) => {
 export const updateProfileStatus = async (text: string) => {
   return axiosInstance
     .put(`/profile/status`, { status: text })
-    .then(({ data }) => data);
+    .then(({ statusText }) => statusText);
 };

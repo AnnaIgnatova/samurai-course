@@ -136,7 +136,7 @@ export const getStatusDataThunk = (userId: string) => (dispatch: any) => {
 };
 
 export const updateStatusDataThunk = (text: string) => (dispatch: any) => {
-  updateProfileStatus(text).then((data) => {
-    dispatch(updateStatus(data));
+  updateProfileStatus(text).then(() => {
+    dispatch(updateStatus(text));
   });
 };

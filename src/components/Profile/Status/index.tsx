@@ -9,8 +9,12 @@ export interface StatusData {
 
 export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
   const { id } = useParams();
-  const [statusText, setStatusText] = useState<string>(text || "empty status");
+  const [statusText, setStatusText] = useState<string>(text);
   const [editMode, setEditMode] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (text !== statusText) setStatusText(text);
+  }, [text]);
 
   const handleStatusMode = () => {
     id === "27789" && setEditMode(!editMode);
@@ -29,7 +33,7 @@ export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
 
   return (
     <div>
-      {!editMode && <span onDoubleClick={handleStatusMode}>{statusText}</span>}
+      {!editMode && <span onDoubleClick={handleStatusMode}>{text}</span>}
       {editMode && (
         <input
           autoFocus
