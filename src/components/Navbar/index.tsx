@@ -7,7 +7,7 @@ export const Navbar: React.FC<NavbarData> = ({ friendsIds }) => {
     <nav className={styles.nav}>
       <ul>
         <li>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile/27789">Profile</Link>
         </li>
         <li>
           <Link to="/users">Users</Link>
