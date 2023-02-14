@@ -5,6 +5,7 @@ import { profileReducer } from "./reducers/ProfileReducer";
 import { navbarReducer } from "./reducers/NavbarReducer";
 import { authReducer } from "./reducers/AuthReducer";
 import { usersReducer } from "./reducers/UsersReducer";
+import { reducer as formReducer } from "redux-form";
 
 export const rootReducer = combineReducers({
   dialogsPage: dialogsReducer,
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
   usersPage: usersReducer,
   navbar: navbarReducer,
   header: authReducer,
+  form: formReducer,
 });
 
 export const store = configureStore({
