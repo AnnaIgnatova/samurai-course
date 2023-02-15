@@ -2,21 +2,15 @@ import { getProfileStatus, getUserData, updateProfileStatus } from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
-const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 const SET_PROFILE_DATA = "SET_PROFILE_DATA";
 const GET_STATUS = "GET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
 
-export const sendPost = () => ({ type: CREATE_POST });
+export const sendPost = (data: string) => ({ type: CREATE_POST, data });
 
 export const setProfileData = (data: ProfileUserData) => ({
   type: SET_PROFILE_DATA,
   data,
-});
-
-export const updatePostText = (text: string) => ({
-  type: UPDATE_POST_TEXT,
-  data: text,
 });
 
 export const getStatus = (data: string) => ({
@@ -57,7 +51,6 @@ export const initialState = {
       likes: 1,
     },
   ],
-  newPost: "",
   profileData: {
     userId: 27789,
     lookingForAJob: false,
@@ -85,19 +78,13 @@ export const profileReducer = (
     case CREATE_POST: {
       const post = {
         id: state.posts[state.posts.length - 1].id + 1,
-        text: state.newPost,
+        text: data,
         likes: Math.floor(Math.random() * 10),
       };
       return {
         ...state,
         posts: [...state.posts, post],
         newPost: "",
-      };
-    }
-    case UPDATE_POST_TEXT: {
-      return {
-        ...state,
-        newPost: data,
       };
     }
     case SET_PROFILE_DATA: {

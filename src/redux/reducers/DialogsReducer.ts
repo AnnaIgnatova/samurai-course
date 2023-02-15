@@ -1,14 +1,8 @@
 import { Action, DialogsData } from "../../interfaces";
 
 const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT";
 
-export const sendMessage = () => ({ type: SEND_MESSAGE });
-
-export const updateMessageText = (text: string) => ({
-  type: UPDATE_MESSAGE_TEXT,
-  data: text,
-});
+export const sendMessage = (data: string) => ({ type: SEND_MESSAGE, data });
 
 export const initialState = {
   dialogs: [
@@ -50,7 +44,6 @@ export const initialState = {
       from: "me",
     },
   ],
-  newMessage: "",
 };
 
 export const dialogsReducer = (
@@ -61,7 +54,7 @@ export const dialogsReducer = (
     case SEND_MESSAGE: {
       const message = {
         id: state.messages[state.messages.length - 1].id + 1,
-        text: state.newMessage,
+        text: data,
         from: "me",
       };
       return {
@@ -69,9 +62,6 @@ export const dialogsReducer = (
         messages: [...state.messages, message],
         newMessage: "",
       };
-    }
-    case UPDATE_MESSAGE_TEXT: {
-      return { ...state, newMessage: data };
     }
     default:
       return state;
