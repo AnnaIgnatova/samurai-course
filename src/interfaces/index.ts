@@ -35,7 +35,6 @@ export interface StateData {
 export interface DialogsData {
   dialogs: Dialog[];
   messages: Message[];
-  newMessage: string;
 }
 
 export interface ProfileUserData {
@@ -64,8 +63,7 @@ export interface ProfileData {
 export interface DialogsPageData {
   dialogsPage: DialogsData;
   isAuth: boolean;
-  sendMessage: () => void;
-  updateMessageText: (text: string) => void;
+  sendMessage: (text: string) => void;
 }
 
 export interface ProfileComponentData extends ProfileData {
@@ -116,7 +114,6 @@ export interface UsersAPIData extends UsersData {
 }
 
 export interface ProfileRouteData extends ProfileData {
-  updatePostText: (text: string) => void;
   sendPost: (text: string) => void;
   getUserDataThunk: any;
   getStatusDataThunk: any;
