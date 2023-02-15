@@ -6,7 +6,6 @@ import {
   getStatusDataThunk,
   getUserDataThunk,
   sendPost,
-  updatePostText,
   updateStatusDataThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
@@ -34,7 +33,6 @@ class ProfileAPIContainer extends React.Component<ProfileAPIData> {
 
 const mapStateToProps = (state: StateData) => ({
   posts: state.profilePage.posts,
-  newPost: state.profilePage.newPost,
   profileData: state.profilePage.profileData,
   isAuth: state.header.isAuth,
   status: state.profilePage.status,
@@ -44,7 +42,6 @@ export default compose(
   WithAuthRedirect,
   connect(mapStateToProps, {
     sendPost,
-    updatePostText,
     getUserDataThunk,
     getStatusDataThunk,
     updateStatusDataThunk,

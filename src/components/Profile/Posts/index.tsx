@@ -1,32 +1,18 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import { ProfileAPIData } from "../../../interfaces";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
-export const Posts: React.FC<ProfileAPIData> = ({
-  posts,
-  newPost,
-  sendPost,
-  updatePostText,
-}) => {
-  const sendPostData = () => {
-    sendPost();
-  };
-
-  const changePostText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const text = e.target.value;
-    updatePostText(text);
+export const Posts: React.FC<ProfileAPIData> = ({ posts, sendPost }) => {
+  const sendPostData = (data: any) => {
+    sendPost(data.post);
   };
 
   return (
     <div className={styles["posts-container"]}>
       <div className={styles["create-post"]}>
-        <textarea
-          placeholder="Type something"
-          onChange={changePostText}
-          value={newPost}
-        />
-        <button onClick={sendPostData}>Add post</button>
+        <PostReduxForm onSubmit={sendPostData} />
       </div>
       <div>
         {posts.map(({ id, text, likes }) => (
@@ -36,3 +22,16 @@ export const Posts: React.FC<ProfileAPIData> = ({
     </div>
   );
 };
+
+const PostForm: React.FC<any> = ({ handleSubmit }) => {
+  return (
+    <div className={styles["posts-container"]}>
+      <form onSubmit={handleSubmit} className={styles["create-post"]}>
+        <Field type="text" component="textarea" name="post"/>
+        <button>Add post</button>
+      </form>
+    </div>
+  );
+};
+
+const PostReduxForm = reduxForm({ form: "post" })(PostForm);

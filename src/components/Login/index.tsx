@@ -1,25 +1,21 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-
 import "./style.module.css";
 
 export interface LoginFormData {
-  handleSubmit: any;
+  handleSubmit?: any;
+  onSubmit?: any;
 }
 
-export const Login: React.FC = () => {
-  const onSubmit = (data: any) => {
-    console.log(data);
+export const Login = () => {
+  const handleSubmit = (values: any) => {
+    console.log(values);
   };
-  return (
-    <div>
-      login page
-      <LoginReduxForm handleSubmit={onSubmit} />
-    </div>
-  );
+
+  return <LoginReduxForm onSubmit={handleSubmit} />;
 };
 
-export const LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
+let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -39,6 +35,7 @@ export const LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
   );
 };
 
-export const LoginReduxForm = reduxForm({
+let LoginReduxForm = reduxForm({
+  // a unique name for the form
   form: "login",
 })(LoginForm);
