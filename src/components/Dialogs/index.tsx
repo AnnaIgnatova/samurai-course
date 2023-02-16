@@ -1,9 +1,13 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { DialogsPageData } from "../../interfaces";
+import { maxLength, required } from "../../utils/validators";
+import { FormTextarea } from "../Form/Field";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
+
+const maxLength100 = maxLength(100);
 
 export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
@@ -39,9 +43,10 @@ const MessageForm: React.FC<any> = ({ handleSubmit }) => {
     <form onSubmit={handleSubmit}>
       <Field
         type="text"
-        component="textarea"
+        component={FormTextarea}
         name="message"
         placeholder="Type something here"
+        validate={[required, maxLength100]}
       />
       <button>Send</button>
     </form>

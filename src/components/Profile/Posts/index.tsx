@@ -1,8 +1,12 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { ProfileAPIData } from "../../../interfaces";
+import { maxLength, required } from "../../../utils/validators";
+import { FormTextarea } from "../../Form/Field";
 import { Post } from "./Post";
 import styles from "./style.module.css";
+
+const maxLength100 = maxLength(100);
 
 export const Posts: React.FC<ProfileAPIData> = ({ posts, sendPost }) => {
   const sendPostData = (data: any) => {
@@ -27,7 +31,13 @@ const PostForm: React.FC<any> = ({ handleSubmit }) => {
   return (
     <div className={styles["posts-container"]}>
       <form onSubmit={handleSubmit} className={styles["create-post"]}>
-        <Field type="text" component="textarea" name="post"/>
+        <Field
+          type="text"
+          component={FormTextarea}
+          name="post"
+          placeholder="type post text"
+          validate={[required, maxLength100]}
+        />
         <button>Add post</button>
       </form>
     </div>
