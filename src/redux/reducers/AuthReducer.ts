@@ -1,11 +1,21 @@
-import { authProfile } from "../../api";
+import { authProfile, getUserData, loginUser, logoutUser } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
+const LOGIN_USER = "LOGIN_USER";
+const LOGOUT_USER = "LOGOUT_USER";
 
 export const authUser = (data: UserAuthData) => ({
   type: SET_AUTH_DATA,
   data,
+});
+
+export const loginUserAC = () => ({
+  type: LOGIN_USER,
+});
+
+export const logoutUserAC = () => ({
+  type: LOGOUT_USER,
 });
 
 export const initialState = {
@@ -26,6 +36,18 @@ export const authReducer = (
         ...data,
       };
     }
+    case LOGIN_USER: {
+      return {
+        ...state,
+        isAuth: true,
+      };
+    }
+    case LOGOUT_USER: {
+      return {
+        ...state,
+        isAuth: false,
+      };
+    }
     default: {
       return { ...state };
     }
@@ -35,5 +57,21 @@ export const authReducer = (
 export const authUserThunk = () => (dispatch: any) => {
   authProfile().then((data) => {
     if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
+  });
+};
+
+export const loginUserThunk =
+  (email: string, password: string, rememberMe?: boolean, captcha?: boolean) =>
+  (dispatch: any) => {
+    loginUser(email, password, rememberMe, captcha).then((res) => {
+      if (!res.data.resultCode) {
+        dispatch(authUserThunk());
+      }
+    });
+  };
+
+export const logoutUserThunk = () => (dispatch: any) => {
+  logoutUser().then((res) => {
+    if (!res.data.resultCode) dispatch(logoutUserAC());
   });
 };
