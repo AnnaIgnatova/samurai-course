@@ -25,6 +25,21 @@ export const authProfile = async () => {
   return axiosInstance.get(`auth/me`).then(({ data }) => data);
 };
 
+export const loginUser = async (
+  email: string,
+  password: string,
+  rememberMe?: boolean,
+  captcha?: boolean
+) => {
+  return axiosInstance
+    .post(`/auth/login`, { email, password, rememberMe, captcha })
+    .then((res) => res);
+};
+
+export const logoutUser = async () => {
+  return axiosInstance.delete(`/auth/login`).then((res) => res);
+};
+
 export const unfollowUserAPI = async (id: number) => {
   return axiosInstance.delete(`follow/${id}`).then(({ data }) => data);
 };
