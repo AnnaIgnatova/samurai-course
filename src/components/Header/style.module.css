@@ -20,6 +20,7 @@
   border: 1px solid #008cba;
   transition: 0.2s;
   border-radius: 4px;
+  margin-left: 20px;
 }
 
 .login-btn:hover {
