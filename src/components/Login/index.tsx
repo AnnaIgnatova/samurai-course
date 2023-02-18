@@ -10,7 +10,7 @@ export interface LoginFormData {
   onSubmit?: any;
 }
 
-const maxLength10 = maxLength(10);
+const maxLength30 = maxLength(30);
 
 export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
   const handleSubmit = (values: any) => {
@@ -33,7 +33,7 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
           name="email"
           component={FormInput}
           type="email"
-          validate={[required, maxLength10]}
+          validate={[required, maxLength30]}
         />
       </div>
       <div>
@@ -42,7 +42,7 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
           name="password"
           component={FormInput}
           type="password"
-          validate={[required, maxLength10]}
+          validate={[required, maxLength30]}
         />
       </div>
       <div>
