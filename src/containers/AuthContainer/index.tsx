@@ -2,7 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Header } from "../../components/Header";
 import { HeaderContainerData, StateData } from "../../interfaces";
-import { authUserThunk } from "../../redux/reducers/AuthReducer";
+import {
+  authUserThunk,
+  logoutUserThunk,
+} from "../../redux/reducers/AuthReducer";
 
 class AuthAPIContainer extends React.Component<HeaderContainerData> {
   componentDidMount(): void {
@@ -20,6 +23,7 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
-export const AuthContainer = connect(mapStateToProps, { authUserThunk })(
-  AuthAPIContainer
-);
+export const AuthContainer = connect(mapStateToProps, {
+  authUserThunk,
+  logoutUserThunk,
+})(AuthAPIContainer);

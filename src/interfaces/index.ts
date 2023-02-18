@@ -136,4 +136,5 @@ export interface AuthData extends UserAuthData {
 
 export interface HeaderContainerData extends AuthData {
   authUserThunk: any;
+  logoutUserThunk: any;
 }

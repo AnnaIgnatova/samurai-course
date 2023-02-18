@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { maxLength, required } from "../../utils/validators";
 import { FormInput } from "../Form/Field";
@@ -11,12 +12,16 @@ export interface LoginFormData {
 
 const maxLength10 = maxLength(10);
 
-export const Login = () => {
+export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
   const handleSubmit = (values: any) => {
-    console.log(values);
+    loginUserThunk(values);
   };
 
-  return <LoginReduxForm onSubmit={handleSubmit} />;
+  return isAuth ? (
+    <Navigate to="/profile/27789" />
+  ) : (
+    <LoginReduxForm onSubmit={handleSubmit} />
+  );
 };
 
 let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
@@ -41,13 +46,8 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
         />
       </div>
       <div>
-        <label htmlFor="accept_data">Accept</label>
-        <Field
-          name="accept_data"
-          component={FormInput}
-          type="checkbox"
-          validate={[required]}
-        />
+        <label htmlFor="rememberMe">remember me</label>
+        <Field name="rememberMe" component="input" type="checkbox"  validate={[required]} />
       </div>
       <button type="submit">Log in</button>
     </form>
