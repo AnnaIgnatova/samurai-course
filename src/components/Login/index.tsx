@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import "./style.module.css";
 
@@ -7,12 +8,16 @@ export interface LoginFormData {
   onSubmit?: any;
 }
 
-export const Login = () => {
+export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
   const handleSubmit = (values: any) => {
-    console.log(values);
+    loginUserThunk(values);
   };
 
-  return <LoginReduxForm onSubmit={handleSubmit} />;
+  return isAuth ? (
+    <Navigate to="/profile" />
+  ) : (
+    <LoginReduxForm onSubmit={handleSubmit} />
+  );
 };
 
 let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
@@ -27,8 +32,8 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
         <Field name="password" component="input" type="password" />
       </div>
       <div>
-        <label htmlFor="accept_data">Accept</label>
-        <Field name="accept_data" component="input" type="checkbox" />
+        <label htmlFor="rememberMe">remember me</label>
+        <Field name="rememberMe" component="input" type="checkbox" />
       </div>
       <button type="submit">Log in</button>
     </form>
@@ -36,6 +41,5 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
 };
 
 let LoginReduxForm = reduxForm({
-  // a unique name for the form
   form: "login",
 })(LoginForm);

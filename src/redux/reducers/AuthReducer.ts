@@ -63,6 +63,7 @@ export const authUserThunk = () => (dispatch: any) => {
 export const loginUserThunk =
   (email: string, password: string, rememberMe?: boolean, captcha?: boolean) =>
   (dispatch: any) => {
+    console.log(email);
     loginUser(email, password, rememberMe, captcha).then((res) => {
       if (!res.data.resultCode) {
         dispatch(authUserThunk());
