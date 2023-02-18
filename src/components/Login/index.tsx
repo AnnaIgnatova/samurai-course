@@ -47,7 +47,12 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
       </div>
       <div>
         <label htmlFor="rememberMe">remember me</label>
-        <Field name="rememberMe" component="input" type="checkbox"  validate={[required]} />
+        <Field
+          name="rememberMe"
+          component="input"
+          type="checkbox"
+          validate={[required]}
+        />
       </div>
       <button type="submit">Log in</button>
     </form>

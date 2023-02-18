@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authProfile, getUserData, loginUser, logoutUser } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
@@ -60,16 +61,14 @@ export const authUserThunk = () => (dispatch: any) => {
   });
 };
 
-export const loginUserThunk =
-  (data: any) =>
-  (dispatch: any) => {
-    const {email, password, rememberMe} = data
-    loginUser(email, password, rememberMe).then((res) => {
-      if (!res.data.resultCode) {
-        dispatch(authUserThunk());
-      }
-    });
-  };
+export const loginUserThunk = (data: any) => (dispatch: any) => {
+  const { email, password, rememberMe } = data;
+  loginUser(email, password, rememberMe).then((res) => {
+    if (!res.data.resultCode) {
+      dispatch(authUserThunk());
+    } else dispatch(stopSubmit("login", res.data.messages));
+  });
+};
 
 export const logoutUserThunk = () => (dispatch: any) => {
   logoutUser().then((res) => {
