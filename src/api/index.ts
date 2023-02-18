@@ -31,8 +31,9 @@ export const loginUser = async (
   rememberMe?: boolean,
   captcha?: boolean
 ) => {
+  console.log(email, password);
   return axiosInstance
-    .post(`/auth/login`, { email, password, rememberMe, captcha })
+    .post(`/auth/login`, { data: { email, password, rememberMe, captcha } })
     .then((res) => res);
 };
 
