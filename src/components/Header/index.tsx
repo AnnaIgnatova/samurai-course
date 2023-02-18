@@ -1,15 +1,22 @@
-import { HeaderContainerData } from "../../interfaces";
 import styles from "./style.module.css";
 import iconUrl from "./../../assets/network-icon.png";
+import { NavLink } from "react-router-dom";
 
-export const Header: React.FC<HeaderContainerData> = ({ isAuth, email }) => {
+export const Header: React.FC<any> = ({ isAuth, email, logoutUserThunk }) => {
   return (
     <header className={styles.header}>
       <img src={iconUrl} alt="network icon" />
       {isAuth ? (
-        <span>{email}</span>
+        <div>
+          <span>{email}</span>
+          <button className={styles["login-btn"]} onClick={logoutUserThunk}>
+            Log out
+          </button>
+        </div>
       ) : (
-        <button className={styles["login-btn"]}>Login</button>
+        <NavLink className={styles["login-btn"]} to="/login">
+          Login
+        </NavLink>
       )}
     </header>
   );

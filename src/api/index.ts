@@ -5,6 +5,7 @@ export interface AxiosInstanceData extends AxiosInstance {
     API_URL: string;
   };
 }
+// TODO: add objects for api methods
 
 export const BASE_URL = "https://social-network.samuraijs.com/api/1.0/";
 
@@ -23,18 +24,6 @@ export const getUserData = async (id: string) => {
 
 export const authProfile = async () => {
   return axiosInstance.get(`auth/me`).then(({ data }) => data);
-};
-
-export const loginUser = async (
-  email: string,
-  password: string,
-  rememberMe?: boolean,
-  captcha?: boolean
-) => {
-  console.log(email, password);
-  return axiosInstance
-    .post(`/auth/login`, { data: { email, password, rememberMe, captcha } })
-    .then((res) => res);
 };
 
 export const logoutUser = async () => {
@@ -57,4 +46,20 @@ export const updateProfileStatus = async (text: string) => {
   return axiosInstance
     .put(`/profile/status`, { status: text })
     .then(({ statusText }) => statusText);
+};
+
+export const loginUser = async (
+  email: string,
+  password: string,
+  rememberMe = false
+) => {
+  return axiosInstance
+    .post("auth/login", {
+      email: email,
+      password: password,
+      rememberMe: rememberMe,
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
