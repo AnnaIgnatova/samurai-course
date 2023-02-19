@@ -3,11 +3,14 @@ import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { maxLength, required } from "../../utils/validators";
 import { FormInput } from "../Form/Field";
-import "./style.module.css";
+import styles from "./style.module.css";
 
 export interface LoginFormData {
   handleSubmit?: any;
   onSubmit?: any;
+  error: any;
+  pristine: boolean;
+  submitting: boolean;
 }
 
 const maxLength30 = maxLength(30);
@@ -24,7 +27,12 @@ export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
   );
 };
 
-let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
+let LoginForm: React.FC<LoginFormData> = ({
+  handleSubmit,
+  error,
+  pristine,
+  submitting,
+}) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -47,9 +55,12 @@ let LoginForm: React.FC<LoginFormData> = ({ handleSubmit }) => {
       </div>
       <div>
         <label htmlFor="rememberMe">remember me</label>
-        <Field name="rememberMe" component="input" type="checkbox"  validate={[required]} />
+        <Field name="rememberMe" component="input" type="checkbox" />
       </div>
-      <button type="submit">Log in</button>
+      {error && <span className={styles["errors-message"]}>{error}</span>}
+      <button type="submit" disabled={pristine || submitting}>
+        Log in
+      </button>
     </form>
   );
 };

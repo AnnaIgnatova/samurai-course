@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authProfile, getUserData, loginUser, logoutUser } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
@@ -19,7 +20,7 @@ export const logoutUserAC = () => ({
 });
 
 export const initialState = {
-  id: 27789,
+  id: null,
   email: "",
   login: "",
   isAuth: false,
@@ -45,6 +46,9 @@ export const authReducer = (
     case LOGOUT_USER: {
       return {
         ...state,
+        id: null,
+        email: "",
+        login: "",
         isAuth: false,
       };
     }
@@ -60,19 +64,23 @@ export const authUserThunk = () => (dispatch: any) => {
   });
 };
 
-export const loginUserThunk =
-  (data: any) =>
-  (dispatch: any) => {
-    const {email, password, rememberMe} = data
-    loginUser(email, password, rememberMe).then((res) => {
-      if (!res.data.resultCode) {
-        dispatch(authUserThunk());
-      }
-    });
-  };
+export const loginUserThunk = (data: any) => (dispatch: any) => {
+  const { email, password, rememberMe } = data;
+  loginUser(email, password, rememberMe).then((res) => {
+    if (!res.resultCode) {
+      dispatch(authUserThunk());
+    } else {
+      dispatch(
+        stopSubmit("login", {
+          _error: res.messages ? res.messages[0] : "Some error",
+        })
+      );
+    }
+  });
+};
 
 export const logoutUserThunk = () => (dispatch: any) => {
-  logoutUser().then((res) => {
-    if (!res.data.resultCode) dispatch(logoutUserAC());
+  logoutUser().then((res: any) => {
+    if (!res.resultCode) dispatch(logoutUserAC());
   });
 };
