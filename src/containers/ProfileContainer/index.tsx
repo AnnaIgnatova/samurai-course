@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { ProfileAPIData, ProfileRouteData, StateData } from "../../interfaces";
-import React from "react";
+import React, { useEffect } from "react";
 import { Profile } from "../../components/Profile";
 import {
   getStatusDataThunk,
@@ -9,27 +9,25 @@ import {
   updateStatusDataThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
-import { useParams } from "react-router";
-import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
+import { useNavigate, useParams } from "react-router";
 import { compose } from "redux";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
-  const { id = "27789"} = useParams();
+  const { id = "27789" } = useParams();
   return <ProfileAPIContainer {...props} userId={id || "27789"} />;
 };
 
-class ProfileAPIContainer extends React.Component<ProfileAPIData> {
-  componentDidMount(): void {
-    this.props.getUserDataThunk(this.props.userId);
-    this.props.getStatusDataThunk(this.props.userId);
-  }
+const ProfileAPIContainer: React.FC<ProfileAPIData> = (props) => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    props.getUserDataThunk(props.userId);
+    props.getStatusDataThunk(props.userId);
+    if (!props.isAuth) navigate("/login");
+  }, []);
 
-  render() {
-    return (
-      <>{this.props.profileData ? <Profile {...this.props} /> : <Loader />}</>
-    );
-  }
-}
+  return <>{props.profileData ? <Profile {...props} /> : <Loader />}</>;
+};
 
 const mapStateToProps = (state: StateData) => ({
   posts: state.profilePage.posts,
@@ -39,7 +37,6 @@ const mapStateToProps = (state: StateData) => ({
 });
 
 export default compose(
-  WithAuthRedirect,
   connect(mapStateToProps, {
     sendPost,
     getUserDataThunk,

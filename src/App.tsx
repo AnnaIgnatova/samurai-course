@@ -10,25 +10,23 @@ import ProfileContainer from "./containers/ProfileContainer";
 import { AuthContainer } from "./containers/AuthContainer";
 import { LoginContainer } from "./containers/LoginContainer";
 
-const App: React.FC = () => {
+const App: React.FC<any> = () => {
   return (
-    <BrowserRouter>
-      <div className="container">
-        <AuthContainer />
-        <NavbarContainer />
-        <div className="content">
-          <Routes>
-            <Route path="/profile/:id" element={<ProfileContainer />} />
-            <Route path="/dialogs/*" element={<DialogsContainer />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/music" element={<Music />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/users" element={<UsersContainer />} />
-            <Route path="/login" element={<LoginContainer />} />
-          </Routes>
-        </div>
+    <div className="container">
+      <AuthContainer />
+      <NavbarContainer />
+      <div className="content">
+        <Routes>
+          <Route path="/profile/:id" element={<ProfileContainer />} />
+          <Route path="/dialogs/*" element={<DialogsContainer />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/users" element={<UsersContainer />} />
+          <Route path="/login" element={<LoginContainer />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authProfile, getUserData, loginUser, logoutUser } from "../../api";
+import { authProfile, loginUser, logoutUser } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
@@ -58,8 +58,8 @@ export const authReducer = (
   }
 };
 
-export const authUserThunk = () => (dispatch: any) => {
-  authProfile().then((data) => {
+export const authUserThunk = () => async (dispatch: any) => {
+  return authProfile().then((data) => {
     if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
   });
 };
@@ -80,6 +80,7 @@ export const loginUserThunk = (data: any) => (dispatch: any) => {
 };
 
 export const logoutUserThunk = () => (dispatch: any) => {
+  console.log("logout");
   logoutUser().then((res: any) => {
     if (!res.resultCode) dispatch(logoutUserAC());
   });

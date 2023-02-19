@@ -1,20 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Header } from "../../components/Header";
-import { HeaderContainerData, StateData } from "../../interfaces";
-import {
-  authUserThunk,
-  logoutUserThunk,
-} from "../../redux/reducers/AuthReducer";
+import { StateData } from "../../interfaces";
+import { logoutUserThunk } from "../../redux/reducers/AuthReducer";
+import { useNavigate } from "react-router-dom";
 
-class AuthAPIContainer extends React.Component<HeaderContainerData> {
-  componentDidMount(): void {
-    this.props.authUserThunk();
-  }
-  render() {
-    return <Header {...this.props} />;
-  }
-}
+const AuthAPIContainer: React.FC<any> = (props) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("click");
+    props.logoutUserThunk();
+    navigate("/login");
+  };
+
+  return <Header {...props} handleLogout={handleLogout} />;
+};
 
 const mapStateToProps = (state: StateData) => ({
   id: state.header.id,
@@ -24,6 +25,5 @@ const mapStateToProps = (state: StateData) => ({
 });
 
 export const AuthContainer = connect(mapStateToProps, {
-  authUserThunk,
   logoutUserThunk,
 })(AuthAPIContainer);

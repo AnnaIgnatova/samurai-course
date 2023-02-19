@@ -30,6 +30,7 @@ export interface StateData {
   usersPage: UsersData;
   navbar: NavbarData;
   header: AuthData;
+  app: AppData;
 }
 
 export interface DialogsData {
@@ -135,6 +136,9 @@ export interface AuthData extends UserAuthData {
 }
 
 export interface HeaderContainerData extends AuthData {
-  authUserThunk: any;
   logoutUserThunk: any;
+}
+
+export interface AppData {
+  isInitialized: boolean;
 }
