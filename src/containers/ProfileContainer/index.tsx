@@ -9,7 +9,7 @@ import {
   updateStatusDataThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/Loader";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { compose } from "redux";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
