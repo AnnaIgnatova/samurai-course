@@ -6,6 +6,7 @@ import { navbarReducer } from "./reducers/NavbarReducer";
 import { authReducer } from "./reducers/AuthReducer";
 import { usersReducer } from "./reducers/UsersReducer";
 import { reducer as formReducer } from "redux-form";
+import { appReducer } from "./reducers/AppReducer";
 
 export const rootReducer = combineReducers({
   dialogsPage: dialogsReducer,
@@ -14,6 +15,7 @@ export const rootReducer = combineReducers({
   navbar: navbarReducer,
   header: authReducer,
   form: formReducer,
+  app: appReducer,
 });
 
 export const store = configureStore({
