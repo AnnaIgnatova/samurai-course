@@ -18,12 +18,9 @@ const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
 };
 
 const ProfileAPIContainer: React.FC<ProfileAPIData> = (props) => {
-  const navigate = useNavigate();
-  
   useEffect(() => {
     props.getUserDataThunk(props.userId);
     props.getStatusDataThunk(props.userId);
-    if (!props.isAuth) navigate("/login");
   }, []);
 
   return <>{props.profileData ? <Profile {...props} /> : <Loader />}</>;

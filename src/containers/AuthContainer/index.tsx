@@ -9,7 +9,6 @@ const AuthAPIContainer: React.FC<any> = (props) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("click");
     props.logoutUserThunk();
     navigate("/login");
   };

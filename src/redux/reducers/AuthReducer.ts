@@ -80,7 +80,6 @@ export const loginUserThunk = (data: any) => (dispatch: any) => {
 };
 
 export const logoutUserThunk = () => (dispatch: any) => {
-  console.log("logout");
   logoutUser().then((res: any) => {
     if (!res.resultCode) dispatch(logoutUserAC());
   });

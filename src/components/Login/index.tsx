@@ -19,11 +19,12 @@ export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
   const navigate = useNavigate();
   const handleSubmit = (values: any) => {
     loginUserThunk(values);
+    navigate("/profile/27789");
   };
 
-  useEffect(() => {
-    if (isAuth) navigate("/profile/27789");
-  }, [isAuth]);
+  // useEffect(() => {
+  //   if (isAuth) navigate("/profile/27789");
+  // }, [isAuth]);
 
   return <LoginReduxForm onSubmit={handleSubmit} />;
 };

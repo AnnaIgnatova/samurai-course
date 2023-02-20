@@ -3,7 +3,6 @@ import iconUrl from "./../../assets/network-icon.png";
 import { NavLink } from "react-router-dom";
 
 export const Header: React.FC<any> = ({ isAuth, email, handleLogout }) => {
-  console.log(isAuth);
   return (
     <header className={styles.header}>
       <img src={iconUrl} alt="network icon" />
