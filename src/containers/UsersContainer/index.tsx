@@ -9,6 +9,15 @@ import {
 } from "../../redux/reducers/UsersReducer";
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 import { compose } from "redux";
+import {
+  getCurrentPage,
+  getIsAuth,
+  getIsFetchingData,
+  getIsUsersFollow,
+  getPageCount,
+  getTotalUsersCount,
+  getUsersSelector,
+} from "../../redux/reducers/UsersSelector";
 
 class UsersAPIContainer extends React.Component<UsersAPIData> {
   componentDidMount(): void {
@@ -25,13 +34,13 @@ class UsersAPIContainer extends React.Component<UsersAPIData> {
 }
 
 const mapStateToProps = (state: StateData) => ({
-  users: state.usersPage.users,
-  totalCount: state.usersPage.totalCount,
-  pageCount: state.usersPage.pageCount,
-  currentPage: state.usersPage.currentPage,
-  isFetchingData: state.usersPage.isFetchingData,
-  isUsersFollow: state.usersPage.isUsersFollow,
-  isAuth: state.header.isAuth,
+  users: getUsersSelector(state),
+  totalCount: getTotalUsersCount(state),
+  pageCount: getPageCount(state),
+  currentPage: getCurrentPage(state),
+  isFetchingData: getIsFetchingData(state),
+  isUsersFollow: getIsUsersFollow(state),
+  isAuth: getIsAuth(state),
 });
 
 export default compose(
