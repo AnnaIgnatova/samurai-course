@@ -22,10 +22,6 @@ export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
     navigate("/profile/27789");
   };
 
-  // useEffect(() => {
-  //   if (isAuth) navigate("/profile/27789");
-  // }, [isAuth]);
-
   return <LoginReduxForm onSubmit={handleSubmit} />;
 };
 
@@ -36,28 +32,36 @@ let LoginForm: React.FC<LoginFormData> = ({
   submitting,
 }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h3>Log in to social network</h3>
       <div>
-        <label htmlFor="email">Email</label>
         <Field
           name="email"
           component={FormInput}
           type="email"
           validate={[required, maxLength30]}
+          placeholder="Email"
+          className={styles["form-input"]}
         />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
         <Field
           name="password"
           component={FormInput}
           type="password"
           validate={[required, maxLength30]}
+          placeholder="Password"
+          className={styles["form-input"]}
         />
       </div>
-      <div>
+      <div className={styles["form-checkbox-container"]}>
+        <Field
+          name="rememberMe"
+          component="input"
+          type="checkbox"
+          className={styles["form-checkbox"]}
+        />
         <label htmlFor="rememberMe">remember me</label>
-        <Field name="rememberMe" component="input" type="checkbox" />
       </div>
       {error && <span className={styles["errors-message"]}>{error}</span>}
       <button type="submit" disabled={pristine || submitting}>
