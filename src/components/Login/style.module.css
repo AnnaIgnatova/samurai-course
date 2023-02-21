@@ -1,4 +1,69 @@
 .errors-message {
-  color: red;
+  color: #ef1c5c;
   display: block;
+}
+
+.form {
+  display: flex;
+  margin: auto;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+.form h3 {
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 49px;
+  color: #000000;
+}
+
+.form > div {
+  margin-bottom: 20px;
+}
+
+.form-input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 15px 20px;
+  width: 100%;
+}
+
+.form-checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.form button {
+  background-color: #1da1f2;
+  border-radius: 50px;
+  padding: 15px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  transition: 0.2s;
+  border: 1px solid #1da1f2;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.form button:hover {
+  background-color: #fff;
+  color: #1da1f2;
 }
