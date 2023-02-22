@@ -3,4 +3,5 @@ Tasks from React JS course
 
 all lesson in separate branches
 
-![image](https://user-images.githubusercontent.com/61065956/219459276-f16d730c-814d-4f4d-bf25-978361f169d8.png)
+![image](https://user-images.githubusercontent.com/61065956/220729246-2e50f4ee-30a9-4d01-9943-ff0177bcc595.png)
+
