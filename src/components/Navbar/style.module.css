@@ -14,7 +14,8 @@ ul {
   font-size: 18px;
 }
 
-.nav a:hover {
+.nav a:hover,
+.active-route {
   font-weight: bold;
 }
 
