@@ -14,6 +14,7 @@ export const Pagination: React.FC<PagintaionData> = ({
     <div className={styles.pages}>
       {Array.from(Array(10).keys()).map((page) => (
         <div
+          key={page}
           className={`${styles.page} ${
             currentPage === page + 1 && styles["active-page"]
           }`}
