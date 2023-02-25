@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import App from "../../App";
-import { Loader } from "../../components/Loader";
+import { Loader } from "../../components/UI/Loader";
 import { StateData } from "../../interfaces";
 import { initializeAppThunk } from "../../redux/reducers/AppReducer";
 

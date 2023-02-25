@@ -8,7 +8,7 @@ import {
   sendPost,
   updateStatusDataThunk,
 } from "../../redux/reducers/ProfileReducer";
-import { Loader } from "../../components/Loader";
+import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
 import { compose } from "redux";
 

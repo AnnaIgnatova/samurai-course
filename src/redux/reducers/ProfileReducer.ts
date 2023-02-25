@@ -122,20 +122,18 @@ export const profileReducer = (
   }
 };
 
-export const getUserDataThunk = (userId: string) => (dispatch: any) => {
-  getUserData(userId).then((data) => {
-    dispatch(setProfileData(data));
-  });
+export const getUserDataThunk = (userId: string) => async (dispatch: any) => {
+  const data = await getUserData(userId);
+  dispatch(setProfileData(data));
 };
 
-export const getStatusDataThunk = (userId: string) => (dispatch: any) => {
-  getProfileStatus(userId).then((data) => {
-    dispatch(getStatus(data));
-  });
+export const getStatusDataThunk = (userId: string) => async (dispatch: any) => {
+  const data = await getProfileStatus(userId);
+  dispatch(getStatus(data));
 };
 
-export const updateStatusDataThunk = (text: string) => (dispatch: any) => {
-  updateProfileStatus(text).then(() => {
+export const updateStatusDataThunk =
+  (text: string) => async (dispatch: any) => {
+    await updateProfileStatus(text);
     dispatch(updateStatus(text));
-  });
-};
+  };

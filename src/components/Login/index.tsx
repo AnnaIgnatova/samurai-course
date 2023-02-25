@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { maxLength, required } from "../../utils/validators";
-import { FormInput } from "../Form/Field";
+import { FormInput } from "../UI/Form/Field";
 import styles from "./style.module.css";
 
 export interface LoginFormData {
@@ -15,7 +15,7 @@ export interface LoginFormData {
 
 const maxLength30 = maxLength(30);
 
-export const Login: React.FC<any> = ({ loginUserThunk, isAuth }) => {
+export const Login: React.FC<any> = ({ loginUserThunk }) => {
   const navigate = useNavigate();
   const handleSubmit = (values: any) => {
     loginUserThunk(values);

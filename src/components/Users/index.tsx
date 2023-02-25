@@ -2,7 +2,7 @@ import { UsersPageData } from "../../interfaces";
 import styles from "./style.module.css";
 import imgUrl from "./../../assets/avatar.png";
 import React from "react";
-import { Loader } from "../Loader";
+import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
 
