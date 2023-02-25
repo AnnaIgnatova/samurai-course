@@ -5,6 +5,7 @@ const CREATE_POST = "CREATE-POST";
 const SET_PROFILE_DATA = "SET_PROFILE_DATA";
 const GET_STATUS = "GET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 export const sendPost = (data: string) => ({ type: CREATE_POST, data });
 
@@ -21,6 +22,11 @@ export const getStatus = (data: string) => ({
 export const updateStatus = (data: string) => ({
   type: UPDATE_STATUS,
   data,
+});
+
+export const deletePost = (id: number) => ({
+  type: DELETE_POST,
+  data: id,
 });
 
 export const initialState = {
@@ -103,6 +109,12 @@ export const profileReducer = (
       return {
         ...state,
         status: data,
+      };
+    }
+    case DELETE_POST: {
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== data),
       };
     }
     default:

@@ -1,4 +1,8 @@
-import { profileReducer, sendPost } from "../reducers/ProfileReducer";
+import {
+  deletePost,
+  profileReducer,
+  sendPost,
+} from "../reducers/ProfileReducer";
 
 const initialState = {
   posts: [
@@ -48,7 +52,19 @@ const initialState = {
 };
 
 test("add post on profile page", () => {
-  const action = sendPost("new text")
-  const newState = profileReducer(initialState,action);
+  const action = sendPost("new text");
+  const newState = profileReducer(initialState, action);
   expect(newState.posts.length).toBe(6);
+});
+
+test("check new post text", () => {
+  const action = sendPost("new text");
+  const newState = profileReducer(initialState, action);
+  expect(newState.posts[5].text).toBe("new text");
+});
+
+test("delete post", () => {
+  const action = deletePost(1);
+  const newState = profileReducer(initialState, action);
+  expect(newState.posts.length).toBe(4);
 });
