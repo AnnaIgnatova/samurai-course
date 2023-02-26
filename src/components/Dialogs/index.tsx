@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { DialogsPageData } from "../../interfaces";
 import { maxLength, required } from "../../utils/validators";
-import { FormTextarea } from "../Form/Field";
+import { FormTextarea } from "../UI/Form/Field";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";

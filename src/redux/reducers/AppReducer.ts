@@ -13,7 +13,7 @@ export const initialState = {
 
 export const appReducer = (
   state: AppData = initialState,
-  { type, data }: Action
+  { type }: Action
 ) => {
   switch (type) {
     case INITIALIZE_APP: {
@@ -28,9 +28,7 @@ export const appReducer = (
   }
 };
 
-export const initializeAppThunk = () => (dispatch: any) => {
-  const promise = dispatch(authUserThunk());
-  Promise.all([promise]).then(() => {
-    dispatch(initializeApp());
-  });
+export const initializeAppThunk = () => async (dispatch: any) => {
+  await dispatch(authUserThunk());
+  dispatch(initializeApp());
 };

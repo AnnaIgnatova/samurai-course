@@ -1,4 +1,4 @@
-import loaderURL from "../../assets/loader.gif";
+import loaderURL from "../../../assets/loader.gif";
 import styles from "./style.module.css";
 
 export const Loader: React.FC = () => {

@@ -59,28 +59,25 @@ export const authReducer = (
 };
 
 export const authUserThunk = () => async (dispatch: any) => {
-  return authProfile().then((data) => {
-    if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
-  });
+  const data = await authProfile();
+  if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
 };
 
-export const loginUserThunk = (data: any) => (dispatch: any) => {
+export const loginUserThunk = (data: any) => async (dispatch: any) => {
   const { email, password, rememberMe } = data;
-  loginUser(email, password, rememberMe).then((res) => {
-    if (!res.resultCode) {
-      dispatch(authUserThunk());
-    } else {
-      dispatch(
-        stopSubmit("login", {
-          _error: res.messages ? res.messages[0] : "Some error",
-        })
-      );
-    }
-  });
+  const { resultCode, messages } = await loginUser(email, password, rememberMe);
+  if (!resultCode) {
+    dispatch(authUserThunk());
+  } else {
+    dispatch(
+      stopSubmit("login", {
+        _error: messages ? messages[0] : "Some error",
+      })
+    );
+  }
 };
 
-export const logoutUserThunk = () => (dispatch: any) => {
-  logoutUser().then((res: any) => {
-    if (!res.resultCode) dispatch(logoutUserAC());
-  });
+export const logoutUserThunk = () => async (dispatch: any) => {
+  const { resultCode }: any = await logoutUser();
+  if (!resultCode) dispatch(logoutUserAC());
 };

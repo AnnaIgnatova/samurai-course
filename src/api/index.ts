@@ -15,37 +15,45 @@ export const axiosInstance = axios.create({
 });
 
 export const getUsers = async (page = 1) => {
-  return axiosInstance.get(`users?page=${page}`).then(({ data }) => data);
+  const { data } = await axiosInstance.get(`users?page=${page}`);
+  return data;
 };
 
 export const getUserData = async (id: string) => {
-  return axiosInstance.get(`profile/${id}`).then(({ data }) => data);
+  const { data } = await axiosInstance.get(`profile/${id}`);
+  return data;
 };
 
 export const authProfile = async () => {
-  return axiosInstance.get(`auth/me`).then(({ data }) => data);
+  const { data } = await axiosInstance.get(`auth/me`);
+  return data;
 };
 
 export const logoutUser = async () => {
-  return axiosInstance.delete(`/auth/login`).then((res) => res);
+  const res = await axiosInstance.delete(`/auth/login`);
+  return res;
 };
 
 export const unfollowUserAPI = async (id: number) => {
-  return axiosInstance.delete(`follow/${id}`).then(({ data }) => data);
+  const { data } = await axiosInstance.delete(`follow/${id}`);
+  return data;
 };
 
 export const followUserAPI = async (id: number) => {
-  return axiosInstance.post(`follow/${id}`).then(({ data }) => data);
+  const { data } = await axiosInstance.post(`follow/${id}`);
+  return data;
 };
 
 export const getProfileStatus = async (id: string) => {
-  return axiosInstance.get(`/profile/status/${id}`).then(({ data }) => data);
+  const { data } = await axiosInstance.get(`/profile/status/${id}`);
+  return data;
 };
 
 export const updateProfileStatus = async (text: string) => {
-  return axiosInstance
-    .put(`/profile/status`, { status: text })
-    .then(({ statusText }) => statusText);
+  const { statusText } = await axiosInstance.put(`/profile/status`, {
+    status: text,
+  });
+  return statusText;
 };
 
 export const loginUser = async (
@@ -53,13 +61,10 @@ export const loginUser = async (
   password: string,
   rememberMe = false
 ) => {
-  return axiosInstance
-    .post("auth/login", {
-      email: email,
-      password: password,
-      rememberMe: rememberMe,
-    })
-    .then((res) => {
-      return res.data;
-    });
+  const { data } = await axiosInstance.post("auth/login", {
+    email: email,
+    password: password,
+    rememberMe: rememberMe,
+  });
+  return data;
 };

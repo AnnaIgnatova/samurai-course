@@ -113,27 +113,24 @@ export const usersReducer = (
   }
 };
 
-export const getUsersThunk = (page?: number) => (dispatch: any) => {
+export const getUsersThunk = (page?: number) => async (dispatch: any) => {
   dispatch(setFetchingData(true));
-  getUsers(page).then((data) => {
-    dispatch(setFetchingData(false));
-    dispatch(setUsers(data.items));
-    dispatch(setCurrentPage(page));
-  });
+  const data = await getUsers(page);
+  dispatch(setFetchingData(false));
+  dispatch(setUsers(data.items));
+  dispatch(setCurrentPage(page));
 };
 
-export const followUserThunk = (id: number) => (dispatch: any) => {
+export const followUserThunk = (id: number) => async (dispatch: any) => {
   dispatch(setUserFollowed(id, true));
-  followUserAPI(id).then(() => {
-    dispatch(followUser(id));
-    dispatch(setUserFollowed(id, false));
-  });
+  await followUserAPI(id);
+  dispatch(followUser(id));
+  dispatch(setUserFollowed(id, false));
 };
 
-export const unfollowUserThunk = (id: number) => (dispatch: any) => {
+export const unfollowUserThunk = (id: number) => async (dispatch: any) => {
   dispatch(setUserFollowed(id, true));
-  unfollowUserAPI(id).then(() => {
-    dispatch(unfollowUser(id));
-    dispatch(setUserFollowed(id, false));
-  });
+  await unfollowUserAPI(id);
+  dispatch(unfollowUser(id));
+  dispatch(setUserFollowed(id, false));
 };
