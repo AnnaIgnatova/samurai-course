@@ -8,6 +8,8 @@ import { Pagination } from "./Pagination";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
+  totalCount,
+  pageCount,
   handlePage,
   unfollowUserThunk,
   followUserThunk,
@@ -50,7 +52,12 @@ export const Users: React.FC<UsersPageData> = ({
           ))}
         </>
       )}
-      <Pagination currentPage={currentPage} handlePage={handlePage} />
+      <Pagination
+        currentPage={currentPage}
+        handlePage={handlePage}
+        totalCount={totalCount}
+        pageCount={pageCount}
+      />
     </div>
   );
 };
