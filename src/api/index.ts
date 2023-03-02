@@ -71,3 +71,10 @@ export const loginUser = async (
   });
   return data;
 };
+
+export const saveProfilePhoto = async (file: any) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  const { data } = await axiosInstance.put("profile/photo", formData);
+  return data.data;
+};

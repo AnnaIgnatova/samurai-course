@@ -1,4 +1,9 @@
-import { getProfileStatus, getUserData, updateProfileStatus } from "../../api";
+import {
+  getProfileStatus,
+  getUserData,
+  updateProfileStatus,
+  saveProfilePhoto,
+} from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
@@ -6,6 +11,7 @@ const SET_PROFILE_DATA = "SET_PROFILE_DATA";
 const GET_STATUS = "GET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
 const DELETE_POST = "DELETE_POST";
+const SAVE_PROFILE_PHOTO = "SAVE_PROFILE_PHOTO";
 
 export const sendPost = (data: string) => ({ type: CREATE_POST, data });
 
@@ -27,6 +33,11 @@ export const updateStatus = (data: string) => ({
 export const deletePost = (id: number) => ({
   type: DELETE_POST,
   data: id,
+});
+
+export const savePhoto = (file: any) => ({
+  type: SAVE_PROFILE_PHOTO,
+  data: file,
 });
 
 export const initialState = {
@@ -117,6 +128,12 @@ export const profileReducer = (
         posts: state.posts.filter((post) => post.id !== data),
       };
     }
+    case SAVE_PROFILE_PHOTO: {
+      return {
+        ...state,
+        profileData: { ...state.profileData, photos: data },
+      };
+    }
     default:
       return state;
   }
@@ -137,3 +154,8 @@ export const updateStatusDataThunk =
     await updateProfileStatus(text);
     dispatch(updateStatus(text));
   };
+
+export const saveProfilePhotoThunk = (file: any) => async (dispatch: any) => {
+  const data = await saveProfilePhoto(file);
+  dispatch(savePhoto(data.photos));
+};
