@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 export interface AxiosInstanceData extends AxiosInstance {
   headers: {
-    API_URL: string;
+    "API-KEY": string;
   };
 }
 // TODO: add objects for api methods
@@ -12,6 +12,9 @@ export const BASE_URL = "https://social-network.samuraijs.com/api/1.0/";
 export const axiosInstance = axios.create({
   withCredentials: true,
   baseURL: BASE_URL,
+  headers: {
+    "API-KEY": "ae9800ba-d90a-49f1-a797-c5735dd50fe8",
+  },
 });
 
 export const getUsers = async (page = 1) => {

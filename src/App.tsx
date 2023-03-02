@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Music } from "./components/Music";
 import { News } from "./components/News";
 import { Settings } from "./components/Settings";
@@ -27,6 +27,7 @@ const App: React.FC<any> = () => {
       <div className="content">
         <Suspense fallback={<Loader />}>
           <Routes>
+            <Route path="/" element={<Navigate to="/profile/27789" />} />
             <Route path="/profile/:id" element={<ProfileContainer />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
