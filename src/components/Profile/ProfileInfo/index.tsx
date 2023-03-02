@@ -7,7 +7,9 @@ import { Status } from "../Status";
 export const ProfileInfo: React.FC<ProfileAPIData> = ({
   profileData,
   status,
+  ownProfile,
   updateStatusDataThunk,
+  saveProfilePhotoThunk,
 }) => {
   const {
     photos,
@@ -17,11 +19,19 @@ export const ProfileInfo: React.FC<ProfileAPIData> = ({
     contacts,
   } = profileData;
 
+  const changePhoto = (e: any) => {
+    const { target } = e;
+    target.files[0] && saveProfilePhotoThunk(target.files[0]);
+  };
+
   return (
     <>
       <img src={profileBg} alt="user-bg" className={styles["profile-img"]} />
       <div className={styles["user-info"]}>
-        <img src={photos.small ? photos.small : userImg} alt={fullName} />
+        <div>
+          <img src={photos.small ? photos.small : userImg} alt={fullName} />
+          {ownProfile && <input type="file" onChange={changePhoto} />}
+        </div>
         <div className={styles["details-container"]}>
           <Status text={status} updateStatus={updateStatusDataThunk} />
           <span className={styles["user-details"]}>{fullName}</span>

@@ -11,17 +11,26 @@ import {
 import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
 import { compose } from "redux";
+import { saveProfilePhotoThunk } from "../../redux/reducers/ProfileReducer";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id = "27789" } = useParams();
-  return <ProfileAPIContainer {...props} userId={id || "27789"} />;
+  return (
+    <ProfileAPIContainer
+      {...props}
+      userId={id || "27789"}
+      ownProfile={id === "27789"}
+    />
+  );
 };
 
 const ProfileAPIContainer: React.FC<ProfileAPIData> = (props) => {
+  const { userId } = props;
+
   useEffect(() => {
     props.getUserDataThunk(props.userId);
     props.getStatusDataThunk(props.userId);
-  }, []);
+  }, [userId]);
 
   return <>{props.profileData ? <Profile {...props} /> : <Loader />}</>;
 };
@@ -39,5 +48,6 @@ export default compose(
     getUserDataThunk,
     getStatusDataThunk,
     updateStatusDataThunk,
+    saveProfilePhotoThunk,
   })
 )(ProfileWithRouterContainer);
