@@ -46,6 +46,7 @@ export const ProfileInfo: React.FC<ProfileAPIData> = ({
             inst: {contacts.instagram}
           </span>
           <span className={styles["user-details"]}>yt: {contacts.youtube}</span>
+          <button>edit data</button>
         </div>
       </div>
     </>
