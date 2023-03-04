@@ -4,14 +4,22 @@ import userImg from "./../../../assets/avatar.png";
 import profileBg from "./../../../assets/bg-profile.jpg";
 
 import { UserDetails } from "../UserDetails";
+import { ProfileInfoForm, ProfileInfoFormContainer } from "../ProfileInfoForm";
+import React from "react";
 
 export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
   const { profileData, ownProfile, saveProfilePhotoThunk } = props;
   const { photos, fullName } = profileData;
+  const [isEditMode, setEditMode] = React.useState(false);
 
   const changePhoto = (e: any) => {
     const { target } = e;
     target.files[0] && saveProfilePhotoThunk(target.files[0]);
+  };
+
+  const toggleEditMode = () => {
+    console.log("edit");
+    setEditMode(!isEditMode);
   };
 
   return (
@@ -22,7 +30,14 @@ export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
           <img src={photos.small ? photos.small : userImg} alt={fullName} />
           {ownProfile && <input type="file" onChange={changePhoto} />}
         </div>
-        <UserDetails {...props} />
+        {!isEditMode ? (
+          <UserDetails {...props} toggleEditMode={toggleEditMode} />
+        ) : (
+          <ProfileInfoFormContainer
+            profile={profileData}
+            toggleEditMode={toggleEditMode}
+          />
+        )}
       </div>
     </>
   );

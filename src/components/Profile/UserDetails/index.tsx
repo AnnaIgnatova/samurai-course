@@ -7,6 +7,7 @@ export const UserDetails: React.FC<ProfileAPIData> = ({
   status,
   updateStatusDataThunk,
   profileData,
+  toggleEditMode,
 }) => {
   const { lookingForAJob, lookingForAJobDescription, fullName, contacts } =
     profileData;
@@ -23,7 +24,7 @@ export const UserDetails: React.FC<ProfileAPIData> = ({
       <span className={styles["user-details"]}>vk: {contacts.vk}</span>
       <span className={styles["user-details"]}>inst: {contacts.instagram}</span>
       <span className={styles["user-details"]}>yt: {contacts.youtube}</span>
-      <button>edit data</button>
+      <button onClick={toggleEditMode}>edit data</button>
     </div>
   );
 };
