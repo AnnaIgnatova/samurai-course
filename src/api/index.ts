@@ -18,45 +18,77 @@ export const axiosInstance = axios.create({
 });
 
 export const getUsers = async (page = 1) => {
-  const { data } = await axiosInstance.get(`users?page=${page}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.get(`users?page=${page}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getUserData = async (id: string) => {
-  const { data } = await axiosInstance.get(`profile/${id}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.get(`profile/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const authProfile = async () => {
-  const { data } = await axiosInstance.get(`auth/me`);
-  return data;
+  try {
+    const { data } = await axiosInstance.get(`auth/me`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const logoutUser = async () => {
-  const res = await axiosInstance.delete(`/auth/login`);
-  return res;
+  try {
+    const res = await axiosInstance.delete(`/auth/login`);
+    return res;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const unfollowUserAPI = async (id: number) => {
-  const { data } = await axiosInstance.delete(`follow/${id}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.delete(`follow/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const followUserAPI = async (id: number) => {
-  const { data } = await axiosInstance.post(`follow/${id}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.post(`follow/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getProfileStatus = async (id: string) => {
-  const { data } = await axiosInstance.get(`/profile/status/${id}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.get(`/profile/status/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const updateProfileStatus = async (text: string) => {
-  const { statusText } = await axiosInstance.put(`/profile/status`, {
-    status: text,
-  });
-  return statusText;
+  try {
+    const { statusText } = await axiosInstance.put(`/profile/status`, {
+      status: text,
+    });
+    return statusText;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const loginUser = async (
@@ -65,28 +97,44 @@ export const loginUser = async (
   rememberMe = false,
   captcha: string
 ) => {
-  const { data } = await axiosInstance.post("auth/login", {
-    email: email,
-    password: password,
-    rememberMe: rememberMe,
-    captcha: captcha
-  });
-  return data;
+  try {
+    const { data } = await axiosInstance.post("auth/login", {
+      email: email,
+      password: password,
+      rememberMe: rememberMe,
+      captcha: captcha,
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const saveProfilePhoto = async (file: any) => {
   const formData = new FormData();
   formData.append("image", file);
-  const { data } = await axiosInstance.put("profile/photo", formData);
-  return data.data;
+  try {
+    const { data } = await axiosInstance.put("profile/photo", formData);
+    return data.data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const saveProfileInfo = async (info: any) => {
-  const { data } = await axiosInstance.put("profile", { ...info });
-  return data;
+  try {
+    const { data } = await axiosInstance.put("profile", { ...info });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getCaptchaImage = async () => {
-  const { data } = await axiosInstance.get("/security/get-captcha-url");
-  return data;
+  try {
+    const { data } = await axiosInstance.get("/security/get-captcha-url");
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
