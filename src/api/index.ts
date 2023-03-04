@@ -78,3 +78,8 @@ export const saveProfilePhoto = async (file: any) => {
   const { data } = await axiosInstance.put("profile/photo", formData);
   return data.data;
 };
+
+export const saveProfileInfo = async (info: any) => {
+  const { data } = await axiosInstance.put("profile", { ...info });
+  return data;
+};

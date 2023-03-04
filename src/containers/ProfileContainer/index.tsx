@@ -12,6 +12,7 @@ import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
 import { compose } from "redux";
 import { saveProfilePhotoThunk } from "../../redux/reducers/ProfileReducer";
+import { saveProfileInfoThunk } from "../../redux/reducers/ProfileReducer";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id = "27789" } = useParams();
@@ -49,5 +50,6 @@ export default compose(
     getStatusDataThunk,
     updateStatusDataThunk,
     saveProfilePhotoThunk,
+    saveProfileInfoThunk,
   })
 )(ProfileWithRouterContainer);

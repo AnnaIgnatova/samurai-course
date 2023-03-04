@@ -120,11 +120,13 @@ export interface ProfileRouteData extends ProfileData {
   getStatusDataThunk: any;
   updateStatusDataThunk: any;
   saveProfilePhotoThunk: any;
+  saveProfileInfoThunk: any;
   isAuth: boolean;
 }
 export interface ProfileAPIData extends ProfileRouteData {
   userId: string;
   ownProfile?: boolean;
+  toggleEditMode: any;
 }
 
 export interface UserAuthData {

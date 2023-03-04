@@ -8,7 +8,12 @@ import { ProfileInfoForm, ProfileInfoFormContainer } from "../ProfileInfoForm";
 import React from "react";
 
 export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
-  const { profileData, ownProfile, saveProfilePhotoThunk } = props;
+  const {
+    profileData,
+    ownProfile,
+    saveProfilePhotoThunk,
+    saveProfileInfoThunk,
+  } = props;
   const { photos, fullName } = profileData;
   const [isEditMode, setEditMode] = React.useState(false);
 
@@ -17,9 +22,8 @@ export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
     target.files[0] && saveProfilePhotoThunk(target.files[0]);
   };
 
-  const toggleEditMode = () => {
-    console.log("edit");
-    setEditMode(!isEditMode);
+  const modeOffEditMode = (values: any) => {
+    saveProfileInfoThunk(values).then((res) => !res && setEditMode(false));
   };
 
   return (
@@ -31,11 +35,11 @@ export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
           {ownProfile && <input type="file" onChange={changePhoto} />}
         </div>
         {!isEditMode ? (
-          <UserDetails {...props} toggleEditMode={toggleEditMode} />
+          <UserDetails {...props} toggleEditMode={() => setEditMode(true)} />
         ) : (
           <ProfileInfoFormContainer
             profile={profileData}
-            toggleEditMode={toggleEditMode}
+            toggleEditMode={modeOffEditMode}
           />
         )}
       </div>
