@@ -1,8 +1,10 @@
+import { stopSubmit } from "redux-form";
 import {
   getProfileStatus,
   getUserData,
   updateProfileStatus,
   saveProfilePhoto,
+  saveProfileInfo,
 } from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
@@ -159,3 +161,18 @@ export const saveProfilePhotoThunk = (file: any) => async (dispatch: any) => {
   const data = await saveProfilePhoto(file);
   dispatch(savePhoto(data.photos));
 };
+
+export const saveProfileInfoThunk =
+  (info: any) => async (dispatch: any, getState: any) => {
+    const userId = getState().profilePage.profileData.userId;
+    const data = await saveProfileInfo(info);
+    if (!data.resultCode) dispatch(getUserDataThunk(userId));
+    else {
+      dispatch(
+        stopSubmit("profileInfo", {
+          _error: data.messages ? data.messages[0] : "Some error",
+        })
+      );
+    }
+    return data.resultCode;
+  };

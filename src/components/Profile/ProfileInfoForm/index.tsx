@@ -1,16 +1,23 @@
 import { Field, reduxForm } from "redux-form";
-import { maxLength, required } from "../../../utils/validators";
 import { FormInput } from "../../UI/Form/Field";
-
-const maxLength30 = maxLength(30);
 
 export const ProfileInfoFormContainer: React.FC<any> = ({
   profile,
   toggleEditMode,
 }) => {
-  return <ProfileInfoReduxForm onSubmit={toggleEditMode} profile={profile} />;
+  return (
+    <ProfileInfoReduxForm
+      onSubmit={toggleEditMode}
+      initialValues={profile}
+      profile={profile}
+    />
+  );
 };
-export const ProfileInfoForm: React.FC<any> = ({ profile, handleSubmit }) => {
+export const ProfileInfoForm: React.FC<any> = ({
+  profile,
+  handleSubmit,
+  error,
+}) => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -19,18 +26,21 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, handleSubmit }) => {
           name="fullName"
           component={FormInput}
           type="text"
-          validate={[required, maxLength30]}
           placeholder="Type Full name"
         />
       </label>
       <label>
-        Is looking for a job
+        About me
         <Field
-          name="lookingForAJob"
+          name="aboutMe"
           component={FormInput}
-          type="checkbox"
-          validate={[required]}
+          type="text"
+          placeholder="About me"
         />
+      </label>
+      <label>
+        Is looking for a job
+        <Field name="lookingForAJob" component={FormInput} type="checkbox" />
       </label>
       <label>
         Looking for a job description
@@ -38,22 +48,21 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, handleSubmit }) => {
           name="lookingForAJobDescription"
           component={FormInput}
           type="text"
-          validate={[required]}
           placeholder="Description"
         />
       </label>
-      {profile.contacts.map((contact) => (
+      {Object.entries(profile.contacts).map(([key, val]) => (
         <label>
-          {contact}
+          {key}
           <Field
-            name={contact}
+            name={key}
             component={FormInput}
             type="text"
-            validate={[required]}
-            placeholder={contact}
+            placeholder={key}
           />
         </label>
       ))}
+      {error && <span>{error}</span>}
       <button type="submit">Save</button>
     </form>
   );

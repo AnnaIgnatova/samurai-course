@@ -9,21 +9,33 @@ export const UserDetails: React.FC<ProfileAPIData> = ({
   profileData,
   toggleEditMode,
 }) => {
-  const { lookingForAJob, lookingForAJobDescription, fullName, contacts } =
-    profileData;
+  const {
+    lookingForAJob,
+    lookingForAJobDescription,
+    fullName,
+    contacts,
+    aboutMe,
+  } = profileData;
   return (
     <div className={styles["details-container"]}>
       <Status text={status} updateStatus={updateStatusDataThunk} />
-      <span className={styles["user-details"]}>{fullName}</span>
+      <span className={styles["user-details"]}>name: {fullName}</span>
+      <span className={styles["user-details"]}>about me: {aboutMe}</span>
       <span className={styles["user-details"]}>
         looking for a job: {lookingForAJob ? "yes" : "no"}
       </span>
       <span className={styles["user-details"]}>
-        {lookingForAJobDescription}
+        looking for a job description: {lookingForAJobDescription}
       </span>
-      <span className={styles["user-details"]}>vk: {contacts.vk}</span>
-      <span className={styles["user-details"]}>inst: {contacts.instagram}</span>
-      <span className={styles["user-details"]}>yt: {contacts.youtube}</span>
+      {Object.entries(contacts).map(([key, value]) => (
+        <>
+          {value && (
+            <span className={styles["user-details"]}>
+              {key}: {value}
+            </span>
+          )}
+        </>
+      ))}
       <button onClick={toggleEditMode}>edit data</button>
     </div>
   );
