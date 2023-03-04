@@ -15,14 +15,15 @@ export interface LoginFormData {
 
 const maxLength30 = maxLength(30);
 
-export const Login: React.FC<any> = ({ loginUserThunk }) => {
+export const Login: React.FC<any> = ({ loginUserThunk, captcha }) => {
   const navigate = useNavigate();
   const handleSubmit = (values: any) => {
+    console.log(values);
     loginUserThunk(values);
-    navigate("/profile/27789");
+    // navigate("/profile/27789");
   };
 
-  return <LoginReduxForm onSubmit={handleSubmit} />;
+  return <LoginReduxForm onSubmit={handleSubmit} captcha={captcha} />;
 };
 
 let LoginForm: React.FC<LoginFormData> = ({
@@ -30,6 +31,7 @@ let LoginForm: React.FC<LoginFormData> = ({
   error,
   pristine,
   submitting,
+  captcha,
 }) => {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -63,6 +65,19 @@ let LoginForm: React.FC<LoginFormData> = ({
         />
         <label htmlFor="rememberMe">remember me</label>
       </div>
+      {captcha && (
+        <>
+          <img src={captcha} alt="captcha" />
+          <Field
+            name="captcha"
+            component="input"
+            type="text"
+            className={styles["form-input"]}
+            validate={[required]}
+            placeholder="type antibot symbols"
+          />
+        </>
+      )}
       {error && <span className={styles["errors-message"]}>{error}</span>}
       <button type="submit" disabled={pristine || submitting}>
         Log in

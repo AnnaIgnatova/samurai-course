@@ -137,6 +137,7 @@ export interface UserAuthData {
 
 export interface AuthData extends UserAuthData {
   isAuth: boolean;
+  captcha: null | string;
 }
 
 export interface HeaderContainerData extends AuthData {

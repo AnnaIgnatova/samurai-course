@@ -62,12 +62,14 @@ export const updateProfileStatus = async (text: string) => {
 export const loginUser = async (
   email: string,
   password: string,
-  rememberMe = false
+  rememberMe = false,
+  captcha: string
 ) => {
   const { data } = await axiosInstance.post("auth/login", {
     email: email,
     password: password,
     rememberMe: rememberMe,
+    captcha: captcha
   });
   return data;
 };
@@ -81,5 +83,10 @@ export const saveProfilePhoto = async (file: any) => {
 
 export const saveProfileInfo = async (info: any) => {
   const { data } = await axiosInstance.put("profile", { ...info });
+  return data;
+};
+
+export const getCaptchaImage = async () => {
+  const { data } = await axiosInstance.get("/security/get-captcha-url");
   return data;
 };
