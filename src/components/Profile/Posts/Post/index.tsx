@@ -3,12 +3,12 @@ import styles from "./style.module.css";
 import userAvatarUrl from "../../../../assets/user-avatar.png";
 import likeUrl from "../../../../assets/like.png";
 
-export const Post: React.FC<PostData> = ({ message, likes }) => {
+export const Post: React.FC<any> = ({ message, likes, profileData }) => {
   return (
     <div className={styles.post}>
       <div className={styles["user-info"]}>
-        <img src={userAvatarUrl} alt="avatar" />
-        <span>User name</span>
+        <img src={profileData.photos.large} alt="avatar" />
+        <span>{profileData.fullName}</span>
       </div>
       <div className={styles.content}>{message}</div>
       <div className={styles.statistic}>

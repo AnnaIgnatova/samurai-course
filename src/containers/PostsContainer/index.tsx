@@ -5,6 +5,7 @@ import { sendPost } from "../../redux/reducers/ProfileReducer";
 
 const mapStateToProps = (state: StateData) => ({
   posts: state.profilePage.posts,
+  profileData: state.profilePage.profileData,
 });
 
 export const PostsContainer = connect(mapStateToProps, {

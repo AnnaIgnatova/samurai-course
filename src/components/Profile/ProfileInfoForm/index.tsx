@@ -68,6 +68,6 @@ export const ProfileInfoForm: React.FC<any> = ({
   );
 };
 
-let ProfileInfoReduxForm = reduxForm({
+let ProfileInfoReduxForm: any = reduxForm({
   form: "profileInfo",
 })(ProfileInfoForm);

@@ -4,7 +4,7 @@ import userImg from "./../../../assets/avatar.png";
 import profileBg from "./../../../assets/bg-profile.jpg";
 
 import { UserDetails } from "../UserDetails";
-import { ProfileInfoForm, ProfileInfoFormContainer } from "../ProfileInfoForm";
+import { ProfileInfoFormContainer } from "../ProfileInfoForm";
 import React from "react";
 
 export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
@@ -23,7 +23,7 @@ export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
   };
 
   const modeOffEditMode = (values: any) => {
-    saveProfileInfoThunk(values).then((res) => !res && setEditMode(false));
+    saveProfileInfoThunk(values).then((res: any) => !res && setEditMode(false));
   };
 
   return (

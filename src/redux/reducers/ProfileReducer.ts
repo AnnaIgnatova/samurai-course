@@ -90,7 +90,7 @@ export const initialState = {
 };
 
 export const profileReducer = (
-  state: ProfileData = initialState,
+  state: any = initialState,
   { type, data }: Action
 ) => {
   switch (type) {
@@ -127,7 +127,7 @@ export const profileReducer = (
     case DELETE_POST: {
       return {
         ...state,
-        posts: state.posts.filter((post) => post.id !== data),
+        posts: state.posts.filter((post: any) => post.id !== data),
       };
     }
     case SAVE_PROFILE_PHOTO: {

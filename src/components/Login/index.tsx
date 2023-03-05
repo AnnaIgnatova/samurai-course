@@ -11,6 +11,7 @@ export interface LoginFormData {
   error: any;
   pristine: boolean;
   submitting: boolean;
+  captcha: string;
 }
 
 const maxLength30 = maxLength(30);
@@ -26,7 +27,7 @@ export const Login: React.FC<any> = ({ loginUserThunk, captcha }) => {
   return <LoginReduxForm onSubmit={handleSubmit} captcha={captcha} />;
 };
 
-let LoginForm: React.FC<LoginFormData> = ({
+let LoginForm: React.FC<any> = ({
   handleSubmit,
   error,
   pristine,
@@ -86,6 +87,6 @@ let LoginForm: React.FC<LoginFormData> = ({
   );
 };
 
-let LoginReduxForm = reduxForm({
+let LoginReduxForm: any = reduxForm({
   form: "login",
 })(LoginForm);
