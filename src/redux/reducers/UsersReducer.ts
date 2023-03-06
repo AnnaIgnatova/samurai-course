@@ -1,4 +1,4 @@
-import { followUserAPI, getUsers, unfollowUserAPI } from "../../api";
+import { UsersAPI } from "../../api";
 import { Action, UserData, UsersData } from "../../interfaces";
 
 const FOLLOW = "FOLLOW";
@@ -115,7 +115,7 @@ export const usersReducer = (
 
 export const getUsersThunk = (page?: number) => async (dispatch: any) => {
   dispatch(setFetchingData(true));
-  const data = await getUsers(page);
+  const data = await UsersAPI.getUsers(page);
   dispatch(setFetchingData(false));
   dispatch(setUsers(data.items));
   dispatch(setTotalUsersCount(data.totalCount));
@@ -124,14 +124,14 @@ export const getUsersThunk = (page?: number) => async (dispatch: any) => {
 
 export const followUserThunk = (id: number) => async (dispatch: any) => {
   dispatch(setUserFollowed(id, true));
-  await followUserAPI(id);
+  await UsersAPI.followUserAPI(id);
   dispatch(followUser(id));
   dispatch(setUserFollowed(id, false));
 };
 
 export const unfollowUserThunk = (id: number) => async (dispatch: any) => {
   dispatch(setUserFollowed(id, true));
-  await unfollowUserAPI(id);
+  await UsersAPI.unfollowUserAPI(id);
   dispatch(unfollowUser(id));
   dispatch(setUserFollowed(id, false));
 };

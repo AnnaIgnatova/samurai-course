@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { authProfile, getCaptchaImage, loginUser, logoutUser } from "../../api";
+import { AuthAPI } from "../../api";
 import { Action, AuthData, UserAuthData } from "../../interfaces";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
@@ -72,13 +72,13 @@ export const authReducer = (
 };
 
 export const authUserThunk = () => async (dispatch: any) => {
-  const data = await authProfile();
+  const data = await AuthAPI.authProfile();
   if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
 };
 
 export const loginUserThunk = (data: any) => async (dispatch: any) => {
   const { email, password, rememberMe, captcha } = data;
-  const { resultCode, messages } = await loginUser(
+  const { resultCode, messages } = await AuthAPI.loginUser(
     email,
     password,
     rememberMe,
@@ -99,11 +99,11 @@ export const loginUserThunk = (data: any) => async (dispatch: any) => {
 };
 
 export const logoutUserThunk = () => async (dispatch: any) => {
-  const { resultCode }: any = await logoutUser();
+  const { resultCode }: any = await AuthAPI.logoutUser();
   if (!resultCode) dispatch(logoutUserAC());
 };
 
 export const getCaptchaThunk = () => async (dispatch: any) => {
-  const { url } = await getCaptchaImage();
+  const { url } = await AuthAPI.getCaptchaImage();
   dispatch(getCaptchaAC(url));
 };

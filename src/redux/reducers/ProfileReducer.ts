@@ -1,11 +1,5 @@
 import { stopSubmit } from "redux-form";
-import {
-  getProfileStatus,
-  getUserData,
-  updateProfileStatus,
-  saveProfilePhoto,
-  saveProfileInfo,
-} from "../../api";
+import { ProfileAPI, UsersAPI } from "../../api";
 import { Action, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
@@ -142,30 +136,30 @@ export const profileReducer = (
 };
 
 export const getUserDataThunk = (userId: string) => async (dispatch: any) => {
-  const data = await getUserData(userId);
+  const data = await UsersAPI.getUserData(userId);
   dispatch(setProfileData(data));
 };
 
 export const getStatusDataThunk = (userId: string) => async (dispatch: any) => {
-  const data = await getProfileStatus(userId);
+  const data = await ProfileAPI.getProfileStatus(userId);
   dispatch(getStatus(data));
 };
 
 export const updateStatusDataThunk =
   (text: string) => async (dispatch: any) => {
-    await updateProfileStatus(text);
+    await ProfileAPI.updateProfileStatus(text);
     dispatch(updateStatus(text));
   };
 
 export const saveProfilePhotoThunk = (file: any) => async (dispatch: any) => {
-  const data = await saveProfilePhoto(file);
+  const data = await ProfileAPI.saveProfilePhoto(file);
   dispatch(savePhoto(data.photos));
 };
 
 export const saveProfileInfoThunk =
   (info: any) => async (dispatch: any, getState: any) => {
     const userId = getState().profilePage.profileData.userId;
-    const data = await saveProfileInfo(info);
+    const data = await ProfileAPI.saveProfileInfo(info);
     if (!data.resultCode) dispatch(getUserDataThunk(userId));
     else {
       dispatch(
