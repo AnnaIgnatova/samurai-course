@@ -32,7 +32,7 @@ export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
   };
 
   return (
-    <div>
+    <div className={styles["status-container"]}>
       {!editMode && <span onDoubleClick={handleStatusMode}>{text}</span>}
       {editMode && (
         <input

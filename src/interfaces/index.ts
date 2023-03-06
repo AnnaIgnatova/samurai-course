@@ -53,6 +53,7 @@ export interface ProfileUserData {
     small: string;
     large: string;
   };
+  aboutMe: string;
 }
 
 export interface ProfileData {

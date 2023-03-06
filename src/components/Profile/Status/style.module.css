@@ -1,0 +1,11 @@
+.status-container {
+  color: #000000;
+  opacity: 0.6;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.status-container > input {
+  padding: 10px;
+}

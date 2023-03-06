@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { ProfileAPIData, ProfileRouteData, StateData } from "../../interfaces";
+import { ProfileRouteData, StateData } from "../../interfaces";
 import React, { useEffect } from "react";
 import { Profile } from "../../components/Profile";
 import {
@@ -7,12 +7,12 @@ import {
   getUserDataThunk,
   sendPost,
   updateStatusDataThunk,
+  saveProfileInfoThunk,
+  saveProfilePhotoThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
 import { compose } from "redux";
-import { saveProfilePhotoThunk } from "../../redux/reducers/ProfileReducer";
-import { saveProfileInfoThunk } from "../../redux/reducers/ProfileReducer";
 
 const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   const { id = "27789" } = useParams();
@@ -25,7 +25,7 @@ const ProfileWithRouterContainer: React.FC<ProfileRouteData> = (props) => {
   );
 };
 
-const ProfileAPIContainer: React.FC<ProfileAPIData> = (props) => {
+const ProfileAPIContainer: React.FC<any> = (props) => {
   const { userId } = props;
 
   useEffect(() => {
