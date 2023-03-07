@@ -17,11 +17,16 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
     return (
       <div className={styles["posts-container"]}>
         <div className={styles["create-post"]}>
-          <PostReduxForm onSubmit={sendPostData} />
+          <PostReduxForm onSubmit={sendPostData} profileData={profileData} />
         </div>
         <div>
           {posts.map(({ id, text, likes }) => (
-            <Post key={id} message={text} likes={likes} profileData={profileData}/>
+            <Post
+              key={id}
+              message={text}
+              likes={likes}
+              profileData={profileData}
+            />
           ))}
         </div>
       </div>
@@ -29,21 +34,24 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
   }
 );
 
-const PostForm: React.FC<any> = ({ handleSubmit }) => {
+const PostForm: React.FC<any> = ({ handleSubmit, profileData }) => {
   return (
     <div className={styles["posts-container"]}>
       <form onSubmit={handleSubmit} className={styles["create-post"]}>
-        <Field
-          type="text"
-          component={FormTextarea}
-          name="post"
-          placeholder="type post text"
-          validate={[required, maxLength100]}
-        />
-        <button>Add post</button>
+        <div>
+          <img src={profileData.photos.large} alt="avatar" />
+          <Field
+            type="text"
+            component={FormTextarea}
+            name="post"
+            placeholder="What’s happening"
+            validate={[required, maxLength100]}
+          />
+        </div>
+        <button>Share</button>
       </form>
     </div>
   );
 };
 
-const PostReduxForm = reduxForm({ form: "post" })(PostForm);
+const PostReduxForm: any = reduxForm({ form: "post" })(PostForm);
