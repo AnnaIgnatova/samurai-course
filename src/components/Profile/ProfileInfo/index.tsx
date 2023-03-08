@@ -28,7 +28,7 @@ export const ProfileInfo: React.FC<ProfileAPIData> = (props) => {
 
   return (
     <>
-      <img src={profileBg} alt="user-bg" className={styles["profile-img"]} />
+      <div className={styles["profile-bg"]} />
       <div className={styles["user-info"]}>
         <div>
           <img src={photos.small ? photos.small : userImg} alt={fullName} />

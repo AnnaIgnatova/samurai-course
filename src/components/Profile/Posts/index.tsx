@@ -20,13 +20,8 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
           <PostReduxForm onSubmit={sendPostData} profileData={profileData} />
         </div>
         <div>
-          {posts.map(({ id, text, likes }) => (
-            <Post
-              key={id}
-              message={text}
-              likes={likes}
-              profileData={profileData}
-            />
+          {posts.map(({ id, text, ...data }) => (
+            <Post key={id} message={text} profileData={profileData} {...data} />
           ))}
         </div>
       </div>
