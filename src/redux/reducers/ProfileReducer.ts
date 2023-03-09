@@ -8,6 +8,8 @@ const GET_STATUS = "GET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
 const DELETE_POST = "DELETE_POST";
 const SAVE_PROFILE_PHOTO = "SAVE_PROFILE_PHOTO";
+const LIKE_POST = "LIKE_POST";
+const REMOVE_LIKE = "REMOVE_LIKE";
 
 export const sendPost = (data: string) => ({ type: CREATE_POST, data });
 
@@ -36,6 +38,16 @@ export const savePhoto = (file: any) => ({
   data: file,
 });
 
+export const likePost = (id: number) => ({
+  type: LIKE_POST,
+  data: id,
+});
+
+export const removeLike = (id: number) => ({
+  type: REMOVE_LIKE,
+  data: id,
+});
+
 export const initialState = {
   posts: [
     {
@@ -44,7 +56,7 @@ export const initialState = {
       likes: 1,
       shares: 2,
       comments: 4,
-      //   postDate: new Date(),
+      postDate: new Date().toLocaleString(),
       pinned: false,
     },
     {
@@ -53,7 +65,7 @@ export const initialState = {
       likes: 3,
       shares: 3,
       comments: 5,
-      //   postDate: new Date(),
+      postDate: new Date().toLocaleString(),
       pinned: true,
     },
     {
@@ -62,7 +74,7 @@ export const initialState = {
       likes: 4,
       shares: 5,
       comments: 4,
-      //   postDate: new Date(),
+      postDate: new Date().toLocaleString(),
       pinned: false,
     },
     {
@@ -71,7 +83,7 @@ export const initialState = {
       likes: 5,
       shares: 2,
       comments: 2,
-      //   postDate: new Date(),
+      postDate: new Date().toLocaleString(),
       pinned: true,
     },
     {
@@ -80,7 +92,7 @@ export const initialState = {
       likes: 1,
       shares: 3,
       comments: 3,
-      //  postDate: new Date(),
+      postDate: new Date().toLocaleString(),
       pinned: false,
     },
   ],
@@ -148,6 +160,27 @@ export const profileReducer = (
       return {
         ...state,
         profileData: { ...state.profileData, photos: data },
+      };
+    }
+    case LIKE_POST: {
+      console.log("like", data);
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map((post: any) =>
+            post.id === data ? { ...post, likes: post.likes + 1 } : post
+          ),
+        ],
+      };
+    }
+    case REMOVE_LIKE: {
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map((post: any) =>
+            post.id === data ? { ...post, likes: post.likes - 1 } : post
+          ),
+        ],
       };
     }
     default:
