@@ -57,9 +57,26 @@
   line-height: 27px;
 }
 
+.user-info > span:nth-child(2) {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  opacity: 0.6;
+  margin-left: 10px;
+}
+
+.user-info > span:nth-child(2)::before {
+  content: "·";
+  margin-right: 10px;
+}
+
 .content {
   margin-bottom: 30px;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
+}
+
+.statistic.liked > span {
+  color: #ef1c5c;
 }

@@ -128,6 +128,8 @@ export interface ProfileAPIData extends ProfileRouteData {
   userId: string;
   ownProfile?: boolean;
   toggleEditMode: any;
+  removeLike: any;
+  likePost: any;
 }
 
 export interface UserAuthData {

@@ -9,7 +9,7 @@ import styles from "./style.module.css";
 const maxLength100 = maxLength(100);
 
 export const Posts: React.FC<ProfileAPIData> = React.memo(
-  ({ posts, sendPost, profileData }) => {
+  ({ posts, sendPost, profileData, likePost, removeLike }) => {
     const sendPostData = (data: any) => {
       sendPost(data.post);
     };
@@ -21,7 +21,15 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
         </div>
         <div>
           {posts.map(({ id, text, ...data }) => (
-            <Post key={id} message={text} profileData={profileData} {...data} />
+            <Post
+              key={id}
+              id={id}
+              message={text}
+              profileData={profileData}
+              likePost={likePost}
+              removeLike={removeLike}
+              {...data}
+            />
           ))}
         </div>
       </div>
