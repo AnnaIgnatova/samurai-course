@@ -5,6 +5,8 @@ import likeUrl from "../../../../assets/like.svg";
 import activeLike from "../../../../assets/activeLike.svg";
 import commentUrl from "../../../../assets/comment.svg";
 import shareUrl from "../../../../assets/share.svg";
+import pinUrl from "../../../../assets/pin.svg";
+import pinnedUrl from "../../../../assets/pinned.svg";
 import React from "react";
 
 export const Post: React.FC<any> = (props) => {
@@ -18,6 +20,7 @@ export const Post: React.FC<any> = (props) => {
     postDate,
     likePost,
     removeLike,
+    pinPost,
     id,
   } = props;
   const [isLiked, setLiked] = React.useState<boolean>(false);
@@ -29,7 +32,7 @@ export const Post: React.FC<any> = (props) => {
   };
   return (
     <div className={styles.post}>
-      <img src={profileData.photos.large} alt="avatar" />
+      <img src={profileData.photos.large || userAvatarUrl} alt="avatar" />
       <div className={styles["post-content"]}>
         <div className={styles["user-info"]}>
           <span>{profileData.fullName}</span>
@@ -42,9 +45,7 @@ export const Post: React.FC<any> = (props) => {
         </div>
         <span className={styles.content}>{message}</span>
         <div className={styles["post-navbar"]}>
-          <div
-            className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}
-          >
+          <div className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}>
             <img
               src={isLiked ? activeLike : likeUrl}
               alt="like"
@@ -59,6 +60,13 @@ export const Post: React.FC<any> = (props) => {
           <div className={styles.statistic}>
             <img src={shareUrl} alt="share" />
             <span>{shares}</span>
+          </div>
+          <div className={styles.statistic}>
+            <img
+              src={pinned ? pinnedUrl : pinUrl}
+              alt="pin"
+              onClick={() => pinPost(id)}
+            />
           </div>
         </div>
       </div>

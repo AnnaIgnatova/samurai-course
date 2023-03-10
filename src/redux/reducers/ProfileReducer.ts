@@ -10,6 +10,7 @@ const DELETE_POST = "DELETE_POST";
 const SAVE_PROFILE_PHOTO = "SAVE_PROFILE_PHOTO";
 const LIKE_POST = "LIKE_POST";
 const REMOVE_LIKE = "REMOVE_LIKE";
+const PINNED_POST = "PINNED_POST";
 
 export const sendPost = (data: string) => ({ type: CREATE_POST, data });
 
@@ -45,6 +46,11 @@ export const likePost = (id: number) => ({
 
 export const removeLike = (id: number) => ({
   type: REMOVE_LIKE,
+  data: id,
+});
+
+export const pinPost = (id: number) => ({
+  type: PINNED_POST,
   data: id,
 });
 
@@ -179,6 +185,16 @@ export const profileReducer = (
         posts: [
           ...state.posts.map((post: any) =>
             post.id === data ? { ...post, likes: post.likes - 1 } : post
+          ),
+        ],
+      };
+    }
+    case PINNED_POST: {
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map((post: any) =>
+            post.id === data ? { ...post, pinned: !post.pinned } : post
           ),
         ],
       };
