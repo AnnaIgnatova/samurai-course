@@ -9,10 +9,11 @@ import styles from "./style.module.css";
 const maxLength100 = maxLength(100);
 
 export const Posts: React.FC<ProfileAPIData> = React.memo(
-  ({ posts, sendPost, profileData, likePost, removeLike }) => {
+  ({ posts, sendPost, profileData, likePost, removeLike, pinPost }) => {
     const sendPostData = (data: any) => {
       sendPost(data.post);
     };
+    // console.log([...posts.sort((a, b) => b.pinned - a.pinned)]);
 
     return (
       <div className={styles["posts-container"]}>
@@ -28,6 +29,7 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
               profileData={profileData}
               likePost={likePost}
               removeLike={removeLike}
+              pinPost={pinPost}
               {...data}
             />
           ))}

@@ -18,6 +18,7 @@ export interface Post {
   id: number;
   text: string;
   likes: number;
+  pinned: boolean;
 }
 
 export interface NavbarData {
@@ -130,6 +131,7 @@ export interface ProfileAPIData extends ProfileRouteData {
   toggleEditMode: any;
   removeLike: any;
   likePost: any;
+  pinPost: any;
 }
 
 export interface UserAuthData {
