@@ -5,6 +5,7 @@ import { Settings } from "./components/Settings";
 import "./App.css";
 import { NavbarContainer } from "./containers/NavbarContainer";
 import UsersContainer from "./containers/UsersContainer";
+import SettingsContainer from './containers/SettingsContainer';
 import { AuthContainer } from "./containers/AuthContainer";
 import { LoginContainer } from "./containers/LoginContainer";
 import { Suspense } from "react";
@@ -32,7 +33,7 @@ const App: React.FC<any> = () => {
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<SettingsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/login" element={<LoginContainer />} />
           </Routes>
