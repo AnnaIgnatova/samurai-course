@@ -36,7 +36,6 @@ export const UserDetails: React.FC<ProfileAPIData> = ({
           )}
         </>
       ))}
-      <button onClick={toggleEditMode}>edit data</button>
     </div>
   );
 };

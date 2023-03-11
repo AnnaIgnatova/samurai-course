@@ -63,7 +63,7 @@ export const initialState = {
       shares: 2,
       comments: 4,
       postDate: new Date().toLocaleString(),
-      pinned: false,
+      pinned: true,
     },
     {
       id: 2,
@@ -90,7 +90,7 @@ export const initialState = {
       shares: 2,
       comments: 2,
       postDate: new Date().toLocaleString(),
-      pinned: true,
+      pinned: false,
     },
     {
       id: 5,
@@ -196,7 +196,7 @@ export const profileReducer = (
           ...state.posts.map((post: any) =>
             post.id === data ? { ...post, pinned: !post.pinned } : post
           ),
-        ],
+        ].sort((post) => (post.pinned ? -1 : 1)),
       };
     }
     default:
