@@ -13,7 +13,7 @@ export const Posts: React.FC<ProfileAPIData> = React.memo(
     const sendPostData = (data: any) => {
       sendPost(data.post);
     };
-    // console.log([...posts.sort((a, b) => b.pinned - a.pinned)]);
+  
 
     return (
       <div className={styles["posts-container"]}>
