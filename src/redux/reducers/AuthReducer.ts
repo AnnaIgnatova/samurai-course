@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { AuthAPI } from "../../api";
-import { Action, AuthData, UserAuthData } from "../../interfaces";
+import { Action, AuthData, LoginData, UserAuthData } from "../../interfaces";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
 const LOGIN_USER = "LOGIN_USER";
@@ -76,7 +76,7 @@ export const authUserThunk = () => async (dispatch: any) => {
   if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
 };
 
-export const loginUserThunk = (data: any) => async (dispatch: any) => {
+export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
   const { email, password, rememberMe, captcha } = data;
   const { resultCode, messages } = await AuthAPI.loginUser(
     email,
