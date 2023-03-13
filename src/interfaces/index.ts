@@ -18,7 +18,10 @@ export interface Post {
   id: number;
   text: string;
   likes: number;
+  shares: number;
+  comments: number;
   pinned: boolean;
+  postDate: string;
 }
 
 export interface NavbarData {
@@ -40,27 +43,27 @@ export interface DialogsData {
 }
 
 export interface ProfileUserData {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
+  userId: number | null;
+  lookingForAJob: boolean | null;
+  lookingForAJobDescription: string | null;
+  fullName: string | null;
   contacts: {
-    github: string;
-    vk: string;
-    instagram: string;
-    youtube: string;
+    github: string | null;
+    vk: string | null;
+    instagram: string | null;
+    youtube: string | null;
   };
   photos: {
-    small: string;
-    large: string;
+    small: string | null;
+    large: string | null;
   };
-  aboutMe: string;
+  aboutMe: string | null;
 }
 
 export interface ProfileData {
   posts: Post[];
   profileData: ProfileUserData;
-  status: string;
+  status: string | null;
 }
 
 export interface DialogsPageData {
@@ -151,4 +154,11 @@ export interface HeaderContainerData extends AuthData {
 
 export interface AppData {
   isInitialized: boolean;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
 }

@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { ProfileAPI, UsersAPI } from "../../api";
-import { Action, ProfileData, ProfileUserData } from "../../interfaces";
+import { Action, Post, ProfileData, ProfileUserData } from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
 const SET_PROFILE_DATA = "SET_PROFILE_DATA";
@@ -34,7 +34,7 @@ export const deletePost = (id: number) => ({
   data: id,
 });
 
-export const savePhoto = (file: any) => ({
+export const savePhoto = (file: File) => ({
   type: SAVE_PROFILE_PHOTO,
   data: file,
 });
@@ -54,7 +54,7 @@ export const pinPost = (id: number) => ({
   data: id,
 });
 
-export const initialState = {
+export const initialState: ProfileData = {
   posts: [
     {
       id: 1,
@@ -103,26 +103,27 @@ export const initialState = {
     },
   ],
   profileData: {
-    userId: 27789,
-    lookingForAJob: false,
-    lookingForAJobDescription: "",
-    fullName: "",
+    userId: null,
+    aboutMe: null,
+    lookingForAJob: null,
+    lookingForAJobDescription: null,
+    fullName: null,
     contacts: {
-      github: "",
-      vk: "",
-      instagram: "",
-      youtube: "",
+      github: null,
+      vk: null,
+      instagram: null,
+      youtube: null,
     },
     photos: {
-      small: "",
-      large: "",
+      small: null,
+      large: null,
     },
   },
-  status: "",
+  status: null,
 };
 
 export const profileReducer = (
-  state: any = initialState,
+  state: ProfileData = initialState,
   { type, data }: Action
 ) => {
   switch (type) {
@@ -159,7 +160,7 @@ export const profileReducer = (
     case DELETE_POST: {
       return {
         ...state,
-        posts: state.posts.filter((post: any) => post.id !== data),
+        posts: state.posts.filter((post: Post) => post.id !== data),
       };
     }
     case SAVE_PROFILE_PHOTO: {
@@ -173,7 +174,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: any) =>
+          ...state.posts.map((post: Post) =>
             post.id === data ? { ...post, likes: post.likes + 1 } : post
           ),
         ],
@@ -183,7 +184,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: any) =>
+          ...state.posts.map((post: Post) =>
             post.id === data ? { ...post, likes: post.likes - 1 } : post
           ),
         ],
@@ -193,7 +194,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: any) =>
+          ...state.posts.map((post: Post) =>
             post.id === data ? { ...post, pinned: !post.pinned } : post
           ),
         ].sort((post) => (post.pinned ? -1 : 1)),
@@ -220,13 +221,13 @@ export const updateStatusDataThunk =
     dispatch(updateStatus(text));
   };
 
-export const saveProfilePhotoThunk = (file: any) => async (dispatch: any) => {
+export const saveProfilePhotoThunk = (file: File) => async (dispatch: any) => {
   const data = await ProfileAPI.saveProfilePhoto(file);
   dispatch(savePhoto(data.photos));
 };
 
 export const saveProfileInfoThunk =
-  (info: any) => async (dispatch: any, getState: any) => {
+  (info: ProfileUserData) => async (dispatch: any, getState: any) => {
     const userId = getState().profilePage.profileData.userId;
     const data = await ProfileAPI.saveProfileInfo(info);
     if (!data.resultCode) dispatch(getUserDataThunk(userId));
