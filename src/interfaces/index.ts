@@ -43,7 +43,7 @@ export interface DialogsData {
 }
 
 export interface ProfileUserData {
-  userId: number | null;
+  userId: string;
   lookingForAJob: boolean | null;
   lookingForAJobDescription: string | null;
   fullName: string | null;
@@ -74,7 +74,10 @@ export interface DialogsPageData {
 
 export interface ProfileComponentData extends ProfileData {
   sendPost: (text: string) => void;
+  userId: string;
+  ownProfile: boolean;
   getUserDataThunk: any;
+  getStatusDataThunk: any;
 }
 
 export interface StoreData {

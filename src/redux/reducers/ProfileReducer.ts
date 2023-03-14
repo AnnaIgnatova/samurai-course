@@ -1,6 +1,12 @@
 import { stopSubmit } from "redux-form";
 import { ProfileAPI, UsersAPI } from "../../api";
-import { Action, Post, ProfileData, ProfileUserData } from "../../interfaces";
+import {
+  Action,
+  Post,
+  ProfileData,
+  ProfileUserData,
+  StateData,
+} from "../../interfaces";
 
 const CREATE_POST = "CREATE-POST";
 const SET_PROFILE_DATA = "SET_PROFILE_DATA";
@@ -103,7 +109,7 @@ export const initialState: ProfileData = {
     },
   ],
   profileData: {
-    userId: null,
+    userId: "",
     aboutMe: null,
     lookingForAJob: null,
     lookingForAJobDescription: null,
@@ -227,7 +233,8 @@ export const saveProfilePhotoThunk = (file: File) => async (dispatch: any) => {
 };
 
 export const saveProfileInfoThunk =
-  (info: ProfileUserData) => async (dispatch: any, getState: any) => {
+  (info: ProfileUserData) =>
+  async (dispatch: any, getState: () => StateData) => {
     const userId = getState().profilePage.profileData.userId;
     const data = await ProfileAPI.saveProfileInfo(info);
     if (!data.resultCode) dispatch(getUserDataThunk(userId));

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { StateData } from "../../interfaces";
+import { ProfileComponentData, StateData } from "../../interfaces";
 import React from "react";
 import {
   getUserDataThunk,
@@ -9,7 +9,7 @@ import { Loader } from "../../components/UI/Loader";
 import { compose } from "redux";
 import { Settings } from "../../components/Settings";
 
-const SettingsContainer: React.FC<any> = (props) => {
+const SettingsContainer: React.FC<ProfileComponentData> = (props) => {
   return <>{props.profileData ? <Settings {...props} /> : <Loader />}</>;
 };
 
