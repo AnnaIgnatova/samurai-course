@@ -5,7 +5,6 @@ export interface AxiosInstanceData extends AxiosInstance {
     "API-KEY": string;
   };
 }
-// TODO: add objects for api methods
 
 export const BASE_URL = "https://social-network.samuraijs.com/api/1.0/";
 
