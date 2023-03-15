@@ -3,17 +3,17 @@ import { useParams } from "react-router";
 import styles from "./style.module.css";
 
 export interface StatusData {
-  text: string;
+  text: string | null;
   updateStatus: any;
 }
 
 export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
   const { id } = useParams();
-  const [statusText, setStatusText] = useState<string>(text);
+  const [statusText, setStatusText] = useState<string>(text || "");
   const [editMode, setEditMode] = useState<boolean>(false);
 
   React.useEffect(() => {
-    if (text !== statusText) setStatusText(text);
+    if (text !== statusText) setStatusText(text || "");
   }, [text]);
 
   const handleStatusMode = () => {

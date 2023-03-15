@@ -1,13 +1,18 @@
 import React from "react";
-import { ProfileAPIData } from "../../../interfaces";
+import { ProfileAPIData, ProfileUserData } from "../../../interfaces";
 import { Status } from "../Status";
 import styles from "./style.module.css";
 
-export const UserDetails: React.FC<ProfileAPIData> = ({
+export interface UserDetailsData {
+  status: string;
+  updateStatusDataThunk: any;
+  profileData: ProfileUserData;
+}
+
+export const UserDetails: React.FC<UserDetailsData> = ({
   status,
   updateStatusDataThunk,
   profileData,
-  toggleEditMode,
 }) => {
   const {
     lookingForAJob,
