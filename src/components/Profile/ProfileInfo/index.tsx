@@ -1,17 +1,8 @@
 import React from "react";
-
-import { ProfileUserData } from "../../../interfaces";
+import { ProfileInfoData } from "..";
 import { UserDetails } from "../UserDetails";
 import userImg from "./../../../assets/avatar.png";
 import styles from "./style.module.css";
-
-export interface ProfileInfoData {
-  profileData: ProfileUserData;
-  ownProfile?: boolean;
-  saveProfilePhotoThunk: any;
-  status: string;
-  updateStatusDataThunk: any;
-}
 
 export const ProfileInfo: React.FC<ProfileInfoData> = (props) => {
   const { profileData, ownProfile, saveProfilePhotoThunk } = props;
