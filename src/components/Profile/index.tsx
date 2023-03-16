@@ -1,8 +1,26 @@
 import { PostsContainer } from "../../containers/PostsContainer";
-import { ProfileAPIData, ProfileComponentData } from "../../interfaces";
+import { ProfileApiContainerData } from "../../containers/ProfileContainer";
+import { Post, ProfileUserData } from "../../interfaces";
 import { ProfileInfo } from "./ProfileInfo";
 
-export const Profile: React.FC<ProfileComponentData> = (props) => {
+export interface ProfileInfoData extends ProfileApiContainerData {
+  profileData: ProfileUserData;
+  saveProfilePhotoThunk: any;
+  status: string;
+  updateStatusDataThunk: any;
+}
+
+export interface PostsData extends ProfileInfoData {
+  posts: Post[];
+  sendPost: (post: string) => void;
+  likePost: (id: number) => void;
+  removeLike: (id: number) => void;
+  pinPost: (id: number) => void;
+}
+
+type ProfileType = ProfileInfoData & PostsData;
+
+export const Profile: React.FC<ProfileType> = (props) => {
   return (
     <>
       <ProfileInfo {...props} />

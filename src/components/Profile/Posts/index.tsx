@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { ProfileAPIData } from "../../../interfaces";
+import { PostsData } from "..";
+import { Post as PostType } from "../../../interfaces";
 import { maxLength, required } from "../../../utils/validators";
 import { FormTextarea } from "../../UI/Form/Field";
 import { Post } from "./Post";
@@ -8,12 +9,11 @@ import styles from "./style.module.css";
 
 const maxLength100 = maxLength(100);
 
-export const Posts: React.FC<ProfileAPIData> = React.memo(
+export const Posts: React.FC<PostsData> = React.memo(
   ({ posts, sendPost, profileData, likePost, removeLike, pinPost }) => {
-    const sendPostData = (data: any) => {
+    const sendPostData = (data: { post: string }) => {
       sendPost(data.post);
     };
-  
 
     return (
       <div className={styles["posts-container"]}>

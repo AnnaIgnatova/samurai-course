@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import {
+  Post,
   ProfileAPIData,
   ProfileComponentData,
   ProfileRouteData,
@@ -39,14 +40,18 @@ const ProfileWithRouterContainer: React.FC<ProfileWithRouteContainerData> = (
 };
 
 export interface ProfileWithRouteContainerData {
+  status: string;
+  posts: Post[];
+  profileData: ProfileUserData;
   getUserDataThunk: any;
   getStatusDataThunk: any;
-  profileData: ProfileUserData;
+  sendPost: any;
+  updateStatusDataThunk: any;
+  saveProfilePhotoThunk: any;
+  saveProfileInfoThunk: any;
 }
 
-const ProfileAPIContainer: React.FC<ProfileApiContainerData> = (
-  props
-) => {
+const ProfileAPIContainer: React.FC<ProfileApiContainerData> = (props) => {
   const { userId } = props;
 
   useEffect(() => {
