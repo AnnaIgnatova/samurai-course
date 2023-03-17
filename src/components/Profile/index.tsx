@@ -6,7 +6,8 @@ import { ProfileInfo } from "./ProfileInfo";
 export interface ProfileInfoData extends ProfileApiContainerData {
   profileData: ProfileUserData;
   saveProfilePhotoThunk: any;
-  status: string;
+  status: string | null;
+  isAuth: boolean;
   updateStatusDataThunk: any;
 }
 
@@ -18,7 +19,7 @@ export interface PostsData extends ProfileInfoData {
   pinPost: (id: number) => void;
 }
 
-type ProfileType = ProfileInfoData & PostsData;
+type ProfileType = ProfileInfoData;
 
 export const Profile: React.FC<ProfileType> = (props) => {
   return (
