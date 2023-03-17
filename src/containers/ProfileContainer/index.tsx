@@ -1,14 +1,7 @@
-import { connect } from "react-redux";
-import {
-  Post,
-  ProfileAPIData,
-  ProfileComponentData,
-  ProfileRouteData,
-  ProfileUserData,
-  StateData,
-} from "../../interfaces";
-import React, { useEffect } from "react";
-import { Profile } from "../../components/Profile";
+import { connect } from 'react-redux';
+import { Post, ProfileUserData, StateData } from '../../interfaces';
+import React, { useEffect } from 'react';
+import { Profile } from '../../components/Profile';
 import {
   getStatusDataThunk,
   getUserDataThunk,
@@ -16,10 +9,9 @@ import {
   updateStatusDataThunk,
   saveProfileInfoThunk,
   saveProfilePhotoThunk,
-} from "../../redux/reducers/ProfileReducer";
-import { Loader } from "../../components/UI/Loader";
-import { useParams } from "react-router";
-import { compose } from "redux";
+} from '../../redux/reducers/ProfileReducer';
+import { Loader } from '../../components/UI/Loader';
+import { useParams } from 'react-router';
 
 export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
   userId: string;
@@ -29,19 +21,20 @@ export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
 const ProfileWithRouterContainer: React.FC<ProfileWithRouteContainerData> = (
   props
 ) => {
-  const { id = "27789" } = useParams();
+  const { id = '27789' } = useParams();
   return (
     <ProfileAPIContainer
       {...props}
-      userId={id || "27789"}
-      ownProfile={id === "27789"}
+      userId={id || '27789'}
+      ownProfile={id === '27789'}
     />
   );
 };
 
 export interface ProfileWithRouteContainerData {
-  status: string;
+  status: string | null;
   posts: Post[];
+  isAuth: boolean;
   profileData: ProfileUserData;
   getUserDataThunk: any;
   getStatusDataThunk: any;
@@ -69,13 +62,11 @@ const mapStateToProps = (state: StateData) => ({
   status: state.profilePage.status,
 });
 
-export default compose(
-  connect(mapStateToProps, {
-    sendPost,
-    getUserDataThunk,
-    getStatusDataThunk,
-    updateStatusDataThunk,
-    saveProfilePhotoThunk,
-    saveProfileInfoThunk,
-  })
-)(ProfileWithRouterContainer);
+export default connect(mapStateToProps, {
+  sendPost,
+  getUserDataThunk,
+  getStatusDataThunk,
+  updateStatusDataThunk,
+  saveProfilePhotoThunk,
+  saveProfileInfoThunk,
+})(ProfileWithRouterContainer);
