@@ -1,14 +1,11 @@
 import { AppData } from '../../interfaces';
+import {
+  AppReducerActionsType,
+  initializeAppActionCreatorType,
+} from '../types';
 import { authUserThunk } from './AuthReducer';
 
-const INITIALIZE_APP = 'INITIALIZE_APP';
-
-export type initializeAppActionType = { type: typeof INITIALIZE_APP };
-export type initializeAppActionCreatorType = () => {
-  type: typeof INITIALIZE_APP;
-};
-
-export type AppReducerActionsType = initializeAppActionType;
+export const INITIALIZE_APP = 'INITIALIZE_APP';
 
 export const initializeApp: initializeAppActionCreatorType = () => ({
   type: INITIALIZE_APP,

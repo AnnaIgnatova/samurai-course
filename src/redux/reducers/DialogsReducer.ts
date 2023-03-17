@@ -1,47 +1,51 @@
-import { Action, DialogsData } from "../../interfaces";
+import { Action, DialogsData } from '../../interfaces';
+import { SendMessageActionCreatorType } from '../types';
 
-const SEND_MESSAGE = "SEND-MESSAGE";
+export const SEND_MESSAGE = 'SEND-MESSAGE';
 
-export const sendMessage = (data: string) => ({ type: SEND_MESSAGE, data });
+export const sendMessage: SendMessageActionCreatorType = (data: string) => ({
+  type: SEND_MESSAGE,
+  data,
+});
 
 export const initialState = {
   dialogs: [
     {
       id: 1,
-      name: "Anna",
+      name: 'Anna',
     },
     {
       id: 2,
-      name: "Sasha",
+      name: 'Sasha',
     },
     {
       id: 3,
-      name: "Olya",
+      name: 'Olya',
     },
     {
       id: 4,
-      name: "Misha",
+      name: 'Misha',
     },
     {
       id: 5,
-      name: "Dima",
+      name: 'Dima',
     },
   ],
   messages: [
     {
       id: 1,
-      text: "Hi",
-      from: "me",
+      text: 'Hi',
+      from: 'me',
     },
     {
       id: 2,
-      text: "Good morning",
-      from: "them",
+      text: 'Good morning',
+      from: 'them',
     },
     {
       id: 3,
-      text: "How are you",
-      from: "me",
+      text: 'How are you',
+      from: 'me',
     },
   ],
 };
@@ -55,12 +59,12 @@ export const dialogsReducer = (
       const message = {
         id: state.messages[state.messages.length - 1].id + 1,
         text: data,
-        from: "me",
+        from: 'me',
       };
       return {
         ...state,
         messages: [...state.messages, message],
-        newMessage: "",
+        newMessage: '',
       };
     }
     default:
