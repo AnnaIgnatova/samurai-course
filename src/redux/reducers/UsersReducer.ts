@@ -1,45 +1,63 @@
-import { UsersAPI } from "../../api";
-import { Action, UserData, UsersData } from "../../interfaces";
+import { UsersAPI } from '../../api';
+import { Action, UserData, UsersData } from '../../interfaces';
+import {
+  FollowUserActionCreatorType,
+  SetCurrentPageActionCreatorType,
+  SetFetchingDataActionCreatorType,
+  SetTotalUsersCountActionCreatorType,
+  SetUserFollowedActionCreatorType,
+  SetUsersActionCreatorType,
+  UnfollowUserActionCreatorType,
+} from '../types';
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-const SET_FETCHING_USERS = "SET_FETCHING_USERS";
-const SET_USER_FOLLOWED = "SET_USER_FOLLOWED";
+export const FOLLOW = 'FOLLOW';
+export const UNFOLLOW = 'UNFOLLOW';
+export const SET_USERS = 'SET_USERS';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+export const SET_FETCHING_USERS = 'SET_FETCHING_USERS';
+export const SET_USER_FOLLOWED = 'SET_USER_FOLLOWED';
 
-export const followUser = (id: number) => ({
+export const followUser: FollowUserActionCreatorType = (id: number) => ({
   type: FOLLOW,
   data: id,
 });
 
-export const unfollowUser = (id: number) => ({
+export const unfollowUser: UnfollowUserActionCreatorType = (id: number) => ({
   type: UNFOLLOW,
   data: id,
 });
 
-export const setUsers = (users: UserData[]) => ({
+export const setUsers: SetUsersActionCreatorType = (users: UserData[]) => ({
   type: SET_USERS,
   data: users,
 });
 
-export const setCurrentPage = (page?: number) => ({
+export const setCurrentPage: SetCurrentPageActionCreatorType = (
+  page?: number
+) => ({
   type: SET_CURRENT_PAGE,
   data: page || 1,
 });
 
-export const setTotalUsersCount = (count: number) => ({
+export const setTotalUsersCount: SetTotalUsersCountActionCreatorType = (
+  count: number
+) => ({
   type: SET_TOTAL_USERS_COUNT,
   data: count,
 });
 
-export const setFetchingData = (isFetchind: boolean) => ({
+export const setFetchingData: SetFetchingDataActionCreatorType = (
+  isFetchind: boolean
+) => ({
   type: SET_FETCHING_USERS,
   data: isFetchind,
 });
 
-export const setUserFollowed = (id: number, isFetching: boolean) => ({
+export const setUserFollowed: SetUserFollowedActionCreatorType = (
+  id: number,
+  isFetching: boolean
+) => ({
   type: SET_USER_FOLLOWED,
   data: { id, isFetching },
 });

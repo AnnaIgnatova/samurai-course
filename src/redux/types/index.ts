@@ -1,4 +1,4 @@
-import { ProfileUserData, UserAuthData } from '../../interfaces';
+import { ProfileUserData, UserAuthData, UserData } from '../../interfaces';
 import { INITIALIZE_APP } from '../reducers/AppReducer';
 import {
   GET_CAPTCHA_URL,
@@ -18,6 +18,15 @@ import {
   SET_PROFILE_DATA,
   UPDATE_STATUS,
 } from '../reducers/ProfileReducer';
+import {
+  FOLLOW,
+  SET_CURRENT_PAGE,
+  SET_FETCHING_USERS,
+  SET_TOTAL_USERS_COUNT,
+  SET_USERS,
+  SET_USER_FOLLOWED,
+  UNFOLLOW,
+} from '../reducers/UsersReducer';
 
 /* types for app reducer */
 
@@ -121,3 +130,61 @@ export type RemoveLikeActionCreatorType = (id: number) => RemoveLikeActionType;
 export type PinPostActionType = { type: typeof PINNED_POST; data: number };
 
 export type PinPostActionCreatorType = (id: number) => PinPostActionType;
+
+/* types for users reducer */
+
+export type FollowUserActionType = { type: typeof FOLLOW; data: number };
+
+export type FollowUserActionCreatorType = (id: number) => FollowUserActionType;
+
+export type UnfollowUserActionType = { type: typeof UNFOLLOW; data: number };
+
+export type UnfollowUserActionCreatorType = (
+  id: number
+) => UnfollowUserActionType;
+
+export type SetUsersActionType = {
+  type: typeof SET_USERS;
+  data: UserData[];
+};
+
+export type SetUsersActionCreatorType = (
+  users: UserData[]
+) => SetUsersActionType;
+
+export type SetCurrentPageActionType = {
+  type: typeof SET_CURRENT_PAGE;
+  data?: number;
+};
+
+export type SetCurrentPageActionCreatorType = (
+  page?: number
+) => SetCurrentPageActionType;
+
+export type SetTotalUsersCountActionType = {
+  type: typeof SET_TOTAL_USERS_COUNT;
+  data: number;
+};
+
+export type SetTotalUsersCountActionCreatorType = (
+  count: number
+) => SetTotalUsersCountActionType;
+
+export type SetFetchingDataActionType = {
+  type: typeof SET_FETCHING_USERS;
+  data: boolean;
+};
+
+export type SetFetchingDataActionCreatorType = (
+  isFetchind: boolean
+) => SetFetchingDataActionType;
+
+export type SetUserFollowedActionType = {
+  type: typeof SET_USER_FOLLOWED;
+  data: { id: number; isFetching: boolean };
+};
+
+export type SetUserFollowedActionCreatorType = (
+  id: number,
+  isFetching: boolean
+) => SetUserFollowedActionType;
