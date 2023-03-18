@@ -1,47 +1,55 @@
-import { stopSubmit } from "redux-form";
-import { AuthAPI } from "../../api";
-import { Action, AuthData, LoginData, UserAuthData } from "../../interfaces";
+import { stopSubmit } from 'redux-form';
+import { AuthAPI } from '../../api';
+import { AuthData, LoginData, UserAuthData } from '../../interfaces';
+import {
+  AuthReducerActionsType,
+  AuthUserActionCreatorType,
+  GetCaptchaActionCreatorType,
+  LoginUserActionCreatorType,
+  LogoutUserActionCreatorType,
+} from '../types';
 
-const SET_AUTH_DATA = "SET_AUTH_DATA";
-const LOGIN_USER = "LOGIN_USER";
-const LOGOUT_USER = "LOGOUT_USER";
-const GET_CAPTCHA_URL = "GET_CAPTCHA_URL";
+export const SET_AUTH_DATA = 'SET_AUTH_DATA';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const GET_CAPTCHA_URL = 'GET_CAPTCHA_URL';
 
-export const authUser = (data: UserAuthData) => ({
+export const authUser: AuthUserActionCreatorType = (data: UserAuthData) => ({
   type: SET_AUTH_DATA,
   data,
 });
 
-export const loginUserAC = () => ({
+export const loginUserAC: LoginUserActionCreatorType = () => ({
   type: LOGIN_USER,
 });
 
-export const logoutUserAC = () => ({
+export const logoutUserAC: LogoutUserActionCreatorType = () => ({
   type: LOGOUT_USER,
 });
 
-export const getCaptchaAC = (data: string) => ({
+export const getCaptchaAC: GetCaptchaActionCreatorType = (data: string) => ({
   type: GET_CAPTCHA_URL,
   data,
 });
 
 export const initialState = {
   id: null,
-  email: "",
-  login: "",
+  email: '',
+  login: '',
   isAuth: false,
   captcha: null,
 };
 
 export const authReducer = (
   state: AuthData = initialState,
-  { type, data }: Action
+  payload: AuthReducerActionsType
 ) => {
+  const { type } = payload;
   switch (type) {
     case SET_AUTH_DATA: {
       return {
         ...state,
-        ...data,
+        ...payload.data,
       };
     }
     case LOGIN_USER: {
@@ -54,15 +62,15 @@ export const authReducer = (
       return {
         ...state,
         id: null,
-        email: "",
-        login: "",
+        email: '',
+        login: '',
         isAuth: false,
       };
     }
     case GET_CAPTCHA_URL: {
       return {
         ...state,
-        captcha: data,
+        captcha: payload.data,
       };
     }
     default: {
@@ -91,8 +99,8 @@ export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
       dispatch(getCaptchaThunk());
     } else
       dispatch(
-        stopSubmit("login", {
-          _error: messages ? messages[0] : "Some error",
+        stopSubmit('login', {
+          _error: messages ? messages[0] : 'Some error',
         })
       );
   }
