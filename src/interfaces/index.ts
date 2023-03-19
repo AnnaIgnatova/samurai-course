@@ -109,17 +109,21 @@ export interface UsersData {
   isUsersFollow: number[];
 }
 
-export interface UsersPageData extends UsersData {
-  followUserThunk: (id: number) => void;
-  unfollowUserThunk: (id: number) => void;
-  handlePage(page: number): void;
-}
-
-export interface UsersAPIData extends UsersData {
+export interface UsersAPIContainerType {
   getUsersThunk: any;
   followUserThunk: any;
   unfollowUserThunk: any;
   isAuth: boolean;
+  users: UserData[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
+  isFetchingData: boolean;
+  isUsersFollow: number[];
+}
+
+export interface UsersPageData extends UsersAPIContainerType {
+  handlePage(page: number): void;
 }
 
 export interface ProfileRouteData extends ProfileData {

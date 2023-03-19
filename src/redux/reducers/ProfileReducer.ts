@@ -1,33 +1,33 @@
-import { stopSubmit } from 'redux-form';
-import { ProfileAPI, UsersAPI } from '../../api';
+import { stopSubmit } from "redux-form";
+import { ProfileAPI, UsersAPI } from "../../api";
 import {
-  Action,
   Post,
   ProfileData,
   ProfileUserData,
   StateData,
-} from '../../interfaces';
+} from "../../interfaces";
 import {
   DeletePostActionCreatorType,
   GetStatusActionCreatorType,
   LikePostActionCreatorType,
   PinPostActionCreatorType,
+  ProfileReducerActionsType,
   RemoveLikeActionCreatorType,
   SavePhotoActionCreatorType,
   SendPostActionCreatorType,
   SetProfileDataActionCreatorType,
   UpdateStatusActionCreatorType,
-} from '../types';
+} from "../types";
 
-export const CREATE_POST = 'CREATE-POST';
-export const SET_PROFILE_DATA = 'SET_PROFILE_DATA';
-export const GET_STATUS = 'GET_STATUS';
-export const UPDATE_STATUS = 'UPDATE_STATUS';
-export const DELETE_POST = 'DELETE_POST';
-export const SAVE_PROFILE_PHOTO = 'SAVE_PROFILE_PHOTO';
-export const LIKE_POST = 'LIKE_POST';
-export const REMOVE_LIKE = 'REMOVE_LIKE';
-export const PINNED_POST = 'PINNED_POST';
+export const CREATE_POST = "CREATE-POST";
+export const SET_PROFILE_DATA = "SET_PROFILE_DATA";
+export const GET_STATUS = "GET_STATUS";
+export const UPDATE_STATUS = "UPDATE_STATUS";
+export const DELETE_POST = "DELETE_POST";
+export const SAVE_PROFILE_PHOTO = "SAVE_PROFILE_PHOTO";
+export const LIKE_POST = "LIKE_POST";
+export const REMOVE_LIKE = "REMOVE_LIKE";
+export const PINNED_POST = "PINNED_POST";
 
 export const sendPost: SendPostActionCreatorType = (data: string) => ({
   type: CREATE_POST,
@@ -80,7 +80,7 @@ export const initialState: ProfileData = {
   posts: [
     {
       id: 1,
-      text: 'Habitasse molestie vitae adipiscing dictumst. Faucibus. Ex. Aenean amet, sed interdum sapien dui sit ut. Non orci, efficitur sit nisi dolor dolor morbi morbi risus mattis morbi ultricies. Orci, vulputate efficitur interdum dictumst. Vel velit sit et. Dapibus venenatis sapien sit amet, dictum. Ipsum integer quam, sed id dolor quis, et. Integer lectus adipiscing et. Sodales mattis platea in faucibus. Velit integer mattis ultricies. Nisi nunc faucibus. Dictumst. Efficitur quam, lorem quam, interdum augue integer vel mattis nunc mattis et mattis in mattis habitasse cursus nulla pulvinar integer dolor efficitur sapien molestie id non eget non vel non risus dictum.',
+      text: "Habitasse molestie vitae adipiscing dictumst. Faucibus. Ex. Aenean amet, sed interdum sapien dui sit ut. Non orci, efficitur sit nisi dolor dolor morbi morbi risus mattis morbi ultricies. Orci, vulputate efficitur interdum dictumst. Vel velit sit et. Dapibus venenatis sapien sit amet, dictum. Ipsum integer quam, sed id dolor quis, et. Integer lectus adipiscing et. Sodales mattis platea in faucibus. Velit integer mattis ultricies. Nisi nunc faucibus. Dictumst. Efficitur quam, lorem quam, interdum augue integer vel mattis nunc mattis et mattis in mattis habitasse cursus nulla pulvinar integer dolor efficitur sapien molestie id non eget non vel non risus dictum.",
       likes: 1,
       shares: 2,
       comments: 4,
@@ -89,7 +89,7 @@ export const initialState: ProfileData = {
     },
     {
       id: 2,
-      text: 'Non velit arcu nunc mollis ornare vestibulum consectetur aenean platea consectetur urna adipiscing mauris nec luctus ipsum mollis odio. Malesuada velit venenatis arcu aenean dapibus dolor cursus efficitur ultricies. Libero, integer libero, in dictum. Molestie justo cursus in integer urna dictumst. Augue risus lorem vestibulum mattis malesuada augue nisi molestie eleifend dictumst. Sit dictum. In cras nunc amet, vel eget et. Libero, efficitur vitae imperdiet luctus et sed molestie et morbi faucibus. Amet, urna quis, luctus tortor, nunc ultricies. Dictumst. Nec ultricies. Malesuada sit lacinia id risus nulla non cursus platea et lectus integer sit lectus sed non habitasse i.',
+      text: "Non velit arcu nunc mollis ornare vestibulum consectetur aenean platea consectetur urna adipiscing mauris nec luctus ipsum mollis odio. Malesuada velit venenatis arcu aenean dapibus dolor cursus efficitur ultricies. Libero, integer libero, in dictum. Molestie justo cursus in integer urna dictumst. Augue risus lorem vestibulum mattis malesuada augue nisi molestie eleifend dictumst. Sit dictum. In cras nunc amet, vel eget et. Libero, efficitur vitae imperdiet luctus et sed molestie et morbi faucibus. Amet, urna quis, luctus tortor, nunc ultricies. Dictumst. Nec ultricies. Malesuada sit lacinia id risus nulla non cursus platea et lectus integer sit lectus sed non habitasse i.",
       likes: 3,
       shares: 3,
       comments: 5,
@@ -98,7 +98,7 @@ export const initialState: ProfileData = {
     },
     {
       id: 3,
-      text: 'Aenean leo, amet, risus molestie vel et orci, vel consectetur est. Vel molestie velit mollis dui elit. Nunc vel vel dictum non libero, vulputate molestie nisi risus dictum. Libero, amet, sed sit lacinia ultricies. Hac nisi amet, dictumst. Ornare ipsum sapien nec aenean hac leo, orci, orci, non interdum cursus in vel mattis vel ex. Ultricies. Lorem velit quis, id tortor, nec imperdiet risus pulvinar vestibulum lorem in mattis ex. In nulla ornare sit platea luctus in dictumst. Vestibulum dolor dolor adipiscing mauris mattis quis, et orci, urna sapien et non ex. Mauris mattis ut. Non amet, eleifend interdum ut.',
+      text: "Aenean leo, amet, risus molestie vel et orci, vel consectetur est. Vel molestie velit mollis dui elit. Nunc vel vel dictum non libero, vulputate molestie nisi risus dictum. Libero, amet, sed sit lacinia ultricies. Hac nisi amet, dictumst. Ornare ipsum sapien nec aenean hac leo, orci, orci, non interdum cursus in vel mattis vel ex. Ultricies. Lorem velit quis, id tortor, nec imperdiet risus pulvinar vestibulum lorem in mattis ex. In nulla ornare sit platea luctus in dictumst. Vestibulum dolor dolor adipiscing mauris mattis quis, et orci, urna sapien et non ex. Mauris mattis ut. Non amet, eleifend interdum ut.",
       likes: 4,
       shares: 5,
       comments: 4,
@@ -107,7 +107,7 @@ export const initialState: ProfileData = {
     },
     {
       id: 4,
-      text: 'Pellentesque venenatis amet, dapibus leo, interdum sed venenatis molestie pellentesque ornare lorem ultricies. Hac mauris vestibulum justo mollis pellentesque nisi vestibulum sapien cras dolor cras interdum mattis amet integer dictum mauris ultricies. Sit ornare morbi elit. Odio. Non sit molestie eleifend dictum consectetur sit vestibulum consectetur est. Hac quam, pellentesque accumsan odio. Tempus leo, eget dolor vel vestibulum nulla vel faucibus. Arcu in quis, vestibulum urna lectus nisi vulputate non id venenatis ex. Lacinia nulla arcu consectetur vulputate in molestie amet vel dui nisi ipsum et et habitasse adipiscing amet, ornare dui vitae ipsum vulputate dui libero, nec mattis elit.',
+      text: "Pellentesque venenatis amet, dapibus leo, interdum sed venenatis molestie pellentesque ornare lorem ultricies. Hac mauris vestibulum justo mollis pellentesque nisi vestibulum sapien cras dolor cras interdum mattis amet integer dictum mauris ultricies. Sit ornare morbi elit. Odio. Non sit molestie eleifend dictum consectetur sit vestibulum consectetur est. Hac quam, pellentesque accumsan odio. Tempus leo, eget dolor vel vestibulum nulla vel faucibus. Arcu in quis, vestibulum urna lectus nisi vulputate non id venenatis ex. Lacinia nulla arcu consectetur vulputate in molestie amet vel dui nisi ipsum et et habitasse adipiscing amet, ornare dui vitae ipsum vulputate dui libero, nec mattis elit.",
       likes: 5,
       shares: 2,
       comments: 2,
@@ -116,7 +116,7 @@ export const initialState: ProfileData = {
     },
     {
       id: 5,
-      text: 'Lectus aenean sit elit. Luctus nunc sit et sit dui vestibulum cursus morbi molestie ornare mauris tortor, tempus adipiscing dictum. Amet, sapien lorem urna dui eget eleifend ultricies. Faucibus. Dolor justo ornare lorem dolor in sapien velit odio. Dictum. Elit. Platea adipiscing mattis vestibulum platea et non molestie sit dui ultricies. Sodales luctus ornare non dolor sit molestie dictum mattis quam, ornare et. Elit. Mattis eleifend habitasse mattis vestibulum id ornare amet, justo tempus lorem eget consectetur et dapibus sit molestie pellentesque dapibus vel tortor, amet, mattis in hac odio. Molestie est. Venenatis quis, ex. Orci, sit quam, integer i.',
+      text: "Lectus aenean sit elit. Luctus nunc sit et sit dui vestibulum cursus morbi molestie ornare mauris tortor, tempus adipiscing dictum. Amet, sapien lorem urna dui eget eleifend ultricies. Faucibus. Dolor justo ornare lorem dolor in sapien velit odio. Dictum. Elit. Platea adipiscing mattis vestibulum platea et non molestie sit dui ultricies. Sodales luctus ornare non dolor sit molestie dictum mattis quam, ornare et. Elit. Mattis eleifend habitasse mattis vestibulum id ornare amet, justo tempus lorem eget consectetur et dapibus sit molestie pellentesque dapibus vel tortor, amet, mattis in hac odio. Molestie est. Venenatis quis, ex. Orci, sit quam, integer i.",
       likes: 1,
       shares: 3,
       comments: 3,
@@ -125,7 +125,7 @@ export const initialState: ProfileData = {
     },
   ],
   profileData: {
-    userId: '',
+    userId: "",
     aboutMe: null,
     lookingForAJob: null,
     lookingForAJobDescription: null,
@@ -146,7 +146,7 @@ export const initialState: ProfileData = {
 
 export const profileReducer = (
   state: ProfileData = initialState,
-  { type, data }: Action
+  { type, data }: ProfileReducerActionsType
 ) => {
   switch (type) {
     case CREATE_POST: {
@@ -158,7 +158,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [...state.posts, post],
-        newPost: '',
+        newPost: "",
       };
     }
     case SET_PROFILE_DATA: {
@@ -192,7 +192,7 @@ export const profileReducer = (
       };
     }
     case LIKE_POST: {
-      console.log('like', data);
+      console.log("like", data);
       return {
         ...state,
         posts: [
@@ -256,8 +256,8 @@ export const saveProfileInfoThunk =
     if (!data.resultCode) dispatch(getUserDataThunk(userId));
     else {
       dispatch(
-        stopSubmit('profileInfo', {
-          _error: data.messages ? data.messages[0] : 'Some error',
+        stopSubmit("profileInfo", {
+          _error: data.messages ? data.messages[0] : "Some error",
         })
       );
     }

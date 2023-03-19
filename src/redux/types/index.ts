@@ -1,12 +1,12 @@
-import { ProfileUserData, UserAuthData, UserData } from '../../interfaces';
-import { INITIALIZE_APP } from '../reducers/AppReducer';
+import { ProfileUserData, UserAuthData, UserData } from "../../interfaces";
+import { INITIALIZE_APP } from "../reducers/AppReducer";
 import {
   GET_CAPTCHA_URL,
   LOGIN_USER,
   LOGOUT_USER,
   SET_AUTH_DATA,
-} from '../reducers/AuthReducer';
-import { SEND_MESSAGE } from '../reducers/DialogsReducer';
+} from "../reducers/AuthReducer";
+import { SEND_MESSAGE } from "../reducers/DialogsReducer";
 import {
   CREATE_POST,
   DELETE_POST,
@@ -17,7 +17,7 @@ import {
   SAVE_PROFILE_PHOTO,
   SET_PROFILE_DATA,
   UPDATE_STATUS,
-} from '../reducers/ProfileReducer';
+} from "../reducers/ProfileReducer";
 import {
   FOLLOW,
   SET_CURRENT_PAGE,
@@ -26,7 +26,7 @@ import {
   SET_USERS,
   SET_USER_FOLLOWED,
   UNFOLLOW,
-} from '../reducers/UsersReducer';
+} from "../reducers/UsersReducer";
 
 /* types for app reducer */
 
@@ -76,6 +76,8 @@ export type SendMessageActionType = { type: typeof SEND_MESSAGE; data: string };
 export type SendMessageActionCreatorType = (
   data: string
 ) => SendMessageActionType;
+
+export type DialogsReducerActionsType = SendMessageActionType;
 
 /* types for profile reducer */
 
@@ -130,6 +132,17 @@ export type RemoveLikeActionCreatorType = (id: number) => RemoveLikeActionType;
 export type PinPostActionType = { type: typeof PINNED_POST; data: number };
 
 export type PinPostActionCreatorType = (id: number) => PinPostActionType;
+
+export type ProfileReducerActionsType =
+  | SendPostActionType
+  | SetProfileDataActionType
+  | GetStatusActionType
+  | UpdateStatusActionType
+  | DeletePostActionType
+  | SavePhotoActionType
+  | LikePostActionType
+  | RemoveLikeActionType
+  | PinPostActionType;
 
 /* types for users reducer */
 
@@ -188,3 +201,12 @@ export type SetUserFollowedActionCreatorType = (
   id: number,
   isFetching: boolean
 ) => SetUserFollowedActionType;
+
+export type UsersReducerActionsType =
+  | FollowUserActionType
+  | UnfollowUserActionType
+  | SetUsersActionType
+  | SetCurrentPageActionType
+  | SetTotalUsersCountActionType
+  | SetFetchingDataActionType
+  | SetUserFollowedActionType;

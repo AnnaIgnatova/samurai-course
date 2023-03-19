@@ -1,5 +1,5 @@
 import { Action, DialogsData } from '../../interfaces';
-import { SendMessageActionCreatorType } from '../types';
+import { DialogsReducerActionsType, SendMessageActionCreatorType } from '../types';
 
 export const SEND_MESSAGE = 'SEND-MESSAGE';
 
@@ -52,7 +52,7 @@ export const initialState = {
 
 export const dialogsReducer = (
   state: DialogsData = initialState,
-  { type, data }: Action
+  { type, data }: DialogsReducerActionsType
 ) => {
   switch (type) {
     case SEND_MESSAGE: {

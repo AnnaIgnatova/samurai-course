@@ -1,5 +1,5 @@
 import { UsersAPI } from '../../api';
-import { Action, UserData, UsersData } from '../../interfaces';
+import { UserData, UsersData } from '../../interfaces';
 import {
   FollowUserActionCreatorType,
   SetCurrentPageActionCreatorType,
@@ -8,6 +8,7 @@ import {
   SetUserFollowedActionCreatorType,
   SetUsersActionCreatorType,
   UnfollowUserActionCreatorType,
+  UsersReducerActionsType,
 } from '../types';
 
 export const FOLLOW = 'FOLLOW';
@@ -73,7 +74,7 @@ export const initialState: UsersData = {
 
 export const usersReducer = (
   state: UsersData = initialState,
-  { type, data }: Action
+  { type, data }: UsersReducerActionsType
 ) => {
   switch (type) {
     case FOLLOW: {
