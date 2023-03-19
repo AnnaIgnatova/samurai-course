@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { StateData, UsersAPIData } from "../../interfaces";
+import { StateData, UserData, UsersAPIContainerType } from "../../interfaces";
 import React from "react";
 import { Users } from "../../components/Users";
 import {
@@ -19,7 +19,7 @@ import {
   getUsersSelector,
 } from "../../redux/reducers/UsersSelector";
 
-class UsersAPIContainer extends React.Component<UsersAPIData> {
+class UsersAPIContainer extends React.Component<UsersAPIContainerType> {
   componentDidMount(): void {
     this.props.getUsersThunk();
   }
