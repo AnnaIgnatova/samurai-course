@@ -1,70 +1,74 @@
-import { Action, DialogsData } from '../../interfaces';
-import { DialogsReducerActionsType, SendMessageActionCreatorType } from '../types';
+import { InferActionsType } from "../types";
 
-export const SEND_MESSAGE = 'SEND-MESSAGE';
-
-export const sendMessage: SendMessageActionCreatorType = (data: string) => ({
-  type: SEND_MESSAGE,
-  data,
-});
+export const DialogsActionCreators = {
+  sendMessage: (data: string) =>
+    ({
+      type: "SOCIAL_NETWORK/DIALOGS/SEND-MESSAGE",
+      data,
+    } as const),
+};
 
 export const initialState = {
   dialogs: [
     {
       id: 1,
-      name: 'Anna',
+      name: "Anna",
     },
     {
       id: 2,
-      name: 'Sasha',
+      name: "Sasha",
     },
     {
       id: 3,
-      name: 'Olya',
+      name: "Olya",
     },
     {
       id: 4,
-      name: 'Misha',
+      name: "Misha",
     },
     {
       id: 5,
-      name: 'Dima',
+      name: "Dima",
     },
   ],
   messages: [
     {
       id: 1,
-      text: 'Hi',
-      from: 'me',
+      text: "Hi",
+      from: "me",
     },
     {
       id: 2,
-      text: 'Good morning',
-      from: 'them',
+      text: "Good morning",
+      from: "them",
     },
     {
       id: 3,
-      text: 'How are you',
-      from: 'me',
+      text: "How are you",
+      from: "me",
     },
   ],
 };
 
+export type DialogsReducerPayloadType = InferActionsType<
+  typeof DialogsActionCreators
+>;
+
 export const dialogsReducer = (
-  state: DialogsData = initialState,
-  { type, data }: DialogsReducerActionsType
+  state = initialState,
+  { type, data }: DialogsReducerPayloadType
 ) => {
   switch (type) {
-    case SEND_MESSAGE: {
+    case "SOCIAL_NETWORK/DIALOGS/SEND-MESSAGE": {
       const message = {
         id: state.messages[state.messages.length - 1].id + 1,
         text: data,
-        from: 'me',
+        from: "me",
       };
       return {
         ...state,
         messages: [...state.messages, message],
-        newMessage: '',
+        newMessage: "",
       };
     }
     default:

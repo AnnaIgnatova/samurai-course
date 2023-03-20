@@ -1,69 +1,46 @@
-import { UsersAPI } from '../../api';
-import { UserData, UsersData } from '../../interfaces';
-import {
-  FollowUserActionCreatorType,
-  SetCurrentPageActionCreatorType,
-  SetFetchingDataActionCreatorType,
-  SetTotalUsersCountActionCreatorType,
-  SetUserFollowedActionCreatorType,
-  SetUsersActionCreatorType,
-  UnfollowUserActionCreatorType,
-  UsersReducerActionsType,
-} from '../types';
+import { UsersAPI } from "../../api";
+import { UserData } from "../../interfaces";
+import { InferActionsType } from "../types";
 
-export const FOLLOW = 'FOLLOW';
-export const UNFOLLOW = 'UNFOLLOW';
-export const SET_USERS = 'SET_USERS';
-export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-export const SET_FETCHING_USERS = 'SET_FETCHING_USERS';
-export const SET_USER_FOLLOWED = 'SET_USER_FOLLOWED';
+export const UsersActionCreators = {
+  followUser: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/FOLLOW",
+      data: id,
+    } as const),
+  unfollowUser: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/UNFOLLOW",
+      data: id,
+    } as const),
+  setUsers: (users: UserData[]) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_USERS",
+      data: users,
+    } as const),
+  setCurrentPage: (page?: number) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE",
+      data: page || 1,
+    } as const),
+  setTotalUsersCount: (count: number) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT",
+      data: count,
+    } as const),
+  setFetchingData: (isFetchind: boolean) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_FETCHING_USERS",
+      data: isFetchind,
+    } as const),
+  setUserFollowed: (id: number, isFetching: boolean) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED",
+      data: { id, isFetching },
+    } as const),
+};
 
-export const followUser: FollowUserActionCreatorType = (id: number) => ({
-  type: FOLLOW,
-  data: id,
-});
-
-export const unfollowUser: UnfollowUserActionCreatorType = (id: number) => ({
-  type: UNFOLLOW,
-  data: id,
-});
-
-export const setUsers: SetUsersActionCreatorType = (users: UserData[]) => ({
-  type: SET_USERS,
-  data: users,
-});
-
-export const setCurrentPage: SetCurrentPageActionCreatorType = (
-  page?: number
-) => ({
-  type: SET_CURRENT_PAGE,
-  data: page || 1,
-});
-
-export const setTotalUsersCount: SetTotalUsersCountActionCreatorType = (
-  count: number
-) => ({
-  type: SET_TOTAL_USERS_COUNT,
-  data: count,
-});
-
-export const setFetchingData: SetFetchingDataActionCreatorType = (
-  isFetchind: boolean
-) => ({
-  type: SET_FETCHING_USERS,
-  data: isFetchind,
-});
-
-export const setUserFollowed: SetUserFollowedActionCreatorType = (
-  id: number,
-  isFetching: boolean
-) => ({
-  type: SET_USER_FOLLOWED,
-  data: { id, isFetching },
-});
-
-export const initialState: UsersData = {
+export const initialState = {
   users: [],
   totalCount: 0,
   pageCount: 5,
@@ -71,55 +48,58 @@ export const initialState: UsersData = {
   isFetchingData: true,
   isUsersFollow: [],
 };
+export type UsersReducerPayloadType = InferActionsType<
+  typeof UsersActionCreators
+>;
 
 export const usersReducer = (
-  state: UsersData = initialState,
-  { type, data }: UsersReducerActionsType
+  state = initialState,
+  { type, data }: UsersReducerPayloadType
 ) => {
   switch (type) {
-    case FOLLOW: {
+    case "SOCIAL_NETWORK/USERS/FOLLOW": {
       return {
         ...state,
-        users: state.users.map((user) => {
+        users: state.users.map((user: UserData) => {
           if (user.id === data) return { ...user, followed: true };
           return user;
         }),
       };
     }
-    case UNFOLLOW: {
+    case "SOCIAL_NETWORK/USERS/UNFOLLOW": {
       return {
         ...state,
-        users: state.users.map((user) => {
+        users: state.users.map((user: UserData) => {
           if (user.id === data) return { ...user, followed: false };
           return user;
         }),
       };
     }
-    case SET_USERS: {
+    case "SOCIAL_NETWORK/USERS/SET_USERS": {
       return {
         ...state,
         users: [...data],
       };
     }
-    case SET_CURRENT_PAGE: {
+    case "SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE": {
       return {
         ...state,
         currentPage: data,
       };
     }
-    case SET_TOTAL_USERS_COUNT: {
+    case "SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT": {
       return {
         ...state,
         totalCount: data,
       };
     }
-    case SET_FETCHING_USERS: {
+    case "SOCIAL_NETWORK/USERS/SET_FETCHING_USERS": {
       return {
         ...state,
         isFetchingData: data,
       };
     }
-    case SET_USER_FOLLOWED: {
+    case "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED": {
       return {
         ...state,
         isUsersFollow: data.isFetching
@@ -133,24 +113,24 @@ export const usersReducer = (
 };
 
 export const getUsersThunk = (page?: number) => async (dispatch: any) => {
-  dispatch(setFetchingData(true));
+  dispatch(UsersActionCreators.setFetchingData(true));
   const data = await UsersAPI.getUsers(page);
-  dispatch(setFetchingData(false));
-  dispatch(setUsers(data.items));
-  dispatch(setTotalUsersCount(data.totalCount));
-  dispatch(setCurrentPage(page));
+  dispatch(UsersActionCreators.setFetchingData(false));
+  dispatch(UsersActionCreators.setUsers(data.items));
+  dispatch(UsersActionCreators.setTotalUsersCount(data.totalCount));
+  dispatch(UsersActionCreators.setCurrentPage(page));
 };
 
 export const followUserThunk = (id: number) => async (dispatch: any) => {
-  dispatch(setUserFollowed(id, true));
+  dispatch(UsersActionCreators.setUserFollowed(id, true));
   await UsersAPI.followUserAPI(id);
-  dispatch(followUser(id));
-  dispatch(setUserFollowed(id, false));
+  dispatch(UsersActionCreators.followUser(id));
+  dispatch(UsersActionCreators.setUserFollowed(id, false));
 };
 
 export const unfollowUserThunk = (id: number) => async (dispatch: any) => {
-  dispatch(setUserFollowed(id, true));
+  dispatch(UsersActionCreators.setUserFollowed(id, true));
   await UsersAPI.unfollowUserAPI(id);
-  dispatch(unfollowUser(id));
-  dispatch(setUserFollowed(id, false));
+  dispatch(UsersActionCreators.unfollowUser(id));
+  dispatch(UsersActionCreators.setUserFollowed(id, false));
 };
