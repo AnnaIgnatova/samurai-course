@@ -1,82 +1,57 @@
 import { stopSubmit } from "redux-form";
 import { ProfileAPI, UsersAPI } from "../../api";
-import {
-  Post,
-  ProfileData,
-  ProfileUserData,
-  StateData,
-} from "../../interfaces";
-import {
-  DeletePostActionCreatorType,
-  GetStatusActionCreatorType,
-  LikePostActionCreatorType,
-  PinPostActionCreatorType,
-  ProfileReducerActionsType,
-  RemoveLikeActionCreatorType,
-  SavePhotoActionCreatorType,
-  SendPostActionCreatorType,
-  SetProfileDataActionCreatorType,
-  UpdateStatusActionCreatorType,
-} from "../types";
+import { Post, ProfileUserData, StateData } from "../../interfaces";
+import { InferActionsType } from "../types";
 
-export const CREATE_POST = "CREATE-POST";
-export const SET_PROFILE_DATA = "SET_PROFILE_DATA";
-export const GET_STATUS = "GET_STATUS";
-export const UPDATE_STATUS = "UPDATE_STATUS";
-export const DELETE_POST = "DELETE_POST";
-export const SAVE_PROFILE_PHOTO = "SAVE_PROFILE_PHOTO";
-export const LIKE_POST = "LIKE_POST";
-export const REMOVE_LIKE = "REMOVE_LIKE";
-export const PINNED_POST = "PINNED_POST";
+export const ProfileActionCreators = {
+  sendPost: (data: string) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/CREATE-POST",
+      data,
+    } as const),
+  setProfileData: (data: ProfileUserData) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/SET_PROFILE_DATA",
+      data,
+    } as const),
+  getStatus: (data: string) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/GET_STATUS",
+      data,
+    } as const),
+  updateStatus: (data: string) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/UPDATE_STATUS",
+      data,
+    } as const),
+  deletePost: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/DELETE_POST",
+      data: id,
+    } as const),
+  savePhoto: (file: File) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/SAVE_PROFILE_PHOTO",
+      data: file,
+    } as const),
+  likePost: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/LIKE_POST",
+      data: id,
+    } as const),
+  removeLike: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/REMOVE_LIKE",
+      data: id,
+    } as const),
+  pinPost: (id: number) =>
+    ({
+      type: "SOCIAL_NETWORK/PROFILE/PINNED_POST",
+      data: id,
+    } as const),
+};
 
-export const sendPost: SendPostActionCreatorType = (data: string) => ({
-  type: CREATE_POST,
-  data,
-});
-
-export const setProfileData: SetProfileDataActionCreatorType = (
-  data: ProfileUserData
-) => ({
-  type: SET_PROFILE_DATA,
-  data,
-});
-
-export const getStatus: GetStatusActionCreatorType = (data: string) => ({
-  type: GET_STATUS,
-  data,
-});
-
-export const updateStatus: UpdateStatusActionCreatorType = (data: string) => ({
-  type: UPDATE_STATUS,
-  data,
-});
-
-export const deletePost: DeletePostActionCreatorType = (id: number) => ({
-  type: DELETE_POST,
-  data: id,
-});
-
-export const savePhoto: SavePhotoActionCreatorType = (file: File) => ({
-  type: SAVE_PROFILE_PHOTO,
-  data: file,
-});
-
-export const likePost: LikePostActionCreatorType = (id: number) => ({
-  type: LIKE_POST,
-  data: id,
-});
-
-export const removeLike: RemoveLikeActionCreatorType = (id: number) => ({
-  type: REMOVE_LIKE,
-  data: id,
-});
-
-export const pinPost: PinPostActionCreatorType = (id: number) => ({
-  type: PINNED_POST,
-  data: id,
-});
-
-export const initialState: ProfileData = {
+export const initialState = {
   posts: [
     {
       id: 1,
@@ -144,12 +119,16 @@ export const initialState: ProfileData = {
   status: null,
 };
 
+export type ProfileReducerPayloadType = InferActionsType<
+  typeof ProfileActionCreators
+>;
+
 export const profileReducer = (
-  state: ProfileData = initialState,
-  { type, data }: ProfileReducerActionsType
+  state = initialState,
+  { type, data }: ProfileReducerPayloadType
 ) => {
   switch (type) {
-    case CREATE_POST: {
+    case "SOCIAL_NETWORK/PROFILE/CREATE-POST": {
       const post = {
         id: state.posts[state.posts.length - 1].id + 1,
         text: data,
@@ -161,38 +140,37 @@ export const profileReducer = (
         newPost: "",
       };
     }
-    case SET_PROFILE_DATA: {
+    case "SOCIAL_NETWORK/PROFILE/SET_PROFILE_DATA": {
       return {
         ...state,
         profileData: data,
       };
     }
-    case GET_STATUS: {
+    case "SOCIAL_NETWORK/PROFILE/GET_STATUS": {
       return {
         ...state,
         status: data,
       };
     }
-    case UPDATE_STATUS: {
+    case "SOCIAL_NETWORK/PROFILE/UPDATE_STATUS": {
       return {
         ...state,
         status: data,
       };
     }
-    case DELETE_POST: {
+    case "SOCIAL_NETWORK/PROFILE/DELETE_POST": {
       return {
         ...state,
         posts: state.posts.filter((post: Post) => post.id !== data),
       };
     }
-    case SAVE_PROFILE_PHOTO: {
+    case "SOCIAL_NETWORK/PROFILE/SAVE_PROFILE_PHOTO": {
       return {
         ...state,
         profileData: { ...state.profileData, photos: data },
       };
     }
-    case LIKE_POST: {
-      console.log("like", data);
+    case "SOCIAL_NETWORK/PROFILE/LIKE_POST": {
       return {
         ...state,
         posts: [
@@ -202,7 +180,7 @@ export const profileReducer = (
         ],
       };
     }
-    case REMOVE_LIKE: {
+    case "SOCIAL_NETWORK/PROFILE/REMOVE_LIKE": {
       return {
         ...state,
         posts: [
@@ -212,7 +190,7 @@ export const profileReducer = (
         ],
       };
     }
-    case PINNED_POST: {
+    case "SOCIAL_NETWORK/PROFILE/PINNED_POST": {
       return {
         ...state,
         posts: [
@@ -229,23 +207,23 @@ export const profileReducer = (
 
 export const getUserDataThunk = (userId: string) => async (dispatch: any) => {
   const data = await UsersAPI.getUserData(userId);
-  dispatch(setProfileData(data));
+  dispatch(ProfileActionCreators.setProfileData(data));
 };
 
 export const getStatusDataThunk = (userId: string) => async (dispatch: any) => {
   const data = await ProfileAPI.getProfileStatus(userId);
-  dispatch(getStatus(data));
+  dispatch(ProfileActionCreators.getStatus(data));
 };
 
 export const updateStatusDataThunk =
   (text: string) => async (dispatch: any) => {
     await ProfileAPI.updateProfileStatus(text);
-    dispatch(updateStatus(text));
+    dispatch(ProfileActionCreators.updateStatus(text));
   };
 
 export const saveProfilePhotoThunk = (file: File) => async (dispatch: any) => {
   const data = await ProfileAPI.saveProfilePhoto(file);
-  dispatch(savePhoto(data.photos));
+  dispatch(ProfileActionCreators.savePhoto(data.photos));
 };
 
 export const saveProfileInfoThunk =

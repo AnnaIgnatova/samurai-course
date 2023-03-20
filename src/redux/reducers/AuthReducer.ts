@@ -1,73 +1,69 @@
-import { stopSubmit } from 'redux-form';
-import { AuthAPI } from '../../api';
-import { AuthData, LoginData, UserAuthData } from '../../interfaces';
-import {
-  AuthReducerActionsType,
-  AuthUserActionCreatorType,
-  GetCaptchaActionCreatorType,
-  LoginUserActionCreatorType,
-  LogoutUserActionCreatorType,
-} from '../types';
+import { stopSubmit } from "redux-form";
+import { AuthAPI } from "../../api";
+import { LoginData, UserAuthData } from "../../interfaces";
+import { InferActionsType } from "../types";
 
-export const SET_AUTH_DATA = 'SET_AUTH_DATA';
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
-export const GET_CAPTCHA_URL = 'GET_CAPTCHA_URL';
-
-export const authUser: AuthUserActionCreatorType = (data: UserAuthData) => ({
-  type: SET_AUTH_DATA,
-  data,
-});
-
-export const loginUserAC: LoginUserActionCreatorType = () => ({
-  type: LOGIN_USER,
-});
-
-export const logoutUserAC: LogoutUserActionCreatorType = () => ({
-  type: LOGOUT_USER,
-});
-
-export const getCaptchaAC: GetCaptchaActionCreatorType = (data: string) => ({
-  type: GET_CAPTCHA_URL,
-  data,
-});
-
-export const initialState = {
-  id: null,
-  email: '',
-  login: '',
-  isAuth: false,
-  captcha: null,
+export const AuthActionCreators = {
+  authUser: (data: UserAuthData) =>
+    ({
+      type: "SOCIAL_NETWORK/AUTH/SET_AUTH_DATA",
+      data,
+    } as const),
+  loginUser: () =>
+    ({
+      type: "SOCIAL_NETWORK/AUTH/LOGIN_USER",
+    } as const),
+  logoutUser: () =>
+    ({
+      type: "SOCIAL_NETWORK/AUTH/LOGOUT_USER",
+    } as const),
+  getCaptcha: (data: string) =>
+    ({
+      type: "SOCIAL_NETWORK/AUTH/GET_CAPTCHA_URL",
+      data,
+    } as const),
 };
 
+export const initialState = {
+  id: null as null | number,
+  email: null as null | string,
+  login: null as null | string,
+  isAuth: false,
+  captcha: null as null | string,
+};
+
+export type AuthReducerPayloadType = InferActionsType<
+  typeof AuthActionCreators
+>;
+
 export const authReducer = (
-  state: AuthData = initialState,
-  payload: AuthReducerActionsType
+  state = initialState,
+  payload: AuthReducerPayloadType
 ) => {
   const { type } = payload;
   switch (type) {
-    case SET_AUTH_DATA: {
+    case "SOCIAL_NETWORK/AUTH/SET_AUTH_DATA": {
       return {
         ...state,
         ...payload.data,
       };
     }
-    case LOGIN_USER: {
+    case "SOCIAL_NETWORK/AUTH/LOGIN_USER": {
       return {
         ...state,
         isAuth: true,
       };
     }
-    case LOGOUT_USER: {
+    case "SOCIAL_NETWORK/AUTH/LOGOUT_USER": {
       return {
         ...state,
         id: null,
-        email: '',
-        login: '',
+        email: null,
+        login: null,
         isAuth: false,
       };
     }
-    case GET_CAPTCHA_URL: {
+    case "SOCIAL_NETWORK/AUTH/GET_CAPTCHA_URL": {
       return {
         ...state,
         captcha: payload.data,
@@ -81,7 +77,8 @@ export const authReducer = (
 
 export const authUserThunk = () => async (dispatch: any) => {
   const data = await AuthAPI.authProfile();
-  if (!data.resultCode) dispatch(authUser({ ...data.data, isAuth: true }));
+  if (!data.resultCode)
+    dispatch(AuthActionCreators.authUser({ ...data.data, isAuth: true }));
 };
 
 export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
@@ -99,8 +96,8 @@ export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
       dispatch(getCaptchaThunk());
     } else
       dispatch(
-        stopSubmit('login', {
-          _error: messages ? messages[0] : 'Some error',
+        stopSubmit("login", {
+          _error: messages ? messages[0] : "Some error",
         })
       );
   }
@@ -108,10 +105,10 @@ export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
 
 export const logoutUserThunk = () => async (dispatch: any) => {
   const { resultCode }: any = await AuthAPI.logoutUser();
-  if (!resultCode) dispatch(logoutUserAC());
+  if (!resultCode) dispatch(AuthActionCreators.logoutUser());
 };
 
 export const getCaptchaThunk = () => async (dispatch: any) => {
   const { url } = await AuthAPI.getCaptchaImage();
-  dispatch(getCaptchaAC(url));
+  dispatch(AuthActionCreators.getCaptcha(url));
 };
