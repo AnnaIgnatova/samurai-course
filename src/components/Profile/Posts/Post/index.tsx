@@ -33,19 +33,19 @@ export const Post: React.FC<any> = (props) => {
   return (
     <div className={styles.post}>
       <img src={profileData.photos.large || userAvatarUrl} alt="avatar" />
-      <div className={styles["post-content"]}>
-        <div className={styles["user-info"]}>
+      <div className={styles['post-content']}>
+        <div className={styles['user-info']}>
           <span>{profileData.fullName}</span>
           <span>
-            {new Date(postDate).toLocaleString("en-GB", {
-              day: "numeric",
-              month: "long",
+            {new Date(new Date().toJSON()).toLocaleString('en-GB', {
+              day: 'numeric',
+              month: 'long',
             })}
           </span>
         </div>
         <span className={styles.content}>{message}</span>
-        <div className={styles["post-navbar"]}>
-          <div className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}>
+        <div className={styles['post-navbar']}>
+          <div className={`${styles.statistic} ${isLiked ? styles.liked : ''}`}>
             <img
               src={isLiked ? activeLike : likeUrl}
               alt="like"
