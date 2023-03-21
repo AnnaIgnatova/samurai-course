@@ -22,7 +22,7 @@ export const ProfileInfo: React.FC<ProfileInfoData> = (props) => {
             src={photos.small ? photos.small : userImg}
             alt={fullName + "avatar"}
           />
-          {ownProfile && <input type="file" onChange={changePhoto} />}
+          {/* {ownProfile && <input type="file" onChange={changePhoto} />} */}
         </div>
         <UserDetails {...props} />
       </div>

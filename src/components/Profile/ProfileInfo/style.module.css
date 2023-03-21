@@ -6,7 +6,6 @@
 
 .user-info {
   position: relative;
-  display: flex;
   padding-left: 25px;
 }
 
@@ -20,6 +19,6 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  margin-top: -200px;
+  margin-top: -100px;
   border: 5px solid #FFFFFF;
 }
