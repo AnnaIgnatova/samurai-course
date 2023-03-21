@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { Navigate } from "react-router";
 import { StateData } from "../interfaces";
 
-const mapStateToProps = (state: StateData) => ({
+const mapStateToProps = (state) => ({
   isAuth: state.header.isAuth,
 });
 
-export const WithAuthRedirect = (Component: typeof React.Component) => {
-  const RedirectComponent: React.FC = (props: any) => {
+export const WithAuthRedirect = (Component) => {
+  const RedirectComponent = (props) => {
     return props.isAuth ? <Component {...props} /> : <Navigate to="/login" />;
   };
 

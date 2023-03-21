@@ -1,11 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Music } from "./components/Music";
 import { News } from "./components/News";
-import { Settings } from "./components/Settings";
 import "./App.css";
 import { NavbarContainer } from "./containers/NavbarContainer";
-import UsersContainer from "./containers/UsersContainer";
-import SettingsContainer from './containers/SettingsContainer';
+import SettingsContainer from "./containers/SettingsContainer";
 import { AuthContainer } from "./containers/AuthContainer";
 import { LoginContainer } from "./containers/LoginContainer";
 import { Suspense } from "react";
@@ -20,7 +18,9 @@ const DialogsContainer = React.lazy(
   () => import("./containers/DialogsContainer")
 );
 
-const App: React.FC<any> = () => {
+const UsersContainer = React.lazy(() => import("./containers/UsersContainer"));
+
+const App: React.FC = () => {
   return (
     <div className="container">
       <AuthContainer />

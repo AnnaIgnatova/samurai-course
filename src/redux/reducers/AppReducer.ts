@@ -1,27 +1,25 @@
-import { AppData } from '../../interfaces';
-import {
-  AppReducerActionsType,
-  initializeAppActionCreatorType,
-} from '../types';
-import { authUserThunk } from './AuthReducer';
+import { InferActionsType } from "../types";
+import { authUserThunk } from "./AuthReducer";
 
-export const INITIALIZE_APP = 'INITIALIZE_APP';
+export type AppReducerPayloadType = InferActionsType<typeof AppActionCreators>;
 
-export const initializeApp: initializeAppActionCreatorType = () => ({
-  type: INITIALIZE_APP,
-});
+export const AppActionCreators = {
+  initializeApp: () => ({
+    type: "SOCIAL_NETWORK/APP/INITIALIZE_APP",
+  }),
+};
 
 export const initialState = {
   isInitialized: false,
 };
 
 export const appReducer = (
-  state: AppData = initialState,
-  payload: AppReducerActionsType
+  state = initialState,
+  payload: AppReducerPayloadType
 ) => {
   const { type } = payload;
   switch (type) {
-    case INITIALIZE_APP: {
+    case "SOCIAL_NETWORK/APP/INITIALIZE_APP": {
       return {
         ...state,
         isInitialized: true,
@@ -35,5 +33,5 @@ export const appReducer = (
 
 export const initializeAppThunk = () => async (dispatch: any) => {
   await dispatch(authUserThunk());
-  dispatch(initializeApp());
+  dispatch(AppActionCreators.initializeApp());
 };
