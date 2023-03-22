@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { ProfileInfoData } from "..";
 import { UserDetails } from "../UserDetails";
 import userImg from "./../../../assets/avatar.png";
@@ -24,6 +25,9 @@ export const ProfileInfo: React.FC<ProfileInfoData> = (props) => {
           />
           {/* {ownProfile && <input type="file" onChange={changePhoto} />} */}
         </div>
+        <NavLink className={styles["edit-data-btn"]} to="/settings">
+          Edit profile
+        </NavLink>
         <UserDetails {...props} />
       </div>
     </>

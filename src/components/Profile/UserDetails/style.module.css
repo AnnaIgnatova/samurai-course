@@ -25,24 +25,3 @@
   line-height: 24px;
   color: #1da1f2;
 }
-.edit-data-btn {
-  width: 120px;
-  height: 44px;
-  position: absolute;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 50px;
-  right: 25px;
-  top: 20px;
-  background: transparent;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.edit-data-btn:hover {
-  background: #1d9bf0;
-  color: #fff;
-  border: 1px solid #1d9bf0;
-}

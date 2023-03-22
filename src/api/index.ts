@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { ProfileUserData } from "../interfaces";
 
 export interface AxiosInstanceData extends AxiosInstance {
   headers: {
@@ -115,7 +116,7 @@ export const ProfileAPI = {
       console.log(e);
     }
   },
-  async saveProfilePhoto(file: any) {
+  async saveProfilePhoto(file: File) {
     const formData = new FormData();
     formData.append("image", file);
     try {
@@ -125,7 +126,7 @@ export const ProfileAPI = {
       console.log(e);
     }
   },
-  async saveProfileInfo(info: any) {
+  async saveProfileInfo(info: ProfileUserData) {
     try {
       const { data } = await axiosInstance.put("profile", { ...info });
       return data;

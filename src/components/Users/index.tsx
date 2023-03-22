@@ -5,6 +5,7 @@ import React from "react";
 import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
+import { FilledButton } from "../UI/Button";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -33,20 +34,18 @@ export const Users: React.FC<UsersPageData> = ({
                 {status && <span>{status}</span>}
               </div>
               {followed && (
-                <button
+                <FilledButton
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={() => unfollowUserThunk(id)}
-                >
-                  unfollow
-                </button>
+                  text="unfollow"
+                />
               )}
               {!followed && (
-                <button
+                <FilledButton
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={() => followUserThunk(id)}
-                >
-                  follow
-                </button>
+                  text="follow"
+                />
               )}
             </div>
           ))}

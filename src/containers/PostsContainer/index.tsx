@@ -1,12 +1,7 @@
 import { connect } from "react-redux";
 import { Posts } from "../../components/Profile/Posts";
 import { StateData } from "../../interfaces";
-import {
-  sendPost,
-  likePost,
-  removeLike,
-  pinPost,
-} from "../../redux/reducers/ProfileReducer";
+import { ProfileActionCreators } from "../../redux/reducers/ProfileReducer";
 
 const mapStateToProps = (state: StateData) => ({
   posts: state.profilePage.posts,
@@ -14,8 +9,5 @@ const mapStateToProps = (state: StateData) => ({
 });
 
 export const PostsContainer = connect(mapStateToProps, {
-  sendPost,
-  likePost,
-  removeLike,
-  pinPost,
+  ...ProfileActionCreators,
 })(Posts);

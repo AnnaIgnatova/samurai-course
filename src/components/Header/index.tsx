@@ -1,6 +1,7 @@
 import styles from "./style.module.css";
 import iconUrl from "./../../assets/network-icon.png";
 import { NavLink } from "react-router-dom";
+import { FilledButton } from "../UI/Button";
 
 export const Header: React.FC<any> = ({ isAuth, email, handleLogout }) => {
   return (
@@ -9,9 +10,7 @@ export const Header: React.FC<any> = ({ isAuth, email, handleLogout }) => {
       {isAuth ? (
         <div>
           <span>{email}</span>
-          <button className={styles["login-btn"]} onClick={handleLogout}>
-            Log out
-          </button>
+          <FilledButton onClick={handleLogout} text="Log out" />
         </div>
       ) : (
         <NavLink className={styles["login-btn"]} to="/login">
