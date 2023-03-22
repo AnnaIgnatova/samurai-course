@@ -1,17 +1,17 @@
-import { connect } from 'react-redux';
-import { Post, ProfileUserData, StateData } from '../../interfaces';
-import React, { useEffect } from 'react';
-import { Profile } from '../../components/Profile';
+import { connect } from "react-redux";
+import { Post, ProfileUserData, StateData } from "../../interfaces";
+import React, { useEffect } from "react";
+import { Profile } from "../../components/Profile";
 import {
   getStatusDataThunk,
   getUserDataThunk,
-  sendPost,
+  ProfileActionCreators,
   updateStatusDataThunk,
   saveProfileInfoThunk,
   saveProfilePhotoThunk,
-} from '../../redux/reducers/ProfileReducer';
-import { Loader } from '../../components/UI/Loader';
-import { useParams } from 'react-router';
+} from "../../redux/reducers/ProfileReducer";
+import { Loader } from "../../components/UI/Loader";
+import { useParams } from "react-router";
 
 export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
   userId: string;
@@ -21,12 +21,12 @@ export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
 const ProfileWithRouterContainer: React.FC<ProfileWithRouteContainerData> = (
   props
 ) => {
-  const { id = '27789' } = useParams();
+  const { id = "27789" } = useParams();
   return (
     <ProfileAPIContainer
       {...props}
-      userId={id || '27789'}
-      ownProfile={id === '27789'}
+      userId={id || "27789"}
+      ownProfile={id === "27789"}
     />
   );
 };
@@ -63,7 +63,7 @@ const mapStateToProps = (state: StateData) => ({
 });
 
 export default connect(mapStateToProps, {
-  sendPost,
+  ...ProfileActionCreators,
   getUserDataThunk,
   getStatusDataThunk,
   updateStatusDataThunk,
