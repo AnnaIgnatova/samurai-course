@@ -1,8 +1,3 @@
-export interface Action {
-  type: string;
-  data?: any;
-}
-
 export interface Dialog {
   id: number;
   name: string;
@@ -84,7 +79,6 @@ export interface StoreData {
   _rerender: (state: StateData) => void;
   _state: StateData;
   getState: () => StateData;
-  dispatch: (action: Action) => void;
   subscriber: (observer: (state: StateData) => void) => void;
 }
 
@@ -138,10 +132,10 @@ export interface ProfileRouteData extends ProfileData {
 export interface ProfileAPIData extends ProfileRouteData {
   userId: string;
   ownProfile?: boolean;
-  toggleEditMode: any;
-  removeLike: any;
-  likePost: any;
-  pinPost: any;
+  toggleEditMode: () => void;
+  removeLike: (id: number) => void;
+  likePost: (id: number) => void;
+  pinPost: (id: number) => void;
 }
 
 export interface UserAuthData {

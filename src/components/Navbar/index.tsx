@@ -23,7 +23,7 @@ export const Navbar: React.FC<NavbarData> = ({ friendsIds }) => {
       <div className={styles["friends-container"]}>
         <span>Friends</span>
         <div className={styles.friends}>
-          {friendsIds.map((friend: any) => (
+          {friendsIds.map((friend: number) => (
             <img
               key={friend}
               src={`${process.env.PUBLIC_URL}/assets/friends/friend-${friend}.png`}
