@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
 import { AuthAPI } from "../../api";
 import { LoginData, UserAuthData } from "../../interfaces";
@@ -75,7 +76,7 @@ export const authReducer = (
   }
 };
 
-export const authUserThunk = () => async (dispatch: any) => {
+export const authUserThunk = () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
   const data = await AuthAPI.authProfile();
   if (!data.resultCode)
     dispatch(AuthActionCreators.authUser({ ...data.data, isAuth: true }));
@@ -103,12 +104,14 @@ export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
   }
 };
 
-export const logoutUserThunk = () => async (dispatch: any) => {
-  const { resultCode }: any = await AuthAPI.logoutUser();
-  if (!resultCode) dispatch(AuthActionCreators.logoutUser());
-};
+export const logoutUserThunk =
+  () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
+    const { resultCode }: any = await AuthAPI.logoutUser();
+    if (!resultCode) dispatch(AuthActionCreators.logoutUser());
+  };
 
-export const getCaptchaThunk = () => async (dispatch: any) => {
-  const { url } = await AuthAPI.getCaptchaImage();
-  dispatch(AuthActionCreators.getCaptcha(url));
-};
+export const getCaptchaThunk =
+  () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
+    const { url } = await AuthAPI.getCaptchaImage();
+    dispatch(AuthActionCreators.getCaptcha(url));
+  };
