@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { UsersAPI } from '../../api';
 import { UserData } from '../../interfaces';
 import { InferActionsType } from '../types';
@@ -112,25 +113,29 @@ export const usersReducer = (
   }
 };
 
-export const getUsersThunk = (page?: number) => async (dispatch: any) => {
-  dispatch(UsersActionCreators.setFetchingData(true));
-  const data = await UsersAPI.getUsers(page);
-  dispatch(UsersActionCreators.setFetchingData(false));
-  dispatch(UsersActionCreators.setUsers(data.items));
-  dispatch(UsersActionCreators.setTotalUsersCount(data.totalCount));
-  dispatch(UsersActionCreators.setCurrentPage(page));
-};
+export const getUsersThunk =
+  (page?: number) =>
+  async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+    dispatch(UsersActionCreators.setFetchingData(true));
+    const data = await UsersAPI.getUsers(page);
+    dispatch(UsersActionCreators.setFetchingData(false));
+    dispatch(UsersActionCreators.setUsers(data.items));
+    dispatch(UsersActionCreators.setTotalUsersCount(data.totalCount));
+    dispatch(UsersActionCreators.setCurrentPage(page));
+  };
 
-export const followUserThunk = (id: number) => async (dispatch: any) => {
-  dispatch(UsersActionCreators.setUserFollowed(id, true));
-  await UsersAPI.followUserAPI(id);
-  dispatch(UsersActionCreators.followUser(id));
-  dispatch(UsersActionCreators.setUserFollowed(id, false));
-};
+export const followUserThunk =
+  (id: number) => async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+    dispatch(UsersActionCreators.setUserFollowed(id, true));
+    await UsersAPI.followUserAPI(id);
+    dispatch(UsersActionCreators.followUser(id));
+    dispatch(UsersActionCreators.setUserFollowed(id, false));
+  };
 
-export const unfollowUserThunk = (id: number) => async (dispatch: any) => {
-  dispatch(UsersActionCreators.setUserFollowed(id, true));
-  await UsersAPI.unfollowUserAPI(id);
-  dispatch(UsersActionCreators.unfollowUser(id));
-  dispatch(UsersActionCreators.setUserFollowed(id, false));
-};
+export const unfollowUserThunk =
+  (id: number) => async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+    dispatch(UsersActionCreators.setUserFollowed(id, true));
+    await UsersAPI.unfollowUserAPI(id);
+    dispatch(UsersActionCreators.unfollowUser(id));
+    dispatch(UsersActionCreators.setUserFollowed(id, false));
+  };
