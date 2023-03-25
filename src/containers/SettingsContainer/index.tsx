@@ -3,14 +3,18 @@ import { ProfileUserData, StateData } from "../../interfaces";
 import React from "react";
 import {
   getUserDataThunk,
+  ProfileReducerPayloadType,
   saveProfileInfoThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { Settings } from "../../components/Settings";
+import { Dispatch } from "redux";
 
 export type SettingsContainerType = {
   profileData: ProfileUserData;
-  getUserDataThunk: any;
+  getUserDataThunk: (
+    userId: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
   saveProfileInfoThunk: any;
 };
 

@@ -1,3 +1,7 @@
+import { Dispatch } from "redux";
+import { ProfileReducerPayloadType } from "../redux/reducers/ProfileReducer";
+import { UsersReducerPayloadType } from "../redux/reducers/UsersReducer";
+
 export interface Dialog {
   id: number;
   name: string;
@@ -71,8 +75,8 @@ export interface ProfileComponentData extends ProfileData {
   sendPost: (text: string) => void;
   userId: string;
   ownProfile: boolean;
-  getUserDataThunk: any;
-  getStatusDataThunk: any;
+  getUserDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  getStatusDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
 }
 
 export interface StoreData {
@@ -104,9 +108,15 @@ export interface UsersData {
 }
 
 export interface UsersAPIContainerType {
-  getUsersThunk: any;
-  followUserThunk: any;
-  unfollowUserThunk: any;
+  getUsersThunk: (
+    page?: number
+  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
+  followUserThunk: (
+    id: number
+  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
+  unfollowUserThunk: (
+    id: number
+  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
   isAuth: boolean;
   users: UserData[];
   totalCount: number;
@@ -122,9 +132,9 @@ export interface UsersPageData extends UsersAPIContainerType {
 
 export interface ProfileRouteData extends ProfileData {
   sendPost: (text: string) => void;
-  getUserDataThunk: any;
-  getStatusDataThunk: any;
-  updateStatusDataThunk: any;
+  getUserDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  getStatusDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  updateStatusDataThunk: (text: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
   saveProfilePhotoThunk: any;
   saveProfileInfoThunk: any;
   isAuth: boolean;

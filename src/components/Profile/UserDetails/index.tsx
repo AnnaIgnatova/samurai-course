@@ -1,12 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { Dispatch } from "redux";
 import { ProfileAPIData, ProfileUserData } from "../../../interfaces";
+import { ProfileReducerPayloadType } from "../../../redux/reducers/ProfileReducer";
 import { Status } from "../Status";
 import styles from "./style.module.css";
 
 export interface UserDetailsData {
   status: string | null;
-  updateStatusDataThunk: any;
+  updateStatusDataThunk: (
+    text: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
   profileData: ProfileUserData;
 }
 

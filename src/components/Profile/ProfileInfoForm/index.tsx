@@ -1,12 +1,24 @@
-import { Field, reduxForm } from "redux-form";
+import { FormEventHandler } from "react";
+import { Field, reduxForm, SubmitHandler } from "redux-form";
+import { ProfileUserData } from "../../../interfaces";
 import { FormInput } from "../../UI/Form/Field";
 
 import styles from "./style.module.css";
 
-export const ProfileInfoFormContainer: React.FC<any> = ({
-  profile,
-  toggleEditMode,
-}) => {
+interface ProfileInfoFormContainerData {
+  profile: ProfileUserData;
+  toggleEditMode: SubmitHandler<{}, {}, string>;
+}
+
+interface ProfileInfoFormData {
+  profile: ProfileUserData;
+  handleSubmit: SubmitHandler<{}, {}, string>;
+  error: any;
+}
+
+export const ProfileInfoFormContainer: React.FC<
+  ProfileInfoFormContainerData
+> = ({ profile, toggleEditMode }) => {
   return (
     <ProfileInfoReduxForm
       onSubmit={toggleEditMode}
@@ -15,7 +27,7 @@ export const ProfileInfoFormContainer: React.FC<any> = ({
     />
   );
 };
-export const ProfileInfoForm: React.FC<any> = ({
+export const ProfileInfoForm: React.FC<ProfileInfoFormData> = ({
   profile,
   handleSubmit,
   error,
@@ -90,6 +102,6 @@ export const ProfileInfoForm: React.FC<any> = ({
   );
 };
 
-let ProfileInfoReduxForm: any = reduxForm({
+let ProfileInfoReduxForm = reduxForm<ProfileInfoFormContainerData, any>({
   form: "profileInfo",
 })(ProfileInfoForm);
