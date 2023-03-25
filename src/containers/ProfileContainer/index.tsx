@@ -9,9 +9,11 @@ import {
   updateStatusDataThunk,
   saveProfileInfoThunk,
   saveProfilePhotoThunk,
+  ProfileReducerPayloadType,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
+import { Dispatch } from "redux";
 
 export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
   userId: string;
@@ -39,7 +41,9 @@ export interface ProfileWithRouteContainerData {
   getUserDataThunk: any;
   getStatusDataThunk: any;
   sendPost: any;
-  updateStatusDataThunk: any;
+  updateStatusDataThunk: (
+    text: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
   saveProfilePhotoThunk: any;
   saveProfileInfoThunk: any;
 }

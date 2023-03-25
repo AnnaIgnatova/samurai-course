@@ -1,6 +1,8 @@
+import { Dispatch } from "redux";
 import { PostsContainer } from "../../containers/PostsContainer";
 import { ProfileApiContainerData } from "../../containers/ProfileContainer";
 import { Post, ProfileUserData } from "../../interfaces";
+import { ProfileReducerPayloadType } from "../../redux/reducers/ProfileReducer";
 import { ProfileInfo } from "./ProfileInfo";
 
 export interface ProfileInfoData extends ProfileApiContainerData {
@@ -8,7 +10,9 @@ export interface ProfileInfoData extends ProfileApiContainerData {
   saveProfilePhotoThunk: any;
   status: string | null;
   isAuth: boolean;
-  updateStatusDataThunk: any;
+  updateStatusDataThunk: (
+    text: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
 }
 
 export interface PostsData extends ProfileInfoData {
