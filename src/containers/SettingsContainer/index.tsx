@@ -8,7 +8,7 @@ import {
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { Settings } from "../../components/Settings";
-import { Dispatch } from "redux";
+import { compose, Dispatch } from "redux";
 
 export type SettingsContainerType = {
   profileData: ProfileUserData;
@@ -26,7 +26,9 @@ const mapStateToProps = (state: StateData) => ({
   profileData: state.profilePage.profileData,
 });
 
-export default connect(mapStateToProps, {
-  getUserDataThunk,
-  saveProfileInfoThunk,
-})(SettingsContainer);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, {
+    getUserDataThunk,
+    saveProfileInfoThunk,
+  })
+)(SettingsContainer);

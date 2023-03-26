@@ -10,9 +10,9 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
-export default compose(
+export default compose<React.ComponentType>(
   WithAuthRedirect,
   connect(mapStateToProps, {
-    ...DialogsActionCreators
+    ...DialogsActionCreators,
   })
 )(Dialogs);

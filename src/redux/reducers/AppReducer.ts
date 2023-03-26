@@ -1,3 +1,6 @@
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "..";
 import { InferActionsType } from "../types";
 import { authUserThunk } from "./AuthReducer";
 
@@ -31,7 +34,9 @@ export const appReducer = (
   }
 };
 
-export const initializeAppThunk = () => async (dispatch: any) => {
-  await dispatch(authUserThunk());
-  dispatch(AppActionCreators.initializeApp());
-};
+export const initializeAppThunk =
+  (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
+  async (dispatch) => {
+    dispatch(authUserThunk());
+    dispatch(AppActionCreators.initializeApp());
+  };

@@ -1,42 +1,43 @@
-import { Dispatch } from 'redux';
-import { UsersAPI } from '../../api';
-import { UserData } from '../../interfaces';
-import { InferActionsType } from '../types';
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { UsersAPI } from "../../api";
+import { StateData, UserData } from "../../interfaces";
+import { InferActionsType } from "../types";
 
 export const UsersActionCreators = {
   followUser: (id: number) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/FOLLOW',
+      type: "SOCIAL_NETWORK/USERS/FOLLOW",
       data: id,
     } as const),
   unfollowUser: (id: number) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/UNFOLLOW',
+      type: "SOCIAL_NETWORK/USERS/UNFOLLOW",
       data: id,
     } as const),
   setUsers: (users: UserData[]) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/SET_USERS',
+      type: "SOCIAL_NETWORK/USERS/SET_USERS",
       data: users,
     } as const),
   setCurrentPage: (page?: number) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE',
+      type: "SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE",
       data: page || 1,
     } as const),
   setTotalUsersCount: (count: number) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT',
+      type: "SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT",
       data: count,
     } as const),
   setFetchingData: (isFetchind: boolean) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/SET_FETCHING_USERS',
+      type: "SOCIAL_NETWORK/USERS/SET_FETCHING_USERS",
       data: isFetchind,
     } as const),
   setUserFollowed: (id: number, isFetching: boolean) =>
     ({
-      type: 'SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED',
+      type: "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED",
       data: { id, isFetching },
     } as const),
 };
@@ -58,7 +59,7 @@ export const usersReducer = (
   { type, data }: UsersReducerPayloadType
 ) => {
   switch (type) {
-    case 'SOCIAL_NETWORK/USERS/FOLLOW': {
+    case "SOCIAL_NETWORK/USERS/FOLLOW": {
       return {
         ...state,
         users: state.users.map((user: UserData) => {
@@ -67,7 +68,7 @@ export const usersReducer = (
         }),
       };
     }
-    case 'SOCIAL_NETWORK/USERS/UNFOLLOW': {
+    case "SOCIAL_NETWORK/USERS/UNFOLLOW": {
       return {
         ...state,
         users: state.users.map((user: UserData) => {
@@ -76,31 +77,31 @@ export const usersReducer = (
         }),
       };
     }
-    case 'SOCIAL_NETWORK/USERS/SET_USERS': {
+    case "SOCIAL_NETWORK/USERS/SET_USERS": {
       return {
         ...state,
         users: [...data],
       };
     }
-    case 'SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE': {
+    case "SOCIAL_NETWORK/USERS/SET_CURRENT_PAGE": {
       return {
         ...state,
         currentPage: data,
       };
     }
-    case 'SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT': {
+    case "SOCIAL_NETWORK/USERS/SET_TOTAL_USERS_COUNT": {
       return {
         ...state,
         totalCount: data,
       };
     }
-    case 'SOCIAL_NETWORK/USERS/SET_FETCHING_USERS': {
+    case "SOCIAL_NETWORK/USERS/SET_FETCHING_USERS": {
       return {
         ...state,
         isFetchingData: data,
       };
     }
-    case 'SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED': {
+    case "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED": {
       return {
         ...state,
         isUsersFollow: data.isFetching
@@ -114,8 +115,10 @@ export const usersReducer = (
 };
 
 export const getUsersThunk =
-  (page?: number) =>
-  async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+  (
+    page?: number
+  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  async (dispatch) => {
     dispatch(UsersActionCreators.setFetchingData(true));
     const data = await UsersAPI.getUsers(page);
     dispatch(UsersActionCreators.setFetchingData(false));
@@ -125,7 +128,10 @@ export const getUsersThunk =
   };
 
 export const followUserThunk =
-  (id: number) => async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+  (
+    id: number
+  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  async (dispatch) => {
     dispatch(UsersActionCreators.setUserFollowed(id, true));
     await UsersAPI.followUserAPI(id);
     dispatch(UsersActionCreators.followUser(id));
@@ -133,7 +139,10 @@ export const followUserThunk =
   };
 
 export const unfollowUserThunk =
-  (id: number) => async (dispatch: Dispatch<UsersReducerPayloadType>) => {
+  (
+    id: number
+  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  async (dispatch) => {
     dispatch(UsersActionCreators.setUserFollowed(id, true));
     await UsersAPI.unfollowUserAPI(id);
     dispatch(UsersActionCreators.unfollowUser(id));
