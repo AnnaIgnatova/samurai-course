@@ -4,8 +4,23 @@ import { Header } from "../../components/Header";
 import { StateData } from "../../interfaces";
 import { logoutUserThunk } from "../../redux/reducers/AuthReducer";
 import { useNavigate } from "react-router-dom";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "../../redux";
+import { Action, compose } from "redux";
 
-const AuthAPIContainer: React.FC<any> = (props) => {
+export type MapStateType = ReturnType<typeof mapStateToProps>;
+export type DispatchStateType = {
+  logoutUserThunk: () => ThunkAction<
+    Promise<void>,
+    AppState,
+    unknown,
+    Action<string>
+  >;
+};
+
+const AuthAPIContainer: React.FC<MapStateType & DispatchStateType> = (
+  props
+) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,6 +38,8 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: state.header.isAuth,
 });
 
-export const AuthContainer = connect(mapStateToProps, {
-  logoutUserThunk,
-})(AuthAPIContainer);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, {
+    logoutUserThunk,
+  })
+)(AuthAPIContainer);

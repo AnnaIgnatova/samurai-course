@@ -1,5 +1,7 @@
-import { Dispatch } from "redux";
+import { Action } from "redux";
 import { stopSubmit } from "redux-form";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "..";
 import { AuthAPI } from "../../api";
 import { LoginData, UserAuthData } from "../../interfaces";
 import { InferActionsType } from "../types";
@@ -76,42 +78,50 @@ export const authReducer = (
   }
 };
 
-export const authUserThunk = () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
-  const data = await AuthAPI.authProfile();
-  if (!data.resultCode)
-    dispatch(AuthActionCreators.authUser({ ...data.data, isAuth: true }));
-};
+export const authUserThunk =
+  (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
+  async (dispatch) => {
+    const data = await AuthAPI.authProfile();
+    if (!data.resultCode)
+      dispatch(AuthActionCreators.authUser({ ...data.data, isAuth: true }));
+  };
 
-export const loginUserThunk = (data: LoginData) => async (dispatch: any) => {
-  const { email, password, rememberMe, captcha } = data;
-  const { resultCode, messages } = await AuthAPI.loginUser(
-    email,
-    password,
-    rememberMe,
-    captcha
-  );
-  if (!resultCode) {
-    dispatch(authUserThunk());
-  } else {
-    if (resultCode === 10) {
-      dispatch(getCaptchaThunk());
-    } else
-      dispatch(
-        stopSubmit("login", {
-          _error: messages ? messages[0] : "Some error",
-        })
-      );
-  }
-};
+export const loginUserThunk =
+  (
+    data: LoginData
+  ): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
+  async (dispatch) => {
+    const { email, password, rememberMe, captcha } = data;
+    const { resultCode, messages } = await AuthAPI.loginUser(
+      email,
+      password,
+      rememberMe,
+      captcha
+    );
+    if (!resultCode) {
+      dispatch(authUserThunk());
+    } else {
+      if (resultCode === 10) {
+        dispatch(getCaptchaThunk());
+      } else
+        dispatch(
+          stopSubmit("login", {
+            _error: messages ? messages[0] : "Some error",
+          })
+        );
+    }
+  };
 
 export const logoutUserThunk =
-  () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
+  (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
+  async (dispatch) => {
     const { resultCode }: any = await AuthAPI.logoutUser();
     if (!resultCode) dispatch(AuthActionCreators.logoutUser());
   };
 
 export const getCaptchaThunk =
-  () => async (dispatch: Dispatch<AuthReducerPayloadType>) => {
+  (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
+  async (dispatch) => {
     const { url } = await AuthAPI.getCaptchaImage();
     dispatch(AuthActionCreators.getCaptcha(url));
   };
