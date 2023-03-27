@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { Post, ProfileUserData, StateData } from "../../interfaces";
+import { StateData } from "../../interfaces";
 import React, { useEffect } from "react";
-import { Profile } from "../../components/Profile";
+import { Profile, ProfileInfoData } from "../../components/Profile";
 import {
   getStatusDataThunk,
   getUserDataThunk,
@@ -9,20 +9,41 @@ import {
   updateStatusDataThunk,
   saveProfileInfoThunk,
   saveProfilePhotoThunk,
-  ProfileReducerPayloadType,
+  ProfileActionCreatorsType,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
-import { Dispatch } from "redux";
+import { compose, Action } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "../../redux";
 
-export interface ProfileApiContainerData extends ProfileWithRouteContainerData {
+type MapStateType = ReturnType<typeof mapStateToProps>;
+type DispatchStateType = {
+  getUserDataThunk: (
+    userId: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  getStatusDataThunk: (
+    userId: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  updateStatusDataThunk: (
+    text: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  saveProfilePhotoThunk: (
+    file: File
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  saveProfileInfoThunk: (
+    info: ProfileInfoData
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+};
+
+type ProfileAPIComponentType = {
   userId: string;
   ownProfile: boolean;
-}
+};
 
-const ProfileWithRouterContainer: React.FC<ProfileWithRouteContainerData> = (
-  props
-) => {
+const ProfileWithRouterContainer: React.FC<
+  MapStateType & DispatchStateType & ProfileActionCreatorsType
+> = (props) => {
   const { id = "27789" } = useParams();
   return (
     <ProfileAPIContainer
@@ -33,22 +54,12 @@ const ProfileWithRouterContainer: React.FC<ProfileWithRouteContainerData> = (
   );
 };
 
-export interface ProfileWithRouteContainerData {
-  status: string | null;
-  posts: Post[];
-  isAuth: boolean;
-  profileData: ProfileUserData;
-  getUserDataThunk: any;
-  getStatusDataThunk: any;
-  sendPost: any;
-  updateStatusDataThunk: (
-    text: string
-  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  saveProfilePhotoThunk: any;
-  saveProfileInfoThunk: any;
-}
+export type ProfileComponentType = MapStateType &
+  DispatchStateType &
+  ProfileActionCreatorsType &
+  ProfileAPIComponentType;
 
-const ProfileAPIContainer: React.FC<ProfileApiContainerData> = (props) => {
+const ProfileAPIContainer: React.FC<ProfileComponentType> = (props) => {
   const { userId } = props;
 
   useEffect(() => {
@@ -66,11 +77,13 @@ const mapStateToProps = (state: StateData) => ({
   status: state.profilePage.status,
 });
 
-export default connect(mapStateToProps, {
-  ...ProfileActionCreators,
-  getUserDataThunk,
-  getStatusDataThunk,
-  updateStatusDataThunk,
-  saveProfilePhotoThunk,
-  saveProfileInfoThunk,
-})(ProfileWithRouterContainer);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, {
+    ...ProfileActionCreators,
+    getUserDataThunk,
+    getStatusDataThunk,
+    updateStatusDataThunk,
+    saveProfilePhotoThunk,
+    saveProfileInfoThunk,
+  })
+)(ProfileWithRouterContainer);

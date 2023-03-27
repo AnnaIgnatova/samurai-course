@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ProfileInfoData } from "..";
+import { ProfileComponentType } from "../../../containers/ProfileContainer";
 import { UserDetails } from "../UserDetails";
 import userImg from "./../../../assets/avatar.png";
 import styles from "./style.module.css";
 
-export const ProfileInfo: React.FC<ProfileInfoData> = (props) => {
+export const ProfileInfo: React.FC<ProfileComponentType> = (props) => {
   const { profileData, ownProfile, saveProfilePhotoThunk } = props;
   const { photos, fullName } = profileData;
 
