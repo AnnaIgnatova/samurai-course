@@ -43,7 +43,7 @@ const mapStateToProps = (state: StateData) => ({
   isAuth: getIsAuth(state),
 });
 
-export default compose(
+export default compose<React.ComponentType>(
   WithAuthRedirect,
   connect(mapStateToProps, {
     followUserThunk,

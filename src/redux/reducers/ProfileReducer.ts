@@ -5,6 +5,8 @@ import { ProfileAPI, UsersAPI } from "../../api";
 import { Post, ProfileUserData, StateData } from "../../interfaces";
 import { InferActionsType } from "../types";
 
+export type ProfileActionCreatorsType = typeof ProfileActionCreators;
+
 export const ProfileActionCreators = {
   sendPost: (data: string) =>
     ({

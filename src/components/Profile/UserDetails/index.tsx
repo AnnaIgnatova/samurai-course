@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Dispatch } from "redux";
+import { ProfileComponentType } from "../../../containers/ProfileContainer";
 import { ProfileAPIData, ProfileUserData } from "../../../interfaces";
 import { ProfileReducerPayloadType } from "../../../redux/reducers/ProfileReducer";
 import { Status } from "../Status";
@@ -14,7 +15,7 @@ export interface UserDetailsData {
   profileData: ProfileUserData;
 }
 
-export const UserDetails: React.FC<UserDetailsData> = ({
+export const UserDetails: React.FC<ProfileComponentType> = ({
   status,
   updateStatusDataThunk,
   profileData,

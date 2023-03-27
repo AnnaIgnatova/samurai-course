@@ -1,11 +1,11 @@
 import { Dispatch } from "redux";
-import { PostsContainer } from "../../containers/PostsContainer";
-import { ProfileApiContainerData } from "../../containers/ProfileContainer";
+import PostsContainer from "../../containers/PostsContainer";
+import { ProfileComponentType } from "../../containers/ProfileContainer";
 import { Post, ProfileUserData } from "../../interfaces";
 import { ProfileReducerPayloadType } from "../../redux/reducers/ProfileReducer";
 import { ProfileInfo } from "./ProfileInfo";
 
-export interface ProfileInfoData extends ProfileApiContainerData {
+export interface ProfileInfoData {
   profileData: ProfileUserData;
   saveProfilePhotoThunk: any;
   status: string | null;
@@ -23,13 +23,13 @@ export interface PostsData extends ProfileInfoData {
   pinPost: (id: number) => void;
 }
 
-type ProfileType = ProfileInfoData;
+type ProfileType = ProfileComponentType;
 
 export const Profile: React.FC<ProfileType> = (props) => {
   return (
     <>
       <ProfileInfo {...props} />
-      <PostsContainer {...props} />
+      <PostsContainer />
     </>
   );
 };
