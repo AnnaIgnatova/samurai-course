@@ -15,7 +15,9 @@ export type SettingsContainerType = {
   getUserDataThunk: (
     userId: string
   ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  saveProfileInfoThunk: any;
+  saveProfileInfoThunk: (
+    info: ProfileUserData
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
 };
 
 const SettingsContainer: React.FC<SettingsContainerType> = (props) => {

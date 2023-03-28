@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Dispatch } from "redux";
 import { ProfileComponentType } from "../../../containers/ProfileContainer";
+import { SettingsContainerType } from "../../../containers/SettingsContainer";
 import { ProfileAPIData, ProfileUserData } from "../../../interfaces";
 import { ProfileReducerPayloadType } from "../../../redux/reducers/ProfileReducer";
 import { Status } from "../Status";
@@ -13,13 +14,12 @@ export interface UserDetailsData {
     text: string
   ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
   profileData: ProfileUserData;
+  toggleEditMode: () => void;
 }
 
-export const UserDetails: React.FC<ProfileComponentType> = ({
-  status,
-  updateStatusDataThunk,
-  profileData,
-}) => {
+export const UserDetails: React.FC<
+  ProfileComponentType & SettingsContainerType
+> = ({ status, updateStatusDataThunk, profileData }) => {
   const {
     lookingForAJob,
     lookingForAJobDescription,
