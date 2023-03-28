@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useParams } from "react-router";
 import styles from "./style.module.css";
 
 export interface StatusData {
   text: string | null;
-  updateStatus: any;
+  updateStatus: (text: string) => void;
 }
 
 export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
@@ -20,7 +20,7 @@ export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
     id === "27789" && setEditMode(!editMode);
   };
 
-  const changeStatusText = (e: any) => {
+  const changeStatusText = (e: ChangeEvent<HTMLInputElement>) => {
     setStatusText(e.target.value);
   };
 

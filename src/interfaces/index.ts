@@ -1,4 +1,6 @@
-import { Dispatch } from "redux";
+import { Action, Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "../redux";
 import { ProfileReducerPayloadType } from "../redux/reducers/ProfileReducer";
 import { UsersReducerPayloadType } from "../redux/reducers/UsersReducer";
 
@@ -75,8 +77,12 @@ export interface ProfileComponentData extends ProfileData {
   sendPost: (text: string) => void;
   userId: string;
   ownProfile: boolean;
-  getUserDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  getStatusDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  getUserDataThunk: (
+    userId: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  getStatusDataThunk: (
+    userId: string
+  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
 }
 
 export interface StoreData {
@@ -132,11 +138,21 @@ export interface UsersPageData extends UsersAPIContainerType {
 
 export interface ProfileRouteData extends ProfileData {
   sendPost: (text: string) => void;
-  getUserDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  getStatusDataThunk: (userId: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  updateStatusDataThunk: (text: string) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-  saveProfilePhotoThunk: any;
-  saveProfileInfoThunk: any;
+  getUserDataThunk: (
+    userId: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  getStatusDataThunk: (
+    userId: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  updateStatusDataThunk: (
+    text: string
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  saveProfilePhotoThunk: (
+    file: File
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
+  saveProfileInfoThunk: (
+    info: ProfileUserData
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
   isAuth: boolean;
 }
 export interface ProfileAPIData extends ProfileRouteData {

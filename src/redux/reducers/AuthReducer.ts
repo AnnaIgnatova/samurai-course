@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { Action } from "redux";
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
@@ -112,10 +113,14 @@ export const loginUserThunk =
     }
   };
 
+export interface LogoutResponseType extends AxiosResponse {
+  resultCode?: number;
+}
+
 export const logoutUserThunk =
   (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
   async (dispatch) => {
-    const { resultCode }: any = await AuthAPI.logoutUser();
+    const { resultCode }: LogoutResponseType = await AuthAPI.logoutUser();
     if (!resultCode) dispatch(AuthActionCreators.logoutUser());
   };
 

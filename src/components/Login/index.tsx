@@ -1,22 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { Field, FormState, reduxForm } from "redux-form";
 import { maxLength, required } from "../../utils/validators";
 import { FormInput } from "../UI/Form/Field";
 import styles from "./style.module.css";
 
 export interface LoginFormData {
-  handleSubmit?: any;
-  onSubmit?: any;
-  error: any;
-  pristine: boolean;
-  submitting: boolean;
+  captcha: string;
+  loginUserThunk: any;
+}
+
+export interface ReduxFormProps {
+  handleSubmit?: (values: any) => void;
   captcha: string;
 }
 
 const maxLength30 = maxLength(30);
 
-export const Login: React.FC<any> = ({ loginUserThunk, captcha }) => {
+export const Login: React.FC<LoginFormData> = ({ loginUserThunk, captcha }) => {
   const navigate = useNavigate();
   const handleSubmit = (values: any) => {
     console.log(values);
@@ -27,10 +28,9 @@ export const Login: React.FC<any> = ({ loginUserThunk, captcha }) => {
   return <LoginReduxForm onSubmit={handleSubmit} captcha={captcha} />;
 };
 
-let LoginForm: React.FC<any> = ({
+let LoginForm: React.FC<ReduxFormProps & FormState> = ({
   handleSubmit,
   error,
-  pristine,
   submitting,
   captcha,
 }) => {
@@ -80,13 +80,13 @@ let LoginForm: React.FC<any> = ({
         </>
       )}
       {error && <span className={styles["errors-message"]}>{error}</span>}
-      <button type="submit" disabled={pristine || submitting}>
+      <button type="submit" disabled={submitting}>
         Log in
       </button>
     </form>
   );
 };
 
-let LoginReduxForm: any = reduxForm({
+let LoginReduxForm = reduxForm<ReduxFormProps, any>({
   form: "login",
 })(LoginForm);
