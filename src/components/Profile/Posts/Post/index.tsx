@@ -1,4 +1,3 @@
-import { PostData } from "../../interfaces";
 import styles from "./style.module.css";
 import userAvatarUrl from "../../../../assets/user-avatar.png";
 import likeUrl from "../../../../assets/like.svg";
@@ -8,8 +7,9 @@ import shareUrl from "../../../../assets/share.svg";
 import pinUrl from "../../../../assets/pin.svg";
 import pinnedUrl from "../../../../assets/pinned.svg";
 import React from "react";
+import { Post as PostData } from "../../../../interfaces";
 
-export const Post: React.FC<any> = (props) => {
+export const Post: React.FC<PostData> = (props) => {
   const {
     message,
     likes,
@@ -17,7 +17,6 @@ export const Post: React.FC<any> = (props) => {
     comments,
     shares,
     pinned,
-    postDate,
     likePost,
     removeLike,
     pinPost,
@@ -33,19 +32,19 @@ export const Post: React.FC<any> = (props) => {
   return (
     <div className={styles.post}>
       <img src={profileData.photos.large || userAvatarUrl} alt="avatar" />
-      <div className={styles['post-content']}>
-        <div className={styles['user-info']}>
+      <div className={styles["post-content"]}>
+        <div className={styles["user-info"]}>
           <span>{profileData.fullName}</span>
           <span>
-            {new Date(new Date().toJSON()).toLocaleString('en-GB', {
-              day: 'numeric',
-              month: 'long',
+            {new Date(new Date().toJSON()).toLocaleString("en-GB", {
+              day: "numeric",
+              month: "long",
             })}
           </span>
         </div>
         <span className={styles.content}>{message}</span>
-        <div className={styles['post-navbar']}>
-          <div className={`${styles.statistic} ${isLiked ? styles.liked : ''}`}>
+        <div className={styles["post-navbar"]}>
+          <div className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}>
             <img
               src={isLiked ? activeLike : likeUrl}
               alt="like"

@@ -6,7 +6,13 @@ import userImg from "./../../../assets/avatar.png";
 import styles from "./style.module.css";
 
 export const ProfileInfo: React.FC<ProfileComponentType> = (props) => {
-  const { profileData, ownProfile, saveProfilePhotoThunk } = props;
+  const {
+    profileData,
+    ownProfile,
+    saveProfilePhotoThunk,
+    updateStatusDataThunk,
+    status,
+  } = props;
   const { photos, fullName } = profileData;
 
   const changePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +34,11 @@ export const ProfileInfo: React.FC<ProfileComponentType> = (props) => {
         <NavLink className={styles["edit-data-btn"]} to="/settings">
           Edit profile
         </NavLink>
-        <UserDetails {...props} />
+        <UserDetails
+          status={status}
+          updateStatusDataThunk={updateStatusDataThunk}
+          profileData={profileData}
+        />
       </div>
     </>
   );

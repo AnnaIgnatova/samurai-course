@@ -1,13 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Action } from "redux";
 import { Field, FormState, reduxForm } from "redux-form";
+import { ThunkAction } from "redux-thunk";
+import { LoginData, StateData } from "../../interfaces";
 import { maxLength, required } from "../../utils/validators";
 import { FormInput } from "../UI/Form/Field";
 import styles from "./style.module.css";
 
 export interface LoginFormData {
   captcha: string;
-  loginUserThunk: any;
+  loginUserThunk: (
+    data: LoginData
+  ) => ThunkAction<Promise<void>, StateData, unknown, Action<string>>;
 }
 
 export interface ReduxFormProps {

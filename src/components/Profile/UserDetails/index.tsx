@@ -1,25 +1,28 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Dispatch } from "redux";
+import { Action, Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
 import { ProfileComponentType } from "../../../containers/ProfileContainer";
 import { SettingsContainerType } from "../../../containers/SettingsContainer";
 import { ProfileAPIData, ProfileUserData } from "../../../interfaces";
+import { AppState } from "../../../redux";
 import { ProfileReducerPayloadType } from "../../../redux/reducers/ProfileReducer";
 import { Status } from "../Status";
 import styles from "./style.module.css";
 
 export interface UserDetailsData {
-  status: string | null;
-  updateStatusDataThunk: (
+  status?: string | null;
+  updateStatusDataThunk?: (
     text: string
-  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
   profileData: ProfileUserData;
-  toggleEditMode: () => void;
 }
 
-export const UserDetails: React.FC<
-  ProfileComponentType & SettingsContainerType
-> = ({ status, updateStatusDataThunk, profileData }) => {
+export const UserDetails: React.FC<UserDetailsData> = ({
+  status,
+  updateStatusDataThunk,
+  profileData,
+}) => {
   const {
     lookingForAJob,
     lookingForAJobDescription,
