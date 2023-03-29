@@ -9,8 +9,9 @@ export const Settings: React.FC<SettingsContainerType> = (props) => {
   const { saveProfileInfoThunk, profileData } = props;
   const [isEditMode, setEditMode] = React.useState(false);
 
-  const modeOffEditMode = (values: any) => {
-    saveProfileInfoThunk(values).then((res: any) => !res && setEditMode(false));
+  const modeOffEditMode = async (values: any) => {
+    const res = await saveProfileInfoThunk(values);
+    !res && setEditMode(false);
   };
 
   return (

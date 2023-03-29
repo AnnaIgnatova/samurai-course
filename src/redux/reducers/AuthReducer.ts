@@ -120,8 +120,8 @@ export interface LogoutResponseType extends AxiosResponse {
 export const logoutUserThunk =
   (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
   async (dispatch) => {
-    const { resultCode }: LogoutResponseType = await AuthAPI.logoutUser();
-    if (!resultCode) dispatch(AuthActionCreators.logoutUser());
+    const res = await AuthAPI.logoutUser();
+    if (!res?.resultCode) dispatch(AuthActionCreators.logoutUser());
   };
 
 export const getCaptchaThunk =

@@ -15,14 +15,27 @@ export interface Message {
   from: string;
 }
 
-export interface Post {
+export interface PostData {
   id: number;
-  text: string;
   likes: number;
   shares: number;
   comments: number;
   pinned: boolean;
   postDate: string;
+}
+
+export interface Post {
+  id: number;
+  likes: number;
+  shares: number;
+  comments: number;
+  pinned: boolean;
+  postDate: string;
+  message: string;
+  profileData: ProfileUserData;
+  removeLike: (id: number) => void;
+  likePost: (id: number) => void;
+  pinPost: (id: number) => void;
 }
 
 export interface NavbarData {
@@ -176,7 +189,12 @@ export interface AuthData extends UserAuthData {
 }
 
 export interface HeaderContainerData extends AuthData {
-  logoutUserThunk: any;
+  logoutUserThunk: () => ThunkAction<
+    Promise<void>,
+    AppState,
+    unknown,
+    Action<string>
+  >;
 }
 
 export interface AppData {

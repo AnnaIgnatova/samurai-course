@@ -3,21 +3,22 @@ import { ProfileUserData, StateData } from "../../interfaces";
 import React from "react";
 import {
   getUserDataThunk,
-  ProfileReducerPayloadType,
   saveProfileInfoThunk,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { Settings } from "../../components/Settings";
-import { compose, Dispatch } from "redux";
+import { Action, compose } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppState } from "../../redux";
 
 export type SettingsContainerType = {
   profileData: ProfileUserData;
   getUserDataThunk: (
     userId: string
-  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
   saveProfileInfoThunk: (
     info: ProfileUserData
-  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
+  ) => ThunkAction<Promise<void>, AppState, unknown, Action<string>>;
 };
 
 const SettingsContainer: React.FC<SettingsContainerType> = (props) => {

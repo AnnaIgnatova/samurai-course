@@ -63,7 +63,9 @@ export const AuthAPI = {
   },
   async logoutUser() {
     try {
-      const res = await axiosInstance.delete(`/auth/login`);
+      const res: { resultCode: number } = await axiosInstance.delete(
+        `/auth/login`
+      );
       return res;
     } catch (e) {
       console.log(e);

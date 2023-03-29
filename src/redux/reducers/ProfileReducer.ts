@@ -2,7 +2,7 @@ import { Action } from "redux";
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { ProfileAPI, UsersAPI } from "../../api";
-import { Post, ProfileUserData, StateData } from "../../interfaces";
+import { Post, PostData, ProfileUserData, StateData } from "../../interfaces";
 import { InferActionsType } from "../types";
 
 export type ProfileActionCreatorsType = typeof ProfileActionCreators;
@@ -165,7 +165,7 @@ export const profileReducer = (
     case "SOCIAL_NETWORK/PROFILE/DELETE_POST": {
       return {
         ...state,
-        posts: state.posts.filter((post: Post) => post.id !== data),
+        posts: state.posts.filter((post: PostData) => post.id !== data),
       };
     }
     case "SOCIAL_NETWORK/PROFILE/SAVE_PROFILE_PHOTO": {
@@ -178,7 +178,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: Post) =>
+          ...state.posts.map((post: PostData) =>
             post.id === data ? { ...post, likes: post.likes + 1 } : post
           ),
         ],
@@ -188,7 +188,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: Post) =>
+          ...state.posts.map((post: PostData) =>
             post.id === data ? { ...post, likes: post.likes - 1 } : post
           ),
         ],
@@ -198,7 +198,7 @@ export const profileReducer = (
       return {
         ...state,
         posts: [
-          ...state.posts.map((post: Post) =>
+          ...state.posts.map((post: PostData) =>
             post.id === data ? { ...post, pinned: !post.pinned } : post
           ),
         ].sort((post) => (post.pinned ? -1 : 1)),
