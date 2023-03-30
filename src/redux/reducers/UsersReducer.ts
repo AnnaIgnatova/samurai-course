@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { UsersAPI } from "../../api";
-import { StateData, UserData } from "../../interfaces";
+import { StateData, UserData, UsersData } from "../../interfaces";
 import { InferActionsType } from "../types";
 
 export const UsersActionCreators = {
@@ -42,7 +42,7 @@ export const UsersActionCreators = {
     } as const),
 };
 
-export const initialState = {
+export const initialState: UsersData = {
   users: [],
   totalCount: 0,
   pageCount: 5,

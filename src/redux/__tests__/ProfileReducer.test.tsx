@@ -1,7 +1,6 @@
 import {
-  deletePost,
   profileReducer,
-  sendPost,
+  ProfileActionCreators,
 } from "../reducers/ProfileReducer";
 
 const initialState = {
@@ -73,19 +72,19 @@ const initialState = {
 };
 
 test("add post on profile page", () => {
-  const action = sendPost("new text");
+  const action = ProfileActionCreators.sendPost("new text");
   const newState = profileReducer(initialState, action);
   expect(newState.posts.length).toBe(6);
 });
 
 test("check new post text", () => {
-  const action = sendPost("new text");
+  const action = ProfileActionCreators.sendPost("new text");
   const newState = profileReducer(initialState, action);
   expect(newState.posts[5].text).toBe("new text");
 });
 
 test("delete post", () => {
-  const action = deletePost(1);
+  const action = ProfileActionCreators.deletePost(1);
   const newState = profileReducer(initialState, action);
   expect(newState.posts.length).toBe(4);
 });
