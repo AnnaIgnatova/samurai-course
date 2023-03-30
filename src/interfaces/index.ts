@@ -108,12 +108,12 @@ export interface StoreData {
 export interface UserData {
   name: string;
   id: number;
-  uniqueUrlName: string;
+  uniqueUrlName: null | string;
   photos: {
-    small: string;
-    large: string;
+    small: null | string;
+    large: null | string;
   };
-  status: string;
+  status: null | string;
   followed: boolean;
 }
 
