@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Action } from "redux";
-import { stopSubmit } from "redux-form";
+//import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { AppState } from "..";
 import { AuthAPI } from "../../api";
@@ -104,12 +104,13 @@ export const loginUserThunk =
     } else {
       if (resultCode === 10) {
         dispatch(getCaptchaThunk());
-      } else
-        dispatch(
-          stopSubmit("login", {
-            _error: messages ? messages[0] : "Some error",
-          })
-        );
+      } 
+      // else
+      //   dispatch(
+      //     stopSubmit("login", {
+      //       _error: messages ? messages[0] : "Some error",
+      //     })
+      //   );
     }
   };
 
