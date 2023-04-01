@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { stopSubmit } from "redux-form";
+// import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { ProfileAPI, UsersAPI } from "../../api";
 import { Post, PostData, ProfileUserData, StateData } from "../../interfaces";
@@ -253,12 +253,12 @@ export const saveProfileInfoThunk =
     const userId = getState().profilePage.profileData.userId;
     const data = await ProfileAPI.saveProfileInfo(info);
     if (!data.resultCode) dispatch(getUserDataThunk(userId));
-    else {
-      dispatch(
-        stopSubmit("profileInfo", {
-          _error: data.messages ? data.messages[0] : "Some error",
-        })
-      );
-    }
+    // else {
+    //   dispatch(
+    //     stopSubmit("profileInfo", {
+    //       _error: data.messages ? data.messages[0] : "Some error",
+    //     })
+    //   );
+    // }
     return data.resultCode;
   };

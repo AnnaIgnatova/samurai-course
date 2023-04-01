@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+//import { Field, reduxForm } from "redux-form";
 import { PostsData } from "..";
 import { Post as PostType } from "../../../interfaces";
 import { maxLength, required } from "../../../utils/validators";
@@ -18,7 +18,7 @@ export const Posts: React.FC<PostsData> = React.memo(
     return (
       <div className={styles["posts-container"]}>
         <div className={styles["create-post"]}>
-          <PostReduxForm onSubmit={sendPostData} profileData={profileData} />
+          {/* <PostReduxForm onSubmit={sendPostData} profileData={profileData} /> */}
         </div>
         <div>
           {posts.map(({ id, ...data }) => (
@@ -36,13 +36,13 @@ const PostForm: React.FC<any> = ({ handleSubmit, profileData }) => {
       <form onSubmit={handleSubmit} className={styles["create-post"]}>
         <div>
           <img src={profileData.photos.large} alt="avatar" />
-          <Field
+          {/* <Field
             type="text"
             component={FormTextarea}
             name="post"
             placeholder="What’s happening"
             validate={[required, maxLength100]}
-          />
+          /> */}
         </div>
         <button>Share</button>
       </form>
@@ -50,4 +50,4 @@ const PostForm: React.FC<any> = ({ handleSubmit, profileData }) => {
   );
 };
 
-const PostReduxForm: any = reduxForm({ form: "post" })(PostForm);
+//const PostReduxForm: any = reduxForm({ form: "post" })(PostForm);

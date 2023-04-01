@@ -1,5 +1,4 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
 import { DialogsPageData } from "../../interfaces";
 import { maxLength, required } from "../../utils/validators";
 import { FormTextarea } from "../UI/Form/Field";
@@ -31,7 +30,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({
           {messages.map(({ id, text, from }) => (
             <Message key={id} text={text} from={from} />
           ))}
-          <MessageReduxForm onSubmit={createNewMessage} />
+          {/* <MessageReduxForm onSubmit={createNewMessage} /> */}
         </div>
       </div>
     </>
@@ -40,17 +39,18 @@ export const Dialogs: React.FC<DialogsPageData> = ({
 
 const MessageForm: React.FC<any> = ({ handleSubmit }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <Field
-        type="text"
-        component={FormTextarea}
-        name="message"
-        placeholder="Type something here"
-        validate={[required, maxLength100]}
-      />
-      <button>Send</button>
-    </form>
+    <></>
+    // <form onSubmit={handleSubmit}>
+    //   <Field
+    //     type="text"
+    //     component={FormTextarea}
+    //     name="message"
+    //     placeholder="Type something here"
+    //     validate={[required, maxLength100]}
+    //   />
+    //   <button>Send</button>
+    // </form>
   );
 };
 
-const MessageReduxForm = reduxForm({ form: "message" })(MessageForm);
+// const MessageReduxForm = reduxForm({ form: "message" })(MessageForm);

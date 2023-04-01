@@ -6,6 +6,7 @@ import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
 import { FilledButton } from "../UI/Button";
+import { FilterForm } from "./Filter";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
@@ -24,6 +25,7 @@ export const Users: React.FC<UsersPageData> = ({
         <Loader />
       ) : (
         <>
+          <FilterForm />
           {users.map(({ id, name, photos, followed, status }) => (
             <div key={id} className={styles.user}>
               <div>
