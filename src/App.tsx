@@ -5,10 +5,10 @@ import "./App.css";
 import { NavbarContainer } from "./containers/NavbarContainer";
 import SettingsContainer from "./containers/SettingsContainer";
 import AuthContainer from "./containers/AuthContainer";
-import LoginContainer from "./containers/LoginContainer";
 import { Suspense } from "react";
 import { Loader } from "./components/UI/Loader";
 import React from "react";
+import { LoginForm } from "./components/Login";
 
 const ProfileContainer = React.lazy(
   () => import("./containers/ProfileContainer")
@@ -35,7 +35,7 @@ const App: React.FC = () => {
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<SettingsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
-            <Route path="/login" element={<LoginContainer />} />
+            <Route path="/login" element={<LoginForm />} />
           </Routes>
         </Suspense>
       </div>

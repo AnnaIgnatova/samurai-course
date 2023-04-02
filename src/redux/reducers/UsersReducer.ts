@@ -4,6 +4,8 @@ import { UsersAPI } from "../../api";
 import { StateData, UserData, UsersData } from "../../interfaces";
 import { InferActionsType } from "../types";
 
+export type UsersActionCreatorsType = typeof UsersActionCreators;
+
 export const UsersActionCreators = {
   followUser: (id: number) =>
     ({
@@ -40,6 +42,11 @@ export const UsersActionCreators = {
       type: "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED",
       data: { id, isFetching },
     } as const),
+  setFilterTerm: (term: string, isFriend?: string) =>
+    ({
+      type: "SOCIAL_NETWORK/USERS/SET_FILTER_TERM",
+      data: { term, isFriend },
+    } as const),
 };
 
 export const initialState: UsersData = {
@@ -49,6 +56,8 @@ export const initialState: UsersData = {
   currentPage: 1,
   isFetchingData: true,
   isUsersFollow: [],
+  filterTerm: "",
+  filterByFriend: null,
 };
 export type UsersReducerPayloadType = InferActionsType<
   typeof UsersActionCreators
@@ -109,6 +118,14 @@ export const usersReducer = (
           : state.isUsersFollow.filter((val) => val !== data.id),
       };
     }
+    case "SOCIAL_NETWORK/USERS/SET_FILTER_TERM": {
+      return {
+        ...state,
+        filterTerm: data.term,
+        filterByFriend: data.isFriend,
+      };
+    }
+
     default:
       return state;
   }
@@ -118,9 +135,13 @@ export const getUsersThunk =
   (
     page?: number
   ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     dispatch(UsersActionCreators.setFetchingData(true));
-    const data = await UsersAPI.getUsers(page);
+    const data = await UsersAPI.getUsers(
+      page,
+      getState().usersPage.filterTerm,
+      getState().usersPage.filterByFriend
+    );
     dispatch(UsersActionCreators.setFetchingData(false));
     dispatch(UsersActionCreators.setUsers(data.items));
     dispatch(UsersActionCreators.setTotalUsersCount(data.totalCount));

@@ -1,96 +1,69 @@
+import { Formik } from "formik";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Action } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { LoginData, StateData } from "../../interfaces";
-import { maxLength, required } from "../../utils/validators";
-import { FormInput } from "../UI/Form/Field";
+import { useDispatch, useSelector } from "react-redux";
+import { StateData } from "../../interfaces";
+import { loginUserThunk } from "../../redux/reducers/AuthReducer";
 import styles from "./style.module.css";
 
-export interface LoginFormData {
-  captcha: string;
-  loginUserThunk: (
-    data: LoginData
-  ) => ThunkAction<Promise<void>, StateData, unknown, Action<string>>;
-}
-
-export interface ReduxFormProps {
-  handleSubmit?: (values: any) => void;
-  captcha: string;
-}
-
-const maxLength30 = maxLength(30);
-
-export const Login: React.FC<LoginFormData> = ({ loginUserThunk, captcha }) => {
-  const navigate = useNavigate();
-  const handleSubmit = (values: any) => {
-    console.log(values);
-    loginUserThunk(values);
-    // navigate("/profile/27789");
-  };
-  return <></>;
-  // <LoginReduxForm onSubmit={handleSubmit} captcha={captcha} />;
-};
-
-let LoginForm: React.FC<ReduxFormProps> = ({
-  handleSubmit,
-
-  captcha,
-}) => {
+export const LoginForm: React.FC = () => {
+  const captcha = useSelector((state: StateData) => state.header.captcha);
+  const dispatch: any = useDispatch();
   return (
-    <></>
-    // <form onSubmit={handleSubmit} className={styles.form}>
-    //   <h3>Log in to social network</h3>
-    //   <div>
-    //     <Field
-    //       name="email"
-    //       component={FormInput}
-    //       type="email"
-    //       validate={[required, maxLength30]}
-    //       placeholder="Email"
-    //       className={styles["form-input"]}
-    //     />
-    //   </div>
-    //   <div>
-    //     <Field
-    //       name="password"
-    //       component={FormInput}
-    //       type="password"
-    //       validate={[required, maxLength30]}
-    //       placeholder="Password"
-    //       className={styles["form-input"]}
-    //     />
-    //   </div>
-    //   <div className={styles["form-checkbox-container"]}>
-    //     <Field
-    //       name="rememberMe"
-    //       component="input"
-    //       type="checkbox"
-    //       className={styles["form-checkbox"]}
-    //     />
-    //     <label htmlFor="rememberMe">remember me</label>
-    //   </div>
-    //   {captcha && (
-    //     <>
-    //       <img src={captcha} alt="captcha" />
-    //       <Field
-    //         name="captcha"
-    //         component="input"
-    //         type="text"
-    //         className={styles["form-input"]}
-    //         validate={[required]}
-    //         placeholder="type antibot symbols"
-    //       />
-    //     </>
-    //   )}
-    //   {error && <span className={styles["errors-message"]}>{error}</span>}
-    //   <button type="submit" disabled={submitting}>
-    //     Log in
-    //   </button>
-    // </form>
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+        rememberMe: false,
+        captcha: "",
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+        dispatch(loginUserThunk(values));
+      }}
+    >
+      {({ values, handleChange, handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <h3>Log in to social network</h3>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            value={values.email}
+            className={styles["form-input"]}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={values.password}
+            onChange={handleChange}
+            className={styles["form-input"]}
+          />
+          <input
+            name="rememberMe"
+            type="checkbox"
+            className={styles["form-checkbox"]}
+          />
+          <label htmlFor="rememberMe">remember me</label>
+          <>
+            {captcha && (
+              <>
+                <img src={captcha} alt="captcha" />
+                <input
+                  name="captcha"
+                  type="text"
+                  className={styles["form-input"]}
+                  placeholder="type antibot symbols"
+                />
+              </>
+            )}
+          </>
+          <button type="submit" disabled={isSubmitting}>
+            Log in
+          </button>
+        </form>
+      )}
+    </Formik>
   );
 };
-
-// let LoginReduxForm = reduxForm<ReduxFormProps, any>({
-//   form: "login",
-// })(LoginForm);

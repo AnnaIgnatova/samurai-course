@@ -16,3 +16,8 @@ export const getIsUsersFollow = (state: StateData) =>
   state.usersPage.isUsersFollow;
 
 export const getIsAuth = (state: StateData) => state.header.isAuth;
+
+export const getFilterTerm = (state: StateData) => state.usersPage.filterTerm;
+
+export const getFilterByFriends = (state: StateData) =>
+  state.usersPage.filterByFriend;

@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action, AnyAction } from "redux";
 // import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { ProfileAPI, UsersAPI } from "../../api";
@@ -212,7 +212,7 @@ export const profileReducer = (
 export const getUserDataThunk =
   (
     userId: string
-  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await UsersAPI.getUserData(userId);
     dispatch(ProfileActionCreators.setProfileData(data));
@@ -221,7 +221,7 @@ export const getUserDataThunk =
 export const getStatusDataThunk =
   (
     userId: string
-  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await ProfileAPI.getProfileStatus(userId);
     dispatch(ProfileActionCreators.getStatus(data));
@@ -230,7 +230,7 @@ export const getStatusDataThunk =
 export const updateStatusDataThunk =
   (
     text: string
-  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     await ProfileAPI.updateProfileStatus(text);
     dispatch(ProfileActionCreators.updateStatus(text));
@@ -239,7 +239,7 @@ export const updateStatusDataThunk =
 export const saveProfilePhotoThunk =
   (
     file: File
-  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await ProfileAPI.saveProfilePhoto(file);
     dispatch(ProfileActionCreators.savePhoto(data.photos));
@@ -248,7 +248,7 @@ export const saveProfilePhotoThunk =
 export const saveProfileInfoThunk =
   (
     info: ProfileUserData
-  ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
+  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch, getState) => {
     const userId = getState().profilePage.profileData.userId;
     const data = await ProfileAPI.saveProfileInfo(info);

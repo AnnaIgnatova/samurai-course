@@ -124,6 +124,8 @@ export interface UsersData {
   currentPage: number;
   isFetchingData: boolean;
   isUsersFollow: number[];
+  filterTerm: string;
+  filterByFriend: null | boolean;
 }
 
 export interface UsersAPIContainerType {
@@ -143,6 +145,8 @@ export interface UsersAPIContainerType {
   currentPage: number;
   isFetchingData: boolean;
   isUsersFollow: number[];
+  filterTerm: string;
+  filterByFriend: null | boolean;
 }
 
 export interface UsersPageData extends UsersAPIContainerType {

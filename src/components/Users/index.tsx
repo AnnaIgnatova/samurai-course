@@ -6,26 +6,28 @@ import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
 import { FilledButton } from "../UI/Button";
-import { FilterForm } from "./Filter";
+import { useDispatch } from "react-redux";
+import {
+  followUserThunk,
+  unfollowUserThunk,
+} from "../../redux/reducers/UsersReducer";
 
 export const Users: React.FC<UsersPageData> = ({
   users,
   totalCount,
   pageCount,
   handlePage,
-  unfollowUserThunk,
-  followUserThunk,
   currentPage,
   isFetchingData,
   isUsersFollow,
 }) => {
+  const dispatch = useDispatch();
   return (
     <div className={styles.container}>
       {isFetchingData ? (
         <Loader />
       ) : (
         <>
-          <FilterForm />
           {users.map(({ id, name, photos, followed, status }) => (
             <div key={id} className={styles.user}>
               <div>
@@ -38,14 +40,14 @@ export const Users: React.FC<UsersPageData> = ({
               {followed && (
                 <FilledButton
                   disabled={isUsersFollow.some((val) => val === id)}
-                  onClick={() => unfollowUserThunk(id)}
+                  onClick={() => dispatch(unfollowUserThunk(id))}
                   text="unfollow"
                 />
               )}
               {!followed && (
                 <FilledButton
                   disabled={isUsersFollow.some((val) => val === id)}
-                  onClick={() => followUserThunk(id)}
+                  onClick={() => dispatch(followUserThunk(id))}
                   text="follow"
                 />
               )}
