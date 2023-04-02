@@ -18,9 +18,9 @@ export const axiosInstance = axios.create({
 });
 
 export const UsersAPI = {
-  async getUsers(page = 1) {
+  async getUsers(page = 1, term = '', friend = null as null | boolean) {
     try {
-      const { data } = await axiosInstance.get(`users?page=${page}`);
+      const { data } = await axiosInstance.get(`users?page=${page}&term=${term}&friend=${friend}`);
       return data;
     } catch (e) {
       console.log(e);

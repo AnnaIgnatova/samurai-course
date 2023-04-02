@@ -1,23 +1,31 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { ProfileComponentType } from "../../../containers/ProfileContainer";
+import { ProfileUserData } from "../../../interfaces/profile";
+import {
+  saveProfilePhotoThunk,
+  updateStatusDataThunk,
+} from "../../../redux/reducers/ProfileReducer";
 import { UserDetails } from "../UserDetails";
 import userImg from "./../../../assets/avatar.png";
 import styles from "./style.module.css";
 
-export const ProfileInfo: React.FC<ProfileComponentType> = (props) => {
-  const {
-    profileData,
-    ownProfile,
-    saveProfilePhotoThunk,
-    updateStatusDataThunk,
-    status,
-  } = props;
+export interface ProfileInfoProps {
+  profileData: ProfileUserData;
+  ownProfile: boolean;
+  status: string | null;
+}
+
+export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
+  const { profileData, ownProfile, status } = props;
   const { photos, fullName } = profileData;
+
+  const dispatch: any = useDispatch();
 
   const changePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
-    if (target.files) target.files[0] && saveProfilePhotoThunk(target.files[0]);
+    if (target.files)
+      target.files[0] && dispatch(saveProfilePhotoThunk(target.files[0]));
   };
 
   return (
@@ -34,11 +42,7 @@ export const ProfileInfo: React.FC<ProfileComponentType> = (props) => {
         <NavLink className={styles["edit-data-btn"]} to="/settings">
           Edit profile
         </NavLink>
-        <UserDetails
-          status={status}
-          updateStatusDataThunk={updateStatusDataThunk}
-          profileData={profileData}
-        />
+        <UserDetails status={status} profileData={profileData} />
       </div>
     </>
   );

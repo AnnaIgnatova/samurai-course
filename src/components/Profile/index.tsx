@@ -1,7 +1,6 @@
 import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import PostsContainer from "../../containers/PostsContainer";
-import { ProfileComponentType } from "../../containers/ProfileContainer";
 import { Post, ProfileUserData } from "../../interfaces";
 import { AppState } from "../../redux";
 import { ProfileReducerPayloadType } from "../../redux/reducers/ProfileReducer";
@@ -30,9 +29,7 @@ export interface PostsData extends ProfileInfoData {
   pinPost: (id: number) => void;
 }
 
-type ProfileType = ProfileComponentType;
-
-export const Profile: React.FC<ProfileType> = (props) => {
+export const Profile: React.FC<any> = (props) => {
   return (
     <>
       <ProfileInfo {...props} />

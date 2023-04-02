@@ -1,14 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import { updateStatusDataThunk } from "../../../redux/reducers/ProfileReducer";
 import styles from "./style.module.css";
 
 export interface StatusData {
   text?: string | null;
-  updateStatus?: (text: string) => void;
 }
 
-export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
+export const Status: React.FC<StatusData> = ({ text }) => {
   const { id } = useParams();
+  const dispatch: any = useDispatch();
   const [statusText, setStatusText] = useState<string>(text || "");
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -27,7 +29,7 @@ export const Status: React.FC<StatusData> = ({ text, updateStatus }) => {
   const handleUpdateStatus = () => {
     if (id === "27789") {
       handleStatusMode();
-      updateStatus && updateStatus(statusText);
+      dispatch(updateStatusDataThunk(statusText));
     }
   };
 
