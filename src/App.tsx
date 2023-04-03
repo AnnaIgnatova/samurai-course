@@ -4,15 +4,13 @@ import { News } from "./components/News";
 import "./App.css";
 import { NavbarContainer } from "./containers/NavbarContainer";
 import SettingsContainer from "./containers/SettingsContainer";
-import AuthContainer from "./containers/AuthContainer";
+import { AuthContainer } from "./containers/AuthContainer";
 import { Suspense } from "react";
 import { Loader } from "./components/UI/Loader";
 import React from "react";
 import { LoginForm } from "./components/Login";
 
-const ProfileContainer = React.lazy(
-  () => import("./containers/ProfileContainer")
-);
+const Profile = React.lazy(() => import("./components/Profile"));
 
 const DialogsContainer = React.lazy(
   () => import("./containers/DialogsContainer")
@@ -29,7 +27,7 @@ const App: React.FC = () => {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/profile/27789" />} />
-            <Route path="/profile/:id" element={<ProfileContainer />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

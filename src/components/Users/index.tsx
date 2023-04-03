@@ -21,7 +21,7 @@ export const Users: React.FC<UsersPageData> = ({
   isFetchingData,
   isUsersFollow,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   return (
     <div className={styles.container}>
       {isFetchingData ? (

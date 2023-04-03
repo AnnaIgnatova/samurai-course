@@ -1,45 +1,21 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../../components/Header";
 import { StateData } from "../../interfaces";
 import { logoutUserThunk } from "../../redux/reducers/AuthReducer";
 import { useNavigate } from "react-router-dom";
-import { ThunkAction } from "redux-thunk";
-import { AppState } from "../../redux";
-import { Action, compose } from "redux";
 
-export type MapStateType = ReturnType<typeof mapStateToProps>;
-export type DispatchStateType = {
-  logoutUserThunk: () => ThunkAction<
-    Promise<void>,
-    AppState,
-    unknown,
-    Action<string>
-  >;
-};
-
-const AuthAPIContainer: React.FC<MapStateType & DispatchStateType> = (
-  props
-) => {
+export const AuthContainer: React.FC = () => {
   const navigate = useNavigate();
+  const email = useSelector((state: StateData) => state.header.email);
+  const isAuth = useSelector((state: StateData) => state.header.isAuth);
+
+  const dispatch: any = useDispatch();
 
   const handleLogout = () => {
-    props.logoutUserThunk();
+    dispatch(logoutUserThunk());
     navigate("/login");
   };
 
-  return <Header {...props} handleLogout={handleLogout} />;
+  return <Header isAuth={isAuth} email={email} handleLogout={handleLogout} />;
 };
-
-const mapStateToProps = (state: StateData) => ({
-  id: state.header.id,
-  login: state.header.login,
-  email: state.header.email,
-  isAuth: state.header.isAuth,
-});
-
-export default compose<React.ComponentType>(
-  connect(mapStateToProps, {
-    logoutUserThunk,
-  })
-)(AuthAPIContainer);

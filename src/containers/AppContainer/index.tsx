@@ -1,42 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Action, compose } from "redux";
-import { ThunkAction } from "redux-thunk";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import App from "../../App";
 import { Loader } from "../../components/UI/Loader";
 import { StateData } from "../../interfaces";
-import { AppState } from "../../redux";
 import { initializeAppThunk } from "../../redux/reducers/AppReducer";
 
-export type MapStateType = ReturnType<typeof mapStateToProps>;
-export type DispatchStateType = {
-  initializeAppThunk: () => ThunkAction<
-    Promise<void>,
-    AppState,
-    unknown,
-    Action<string>
-  >;
+export const AppContainer: React.FC = () => {
+  const isInitialized = useSelector(
+    (state: StateData) => state.app.isInitialized
+  );
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAppThunk());
+  }, []);
+
+  if (!isInitialized) return <Loader />;
+  return <App />;
 };
-
-class AppAPIContainer extends React.Component<
-  MapStateType & DispatchStateType
-> {
-  componentDidMount(): void {
-    this.props.initializeAppThunk();
-  }
-  render() {
-    if (!this.props.isInitialized) return <Loader />;
-    return <App />;
-  }
-}
-
-const mapStateToProps = (state: StateData) => ({
-  isInitialized: state.app.isInitialized,
-  isAuth: state.header.isAuth,
-});
-
-export default compose<React.ComponentType>(
-  connect(mapStateToProps, {
-    initializeAppThunk,
-  })
-)(AppAPIContainer);

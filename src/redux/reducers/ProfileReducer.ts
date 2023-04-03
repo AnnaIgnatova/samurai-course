@@ -1,8 +1,7 @@
-import { Action, AnyAction } from "redux";
-// import { stopSubmit } from "redux-form";
+import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { ProfileAPI, UsersAPI } from "../../api";
-import { Post, PostData, ProfileUserData, StateData } from "../../interfaces";
+import { PostData, ProfileUserData, StateData } from "../../interfaces";
 import { InferActionsType } from "../types";
 
 export type ProfileActionCreatorsType = typeof ProfileActionCreators;
@@ -210,36 +209,28 @@ export const profileReducer = (
 };
 
 export const getUserDataThunk =
-  (
-    userId: string
-  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
+  (userId: string): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await UsersAPI.getUserData(userId);
     dispatch(ProfileActionCreators.setProfileData(data));
   };
 
 export const getStatusDataThunk =
-  (
-    userId: string
-  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
+  (userId: string): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await ProfileAPI.getProfileStatus(userId);
     dispatch(ProfileActionCreators.getStatus(data));
   };
 
 export const updateStatusDataThunk =
-  (
-    text: string
-  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
+  (text: string): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     await ProfileAPI.updateProfileStatus(text);
     dispatch(ProfileActionCreators.updateStatus(text));
   };
 
 export const saveProfilePhotoThunk =
-  (
-    file: File
-  ): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
+  (file: File): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
     const data = await ProfileAPI.saveProfilePhoto(file);
     dispatch(ProfileActionCreators.savePhoto(data.photos));

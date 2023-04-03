@@ -1,24 +1,30 @@
 import React from "react";
-//import { Field, reduxForm } from "redux-form";
-import { PostsData } from "..";
+import { useDispatch } from "react-redux";
 import { Post as PostType } from "../../../interfaces";
-import { maxLength, required } from "../../../utils/validators";
-import { FormTextarea } from "../../UI/Form/Field";
+import { ProfileUserData } from "../../../interfaces/profile";
+import { ProfileActionCreators } from "../../../redux/reducers/ProfileReducer";
+import { maxLength } from "../../../utils/validators";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
 const maxLength100 = maxLength(100);
 
-export const Posts: React.FC<PostsData> = React.memo(
-  ({ posts, sendPost, profileData, likePost, removeLike, pinPost }) => {
+interface PostsProps {
+  profileData: ProfileUserData;
+  posts: PostType[];
+}
+
+export const Posts: React.FC<PostsProps> = React.memo(
+  ({ posts, profileData }) => {
+    const dispatch = useDispatch();
     const sendPostData = (data: { post: string }) => {
-      sendPost(data.post);
+      dispatch(ProfileActionCreators.sendPost(data.post));
     };
 
     return (
       <div className={styles["posts-container"]}>
         <div className={styles["create-post"]}>
-          {/* <PostReduxForm onSubmit={sendPostData} profileData={profileData} /> */}
+          <PostReduxForm onSubmit={sendPostData} profileData={profileData} />
         </div>
         <div>
           {posts.map(({ id, ...data }) => (

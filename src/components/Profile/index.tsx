@@ -1,39 +1,45 @@
-import { Action, Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import PostsContainer from "../../containers/PostsContainer";
-import { Post, ProfileUserData } from "../../interfaces";
-import { AppState } from "../../redux";
-import { ProfileReducerPayloadType } from "../../redux/reducers/ProfileReducer";
-import { ProfileInfo } from "./ProfileInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { StateData } from "../../interfaces";
+import React, { useEffect } from "react";
+import {
+  getStatusDataThunk,
+  getUserDataThunk,
+} from "../../redux/reducers/ProfileReducer";
+import { Loader } from "../../components/UI/Loader";
+import { useParams } from "react-router";
+import { ProfileInfo } from "../../components/Profile/ProfileInfo";
+import { Posts } from "../../components/Profile/Posts";
 
-export interface ProfileInfoData {
-  profileData: ProfileUserData;
-  saveProfilePhotoThunk: ThunkAction<
-    Promise<void>,
-    AppState,
-    unknown,
-    Action<string>
-  >;
-  status: string | null;
-  isAuth: boolean;
-  updateStatusDataThunk: (
-    text: string
-  ) => (dispatch: Dispatch<ProfileReducerPayloadType>) => void;
-}
+const Profile: React.FC = () => {
+  const { id = "27789" } = useParams();
+  const profileData = useSelector(
+    (state: StateData) => state.profilePage.profileData
+  );
+  const status = useSelector((state: StateData) => state.profilePage.status);
+  const posts = useSelector((state: StateData) => state.profilePage.posts);
+  const dispatch: any = useDispatch();
 
-export interface PostsData extends ProfileInfoData {
-  posts: Post[];
-  sendPost: (post: string) => void;
-  likePost: (id: number) => void;
-  removeLike: (id: number) => void;
-  pinPost: (id: number) => void;
-}
+  useEffect(() => {
+    dispatch(getUserDataThunk(id));
+    dispatch(getStatusDataThunk(id));
+  }, [id]);
 
-export const Profile: React.FC<any> = (props) => {
   return (
     <>
-      <ProfileInfo {...props} />
-      <PostsContainer />
+      {profileData ? (
+        <>
+          <ProfileInfo
+            ownProfile={id === "27789"}
+            profileData={profileData}
+            status={status}
+          />
+          <Posts profileData={profileData} posts={posts} />
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };
+
+export default Profile;
