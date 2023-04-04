@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
             profileData={profileData}
             status={status}
           />
-          <Posts profileData={profileData} posts={posts} />
+          {/* <Posts profileData={profileData} posts={posts} /> */}
         </>
       ) : (
         <Loader />

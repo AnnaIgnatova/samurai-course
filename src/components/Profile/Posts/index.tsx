@@ -24,7 +24,7 @@ export const Posts: React.FC<PostsProps> = React.memo(
     return (
       <div className={styles["posts-container"]}>
         <div className={styles["create-post"]}>
-          <PostReduxForm onSubmit={sendPostData} profileData={profileData} />
+          {/* <PostReduxForm onSubmit={sendPostData} profileData={profileData} /> */}
         </div>
         <div>
           {posts.map(({ id, ...data }) => (

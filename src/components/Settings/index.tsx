@@ -1,11 +1,10 @@
 import React from "react";
-import { SettingsContainerType } from "../../containers/SettingsContainer";
-import { ProfileInfoFormContainer } from "../Profile/ProfileInfoForm";
+import { ProfileInfoForm } from "../Profile/ProfileInfoForm";
 import { UserDetails } from "../Profile/UserDetails";
 
 import styles from "./style.module.css";
 
-export const Settings: React.FC<SettingsContainerType> = (props) => {
+export const Settings: React.FC<any> = (props) => {
   const { saveProfileInfoThunk, profileData } = props;
   const [isEditMode, setEditMode] = React.useState(false);
 
@@ -22,7 +21,7 @@ export const Settings: React.FC<SettingsContainerType> = (props) => {
           <button onClick={() => setEditMode(true)}>edit data</button>
         </>
       ) : (
-        <ProfileInfoFormContainer
+        <ProfileInfoForm
           profile={profileData}
           toggleEditMode={modeOffEditMode}
         />

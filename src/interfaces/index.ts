@@ -129,24 +129,12 @@ export interface UsersData {
 }
 
 export interface UsersAPIContainerType {
-  getUsersThunk: (
-    page?: number
-  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
-  followUserThunk: (
-    id: number
-  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
-  unfollowUserThunk: (
-    id: number
-  ) => (dispatch: Dispatch<UsersReducerPayloadType>) => void;
-  isAuth: boolean;
   users: UserData[];
   totalCount: number;
   pageCount: number;
   currentPage: number;
   isFetchingData: boolean;
   isUsersFollow: number[];
-  filterTerm: string;
-  filterByFriend: null | boolean;
 }
 
 export interface UsersPageData extends UsersAPIContainerType {
