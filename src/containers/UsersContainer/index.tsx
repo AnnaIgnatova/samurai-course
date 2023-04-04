@@ -1,33 +1,36 @@
-import { connect } from "react-redux";
-import { StateData, UserData, UsersAPIContainerType } from "../../interfaces";
+import { useSelector } from "react-redux";
+import { StateData } from "../../interfaces";
 import React, { useEffect } from "react";
 import { Users } from "../../components/Users";
-import {
-  followUserThunk,
-  getUsersThunk,
-  unfollowUserThunk,
-  UsersActionCreators,
-  UsersActionCreatorsType,
-} from "../../redux/reducers/UsersReducer";
-import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
-import { compose } from "redux";
-import {
-  getCurrentPage,
-  getFilterByFriends,
-  getFilterTerm,
-  getIsAuth,
-  getIsFetchingData,
-  getIsUsersFollow,
-  getPageCount,
-  getTotalUsersCount,
-  getUsersSelector,
-} from "../../redux/reducers/UsersSelector";
+import { getUsersThunk } from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
 
-const UsersAPIContainer: React.FC<
-  UsersAPIContainerType & UsersActionCreatorsType
-> = (props) => {
-  const { filterTerm, filterByFriend, getUsersThunk } = props;
+// TODO: import thunk from container component
+
+const UsersContainer: React.FC = () => {
+  const users = useSelector((state: StateData) => state.usersPage.users);
+  const totalCount = useSelector(
+    (state: StateData) => state.usersPage.totalCount
+  );
+  const pageCount = useSelector(
+    (state: StateData) => state.usersPage.pageCount
+  );
+  const currentPage = useSelector(
+    (state: StateData) => state.usersPage.currentPage
+  );
+  const isFetchingData = useSelector(
+    (state: StateData) => state.usersPage.isFetchingData
+  );
+  const isUsersFollow = useSelector(
+    (state: StateData) => state.usersPage.isUsersFollow
+  );
+  const filterTerm = useSelector(
+    (state: StateData) => state.usersPage.filterTerm
+  );
+  const filterByFriend = useSelector(
+    (state: StateData) => state.usersPage.filterByFriend
+  );
+
   useEffect(() => {
     getUsersThunk();
   }, [filterTerm, filterByFriend]);
@@ -38,30 +41,18 @@ const UsersAPIContainer: React.FC<
 
   return (
     <>
-      <FilterForm setFilterTerm={props.setFilterTerm} />
-      <Users {...props} handlePage={handlePage} />
+      <FilterForm />
+      <Users
+        users={users}
+        totalCount={totalCount}
+        pageCount={pageCount}
+        currentPage={currentPage}
+        isFetchingData={isFetchingData}
+        isUsersFollow={isUsersFollow}
+        handlePage={handlePage}
+      />
     </>
   );
 };
 
-const mapStateToProps = (state: StateData) => ({
-  users: getUsersSelector(state),
-  totalCount: getTotalUsersCount(state),
-  pageCount: getPageCount(state),
-  currentPage: getCurrentPage(state),
-  isFetchingData: getIsFetchingData(state),
-  isUsersFollow: getIsUsersFollow(state),
-  isAuth: getIsAuth(state),
-  filterTerm: getFilterTerm(state),
-  filterByFriend: getFilterByFriends(state),
-});
-
-export default compose<React.ComponentType>(
-  // WithAuthRedirect,
-  connect(mapStateToProps, {
-    ...UsersActionCreators,
-    followUserThunk,
-    unfollowUserThunk,
-    getUsersThunk,
-  })
-)(UsersAPIContainer);
+export default UsersContainer;

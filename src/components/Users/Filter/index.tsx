@@ -1,19 +1,18 @@
 import React from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
+import { UsersActionCreators } from "../../../redux/reducers/UsersReducer";
 
-type PropsType = {
-  setFilterTerm: any;
-};
-
-export const FilterForm: React.FC<PropsType> = ({ setFilterTerm }) => {
+export const FilterForm: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
     <Formik
       initialValues={{ term: "", friendType: "" }}
       onSubmit={(values) => {
-        dispatch(setFilterTerm(values.term, values.friendType));
+        dispatch(
+          UsersActionCreators.setFilterTerm(values.term, values.friendType)
+        );
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (
@@ -33,9 +32,7 @@ export const FilterForm: React.FC<PropsType> = ({ setFilterTerm }) => {
             <option value="true">followed</option>
             <option value="false">not followed</option>
           </select>
-          <button type="submit">
-            Find
-          </button>
+          <button type="submit">Find</button>
         </form>
       )}
     </Formik>
