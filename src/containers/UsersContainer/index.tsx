@@ -2,7 +2,11 @@ import { useSelector } from "react-redux";
 import { StateData } from "../../interfaces";
 import React, { useEffect } from "react";
 import { Users } from "../../components/Users";
-import { getUsersThunk } from "../../redux/reducers/UsersReducer";
+import {
+  followUserThunk,
+  getUsersThunk,
+  unfollowUserThunk,
+} from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
 
 // TODO: import thunk from container component
@@ -50,6 +54,8 @@ const UsersContainer: React.FC = () => {
         isFetchingData={isFetchingData}
         isUsersFollow={isUsersFollow}
         handlePage={handlePage}
+        unfollowUserThunk={unfollowUserThunk}
+        followUserThunk={followUserThunk}
       />
     </>
   );

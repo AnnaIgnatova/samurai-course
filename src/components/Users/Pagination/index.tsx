@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export interface PagintaionData {
+export interface PagintaionProps {
   currentPage: number;
   handlePage: (page: number) => void;
   totalCount: number;
   pageCount: number;
 }
 
-export const Pagination: React.FC<PagintaionData> = ({
+export const Pagination: React.FC<PagintaionProps> = ({
   currentPage,
   handlePage,
   totalCount,

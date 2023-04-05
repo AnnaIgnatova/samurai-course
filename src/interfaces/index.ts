@@ -82,7 +82,6 @@ export interface ProfileData {
 
 export interface DialogsPageData {
   dialogsPage: DialogsData;
-  isAuth: boolean;
   sendMessage: (text: string) => void;
 }
 

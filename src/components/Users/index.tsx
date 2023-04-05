@@ -1,4 +1,4 @@
-import { UsersPageData } from "../../interfaces";
+import { UserData, UsersPageData } from "../../interfaces";
 import styles from "./style.module.css";
 import imgUrl from "./../../assets/avatar.png";
 import React from "react";
@@ -7,19 +7,29 @@ import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
 import { FilledButton } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import {
-  followUserThunk,
-  unfollowUserThunk,
-} from "../../redux/reducers/UsersReducer";
 
-export const Users: React.FC<UsersPageData> = ({
+export interface UsersProps {
+  users: UserData[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
+  isFetchingData: boolean;
+  isUsersFollow: number[];
+  handlePage(page: number): void;
+  unfollowUserThunk: any;
+  followUserThunk: any;
+}
+
+export const Users: React.FC<UsersProps> = ({
   users,
   totalCount,
   pageCount,
-  handlePage,
   currentPage,
   isFetchingData,
   isUsersFollow,
+  handlePage,
+  unfollowUserThunk,
+  followUserThunk,
 }) => {
   const dispatch: any = useDispatch();
   return (
