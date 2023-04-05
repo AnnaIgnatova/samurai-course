@@ -6,10 +6,9 @@ import {
   followUserThunk,
   getUsersThunk,
   unfollowUserThunk,
+  UsersActionCreators,
 } from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
-
-// TODO: import thunk from container component
 
 const UsersContainer: React.FC = () => {
   const users = useSelector((state: StateData) => state.usersPage.users);
@@ -45,7 +44,7 @@ const UsersContainer: React.FC = () => {
 
   return (
     <>
-      <FilterForm />
+      <FilterForm setFilterTerm={UsersActionCreators.setFilterTerm} />
       <Users
         users={users}
         totalCount={totalCount}

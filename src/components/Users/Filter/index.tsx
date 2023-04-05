@@ -3,16 +3,18 @@ import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { UsersActionCreators } from "../../../redux/reducers/UsersReducer";
 
-export const FilterForm: React.FC = () => {
+export interface FilterFormProps {
+  setFilterTerm: any;
+}
+
+export const FilterForm: React.FC<FilterFormProps> = ({ setFilterTerm }) => {
   const dispatch = useDispatch();
 
   return (
     <Formik
       initialValues={{ term: "", friendType: "" }}
       onSubmit={(values) => {
-        dispatch(
-          UsersActionCreators.setFilterTerm(values.term, values.friendType)
-        );
+        dispatch(setFilterTerm(values.term, values.friendType));
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (

@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import {
   getStatusDataThunk,
   getUserDataThunk,
+  ProfileActionCreators,
 } from "../../redux/reducers/ProfileReducer";
 import { Loader } from "../../components/UI/Loader";
 import { useParams } from "react-router";
@@ -23,17 +24,23 @@ const Profile: React.FC = () => {
     dispatch(getUserDataThunk(id));
     dispatch(getStatusDataThunk(id));
   }, [id]);
-
+  console.log(profileData);
   return (
     <>
-      {profileData ? (
+      {profileData.userId ? (
         <>
           <ProfileInfo
             ownProfile={id === "27789"}
             profileData={profileData}
             status={status}
           />
-          {/* <Posts profileData={profileData} posts={posts} /> */}
+          <Posts
+            profileData={profileData}
+            posts={posts}
+            likePost={ProfileActionCreators.likePost}
+            pinPost={ProfileActionCreators.pinPost}
+            removeLike={ProfileActionCreators.removeLike}
+          />
         </>
       ) : (
         <Loader />

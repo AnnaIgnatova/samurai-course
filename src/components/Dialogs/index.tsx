@@ -1,12 +1,9 @@
+import { Formik } from "formik";
 import React from "react";
 import { DialogsPageData } from "../../interfaces";
-import { maxLength, required } from "../../utils/validators";
-import { FormTextarea } from "../UI/Form/Field";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
-
-const maxLength100 = maxLength(100);
 
 export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
@@ -14,8 +11,8 @@ export const Dialogs: React.FC<DialogsPageData> = ({
 }) => {
   const { dialogs, messages } = dialogsPage;
 
-  const createNewMessage = (data: any) => {
-    sendMessage(data.message);
+  const createNewMessage = (message: string) => {
+    sendMessage(message);
   };
 
   return (
@@ -30,7 +27,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({
           {messages.map(({ id, text, from }) => (
             <Message key={id} text={text} from={from} />
           ))}
-          {/* <MessageReduxForm onSubmit={createNewMessage} /> */}
+          <MessageForm handleSubmit={createNewMessage} />
         </div>
       </div>
     </>
@@ -39,18 +36,30 @@ export const Dialogs: React.FC<DialogsPageData> = ({
 
 const MessageForm: React.FC<any> = ({ handleSubmit }) => {
   return (
-    <></>
-    // <form onSubmit={handleSubmit}>
-    //   <Field
-    //     type="text"
-    //     component={FormTextarea}
-    //     name="message"
-    //     placeholder="Type something here"
-    //     validate={[required, maxLength100]}
-    //   />
-    //   <button>Send</button>
-    // </form>
+    <Formik
+      initialValues={{
+        message: "",
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+        handleSubmit(values.message);
+      }}
+    >
+      {({ values, handleChange, handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="message"
+            placeholder="Type something here"
+            onChange={handleChange}
+            value={values.message}
+            className={styles["form-input"]}
+          />
+          <button type="submit" disabled={isSubmitting}>
+            Send
+          </button>
+        </form>
+      )}
+    </Formik>
   );
 };
-
-// const MessageReduxForm = reduxForm({ form: "message" })(MessageForm);

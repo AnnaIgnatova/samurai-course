@@ -22,6 +22,7 @@ export interface PostData {
   comments: number;
   pinned: boolean;
   postDate: string;
+  text: string;
 }
 
 export interface Post {
@@ -31,7 +32,7 @@ export interface Post {
   comments: number;
   pinned: boolean;
   postDate: string;
-  message: string;
+  text: string;
   profileData: ProfileUserData;
   removeLike: (id: number) => void;
   likePost: (id: number) => void;
