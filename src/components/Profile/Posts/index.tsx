@@ -1,34 +1,43 @@
+import { Formik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Post as PostType } from "../../../interfaces";
+import { PostData } from "../../../interfaces";
 import { ProfileUserData } from "../../../interfaces/profile";
 import { ProfileActionCreators } from "../../../redux/reducers/ProfileReducer";
-import { maxLength } from "../../../utils/validators";
 import { Post } from "./Post";
 import styles from "./style.module.css";
 
-const maxLength100 = maxLength(100);
-
 interface PostsProps {
   profileData: ProfileUserData;
-  posts: PostType[];
+  posts: PostData[];
+  likePost: any;
+  removeLike: any;
+  pinPost: any;
 }
 
 export const Posts: React.FC<PostsProps> = React.memo(
-  ({ posts, profileData }) => {
+  ({ posts, profileData, likePost, removeLike, pinPost }) => {
     const dispatch = useDispatch();
-    const sendPostData = (data: { post: string }) => {
-      dispatch(ProfileActionCreators.sendPost(data.post));
+    const sendPostData = (post: string) => {
+      dispatch(ProfileActionCreators.sendPost(post));
     };
 
     return (
       <div className={styles["posts-container"]}>
         <div className={styles["create-post"]}>
-          {/* <PostReduxForm onSubmit={sendPostData} profileData={profileData} /> */}
+          <PostForm handleSubmit={sendPostData} profileData={profileData} />
         </div>
         <div>
           {posts.map(({ id, ...data }) => (
-            <Post key={id} id={id} {...data} />
+            <Post
+              key={id}
+              id={id}
+              profileData={profileData}
+              likePost={likePost}
+              removeLike={removeLike}
+              pinPost={pinPost}
+              {...data}
+            />
           ))}
         </div>
       </div>
@@ -37,23 +46,35 @@ export const Posts: React.FC<PostsProps> = React.memo(
 );
 
 const PostForm: React.FC<any> = ({ handleSubmit, profileData }) => {
+  console.log("profileData=", profileData);
   return (
     <div className={styles["posts-container"]}>
-      <form onSubmit={handleSubmit} className={styles["create-post"]}>
-        <div>
-          <img src={profileData.photos.large} alt="avatar" />
-          {/* <Field
-            type="text"
-            component={FormTextarea}
-            name="post"
-            placeholder="What’s happening"
-            validate={[required, maxLength100]}
-          /> */}
-        </div>
-        <button>Share</button>
-      </form>
+      <Formik
+        initialValues={{
+          post: "",
+        }}
+        onSubmit={(values) => {
+          handleSubmit(values.post);
+        }}
+      >
+        {({ values, handleChange, handleSubmit, isSubmitting }) => (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div>
+              <img src={profileData.photos.large} alt="avatar" />
+              <input
+                type="text"
+                name="post"
+                placeholder="What’s happening"
+                onChange={handleChange}
+                value={values.post}
+              />
+            </div>
+            <button type="submit" disabled={isSubmitting}>
+              Share
+            </button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };
-
-//const PostReduxForm: any = reduxForm({ form: "post" })(PostForm);

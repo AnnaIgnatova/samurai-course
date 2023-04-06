@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateData } from "../../interfaces";
 import React, { useEffect } from "react";
 import { Users } from "../../components/Users";
@@ -6,10 +6,9 @@ import {
   followUserThunk,
   getUsersThunk,
   unfollowUserThunk,
+  UsersActionCreators,
 } from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
-
-// TODO: import thunk from container component
 
 const UsersContainer: React.FC = () => {
   const users = useSelector((state: StateData) => state.usersPage.users);
@@ -35,17 +34,19 @@ const UsersContainer: React.FC = () => {
     (state: StateData) => state.usersPage.filterByFriend
   );
 
+  const dispatch: any = useDispatch();
+
   useEffect(() => {
-    getUsersThunk();
+    dispatch(getUsersThunk());
   }, [filterTerm, filterByFriend]);
 
   const handlePage = (page: number): void => {
-    getUsersThunk(page);
+    dispatch(getUsersThunk(page));
   };
 
   return (
     <>
-      <FilterForm />
+      <FilterForm setFilterTerm={UsersActionCreators.setFilterTerm} />
       <Users
         users={users}
         totalCount={totalCount}

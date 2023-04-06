@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { ProfileActionCreators } from "../../../redux/reducers/ProfileReducer";
+import { ProfileActionCreators, saveProfileInfoThunk } from "../../../redux/reducers/ProfileReducer";
 import styles from "./style.module.css";
 
 export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
@@ -8,13 +8,24 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
   return (
     <Formik
       initialValues={{
-        fullName: "",
-        aboutMe: "",
-        lookingForAJob: false,
-        lookingForAJobDescription: "",
+        fullName: profile.fullName,
+        aboutMe: profile.aboutMe,
+        lookingForAJob: profile.lookingForAJob,
+        lookingForAJobDescription: profile.lookingForAJobDescription,
+        contacts: {
+          github: profile.contacts.github,
+          vk: profile.contacts.vk,
+          facebook: profile.contacts.facebook,
+          instagram: profile.contacts.instagram,
+          twitter: profile.contacts.twitter,
+          website: profile.contacts.website,
+          youtube: profile.contacts.youtube,
+          mainLink: profile.contacts.mainLink,
+        },
       }}
       onSubmit={(values) => {
-        dispatch(ProfileActionCreators.setProfileData(values));
+        console.log(values);
+        dispatch(saveProfileInfoThunk(values));
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (
@@ -81,7 +92,7 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
                   type="text"
                   placeholder={key}
                   className={styles["form-input"]}
-                  value={values[key]}
+                  value={values.contacts[key]}
                 />
               </label>
             </div>

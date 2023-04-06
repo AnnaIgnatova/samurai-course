@@ -11,7 +11,7 @@ import { Post as PostData } from "../../../../interfaces";
 
 export const Post: React.FC<PostData> = (props) => {
   const {
-    message,
+    text,
     likes,
     profileData,
     comments,
@@ -23,7 +23,7 @@ export const Post: React.FC<PostData> = (props) => {
     id,
   } = props;
   const [isLiked, setLiked] = React.useState<boolean>(false);
-
+  console.log("11", profileData);
   const handleLikePost = () => {
     if (isLiked) removeLike(id);
     else likePost(id);
@@ -31,7 +31,7 @@ export const Post: React.FC<PostData> = (props) => {
   };
   return (
     <div className={styles.post}>
-      <img src={profileData.photos.large || userAvatarUrl} alt="avatar" />
+      <img src={profileData.photos?.large || userAvatarUrl} alt="avatar" />
       <div className={styles["post-content"]}>
         <div className={styles["user-info"]}>
           <span>{profileData.fullName}</span>
@@ -42,7 +42,7 @@ export const Post: React.FC<PostData> = (props) => {
             })}
           </span>
         </div>
-        <span className={styles.content}>{message}</span>
+        <span className={styles.content}>{text}</span>
         <div className={styles["post-navbar"]}>
           <div className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}>
             <img
