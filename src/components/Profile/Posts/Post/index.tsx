@@ -31,7 +31,7 @@ export const Post: React.FC<PostData> = (props) => {
   };
   return (
     <div className={styles.post}>
-      <img src={profileData.photos.large || userAvatarUrl} alt="avatar" />
+      <img src={profileData.photos?.large || userAvatarUrl} alt="avatar" />
       <div className={styles["post-content"]}>
         <div className={styles["user-info"]}>
           <span>{profileData.fullName}</span>

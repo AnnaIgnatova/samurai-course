@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateData } from "../../interfaces";
 import React, { useEffect } from "react";
 import { Users } from "../../components/Users";
@@ -34,12 +34,14 @@ const UsersContainer: React.FC = () => {
     (state: StateData) => state.usersPage.filterByFriend
   );
 
+  const dispatch: any = useDispatch();
+
   useEffect(() => {
-    getUsersThunk();
+    dispatch(getUsersThunk());
   }, [filterTerm, filterByFriend]);
 
   const handlePage = (page: number): void => {
-    getUsersThunk(page);
+    dispatch(getUsersThunk(page));
   };
 
   return (

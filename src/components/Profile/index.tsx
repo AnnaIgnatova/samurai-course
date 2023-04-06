@@ -24,7 +24,7 @@ const Profile: React.FC = () => {
     dispatch(getUserDataThunk(id));
     dispatch(getStatusDataThunk(id));
   }, [id]);
-  console.log(profileData);
+  
   return (
     <>
       {profileData.userId ? (

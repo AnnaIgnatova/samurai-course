@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { UsersActionCreators } from "../../../redux/reducers/UsersReducer";
 
 export interface FilterFormProps {
   setFilterTerm: any;

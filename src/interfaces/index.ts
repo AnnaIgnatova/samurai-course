@@ -2,7 +2,6 @@ import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { AppState } from "../redux";
 import { ProfileReducerPayloadType } from "../redux/reducers/ProfileReducer";
-import { UsersReducerPayloadType } from "../redux/reducers/UsersReducer";
 
 export interface Dialog {
   id: number;
@@ -58,7 +57,7 @@ export interface DialogsData {
 }
 
 export interface ProfileUserData {
-  userId: string;
+  userId?: string;
   lookingForAJob: boolean | null;
   lookingForAJobDescription: string | null;
   fullName: string | null;
@@ -68,7 +67,7 @@ export interface ProfileUserData {
     instagram: string | null;
     youtube: string | null;
   };
-  photos: {
+  photos?: {
     small: string | null;
     large: string | null;
   };
