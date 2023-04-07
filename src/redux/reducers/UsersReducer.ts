@@ -133,14 +133,16 @@ export const usersReducer = (
 
 export const getUsersThunk =
   (
-    page?: number
+    page?: number,
+    term?: string,
+    friend?: boolean | null
   ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
   async (dispatch, getState) => {
     dispatch(UsersActionCreators.setFetchingData(true));
     const data = await UsersAPI.getUsers(
       page,
-      getState().usersPage.filterTerm,
-      getState().usersPage.filterByFriend
+      term || getState().usersPage.filterTerm,
+      friend || getState().usersPage.filterByFriend
     );
     dispatch(UsersActionCreators.setFetchingData(false));
     dispatch(UsersActionCreators.setUsers(data.items));
