@@ -4,14 +4,21 @@ import { useDispatch } from "react-redux";
 
 export interface FilterFormProps {
   setFilterTerm: any;
+  term?: string;
+  byFriend?: boolean;
 }
 
-export const FilterForm: React.FC<FilterFormProps> = ({ setFilterTerm }) => {
+export const FilterForm: React.FC<FilterFormProps> = ({
+  setFilterTerm,
+  term,
+  byFriend,
+}) => {
   const dispatch = useDispatch();
 
   return (
     <Formik
-      initialValues={{ term: "", friendType: "" }}
+      enableReinitialize
+      initialValues={{ term, friendType: byFriend }}
       onSubmit={(values) => {
         dispatch(setFilterTerm(values.term, values.friendType));
       }}

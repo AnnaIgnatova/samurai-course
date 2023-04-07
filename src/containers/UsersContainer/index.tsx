@@ -9,8 +9,10 @@ import {
   UsersActionCreators,
 } from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const UsersContainer: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const users = useSelector((state: StateData) => state.usersPage.users);
   const totalCount = useSelector(
     (state: StateData) => state.usersPage.totalCount
@@ -37,7 +39,19 @@ const UsersContainer: React.FC = () => {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsersThunk());
+    const term =
+      searchParams.get("term") !== null ? searchParams.get("term") : null;
+    const friend =
+      searchParams.get("friend") !== "null" ? searchParams.get("friend") : null;
+    const page =
+      searchParams.get("page") !== null ? Number(searchParams.get("page")) : 1;
+
+    dispatch(UsersActionCreators.setFilterTerm(term, friend));
+    dispatch(getUsersThunk(page, term, friend));
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUsersThunk(currentPage));
   }, [filterTerm, filterByFriend]);
 
   const handlePage = (page: number): void => {
@@ -46,7 +60,11 @@ const UsersContainer: React.FC = () => {
 
   return (
     <>
-      <FilterForm setFilterTerm={UsersActionCreators.setFilterTerm} />
+      <FilterForm
+        setFilterTerm={UsersActionCreators.setFilterTerm}
+        term={filterByFriend}
+        byFriend={filterByFriend}
+      />
       <Users
         users={users}
         totalCount={totalCount}
