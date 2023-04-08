@@ -124,7 +124,7 @@ export interface UsersData {
   isFetchingData: boolean;
   isUsersFollow: number[];
   filterTerm: string;
-  filterByFriend: null | boolean;
+  filterByFriend: string;
 }
 
 export interface UsersAPIContainerType {

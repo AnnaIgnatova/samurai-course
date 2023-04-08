@@ -9,7 +9,9 @@ import {
   UsersActionCreators,
 } from "../../redux/reducers/UsersReducer";
 import { FilterForm } from "../../components/Users/Filter";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
+// TODO: add selectors
 
 const UsersContainer: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,19 +42,39 @@ const UsersContainer: React.FC = () => {
 
   useEffect(() => {
     const term =
-      searchParams.get("term") !== null ? searchParams.get("term") : null;
+      searchParams.get("term") !== null ? searchParams.get("term") : "";
     const friend =
-      searchParams.get("friend") !== "null" ? searchParams.get("friend") : null;
+      searchParams.get("friend") !== "null" &&
+      searchParams.get("friend") !== null
+        ? searchParams.get("friend")
+        : "null";
     const page =
       searchParams.get("page") !== null ? Number(searchParams.get("page")) : 1;
 
     dispatch(UsersActionCreators.setFilterTerm(term, friend));
+    dispatch(UsersActionCreators.setCurrentPage(page));
     dispatch(getUsersThunk(page, term, friend));
+
+    return () => {
+      dispatch(UsersActionCreators.setCurrentPage(1));
+    };
   }, []);
 
   useEffect(() => {
     dispatch(getUsersThunk(currentPage));
   }, [filterTerm, filterByFriend]);
+
+  useEffect(() => {
+    let params = {};
+    if (filterTerm) params = { ...params, term: filterTerm };
+    if (filterByFriend && filterByFriend !== "null")
+      params = { ...params, friend: filterByFriend };
+    if (currentPage && currentPage !== 1)
+      params = { ...params, page: currentPage };
+    setSearchParams({
+      ...params,
+    });
+  }, [filterTerm, filterByFriend, currentPage]);
 
   const handlePage = (page: number): void => {
     dispatch(getUsersThunk(page));
@@ -62,8 +84,8 @@ const UsersContainer: React.FC = () => {
     <>
       <FilterForm
         setFilterTerm={UsersActionCreators.setFilterTerm}
-        term={filterByFriend}
-        byFriend={filterByFriend}
+        term={filterTerm}
+        byFriend={String(filterByFriend)}
       />
       <Users
         users={users}

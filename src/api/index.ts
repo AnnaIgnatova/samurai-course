@@ -18,9 +18,13 @@ export const axiosInstance = axios.create({
 });
 
 export const UsersAPI = {
-  async getUsers(page = 1, term = '', friend = null as null | boolean) {
+  async getUsers(page = 1, term = "", friend = "") {
     try {
-      const { data } = await axiosInstance.get(`users?page=${page}&term=${term}&friend=${friend}`);
+      const { data } = await axiosInstance.get(
+        `users?page=${page}&term=${term}&friend=${
+          friend !== "null" ? friend : ""
+        }`
+      );
       return data;
     } catch (e) {
       console.log(e);
