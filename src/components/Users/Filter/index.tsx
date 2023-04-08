@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 
 export interface FilterFormProps {
   setFilterTerm: any;
-  term?: string;
-  byFriend?: boolean;
+  term: string;
+  byFriend: string;
 }
 
 export const FilterForm: React.FC<FilterFormProps> = ({
@@ -33,7 +33,7 @@ export const FilterForm: React.FC<FilterFormProps> = ({
           />
           <select
             name="friendType"
-            value={values.friendType}
+            value={String(values.friendType)}
             onChange={handleChange}
           >
             <option value="null">All</option>

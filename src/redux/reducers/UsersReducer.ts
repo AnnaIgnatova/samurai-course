@@ -42,7 +42,7 @@ export const UsersActionCreators = {
       type: "SOCIAL_NETWORK/USERS/SET_USER_FOLLOWED",
       data: { id, isFetching },
     } as const),
-  setFilterTerm: (term: string, isFriend?: string) =>
+  setFilterTerm: (term: string | null, isFriend?: string | null) =>
     ({
       type: "SOCIAL_NETWORK/USERS/SET_FILTER_TERM",
       data: { term, isFriend },
@@ -57,7 +57,7 @@ export const initialState: UsersData = {
   isFetchingData: true,
   isUsersFollow: [],
   filterTerm: "",
-  filterByFriend: null,
+  filterByFriend: "",
 };
 export type UsersReducerPayloadType = InferActionsType<
   typeof UsersActionCreators
@@ -134,8 +134,8 @@ export const usersReducer = (
 export const getUsersThunk =
   (
     page?: number,
-    term?: string,
-    friend?: boolean | null
+    term?: string | null,
+    friend?: string | null
   ): ThunkAction<Promise<void>, StateData, unknown, Action<string>> =>
   async (dispatch, getState) => {
     dispatch(UsersActionCreators.setFetchingData(true));

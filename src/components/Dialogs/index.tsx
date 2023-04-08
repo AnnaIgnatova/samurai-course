@@ -41,7 +41,6 @@ const MessageForm: React.FC<any> = ({ handleSubmit }) => {
         message: "",
       }}
       onSubmit={(values) => {
-        console.log(values);
         handleSubmit(values.message);
       }}
     >

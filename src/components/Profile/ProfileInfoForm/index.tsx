@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { ProfileActionCreators, saveProfileInfoThunk } from "../../../redux/reducers/ProfileReducer";
+import { saveProfileInfoThunk } from "../../../redux/reducers/ProfileReducer";
 import styles from "./style.module.css";
 
 export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
@@ -8,23 +8,12 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
   return (
     <Formik
       initialValues={{
-        fullName: profile.fullName,
-        aboutMe: profile.aboutMe,
-        lookingForAJob: profile.lookingForAJob,
-        lookingForAJobDescription: profile.lookingForAJobDescription,
+        ...profile,
         contacts: {
-          github: profile.contacts.github,
-          vk: profile.contacts.vk,
-          facebook: profile.contacts.facebook,
-          instagram: profile.contacts.instagram,
-          twitter: profile.contacts.twitter,
-          website: profile.contacts.website,
-          youtube: profile.contacts.youtube,
-          mainLink: profile.contacts.mainLink,
+          ...profile.contacts,
         },
       }}
       onSubmit={(values) => {
-        console.log(values);
         dispatch(saveProfileInfoThunk(values));
       }}
     >
