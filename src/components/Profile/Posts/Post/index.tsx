@@ -1,15 +1,31 @@
-import styles from "./style.module.css";
-import userAvatarUrl from "../../../../assets/user-avatar.png";
-import likeUrl from "../../../../assets/like.svg";
-import activeLike from "../../../../assets/activeLike.svg";
-import commentUrl from "../../../../assets/comment.svg";
-import shareUrl from "../../../../assets/share.svg";
-import pinUrl from "../../../../assets/pin.svg";
-import pinnedUrl from "../../../../assets/pinned.svg";
 import React from "react";
-import { Post as PostData } from "../../../../interfaces";
+import { Avatar, List } from "antd";
+import {
+  LikeOutlined,
+  MessageOutlined,
+  StarOutlined,
+  LikeFilled,
+  StarFilled,
+  ShareAltOutlined,
+} from "@ant-design/icons";
+import { ProfileUserData } from "../../../../interfaces/profile";
+import { IconText } from "./IconText";
 
-export const Post: React.FC<PostData> = (props) => {
+export interface PostProps {
+  id: number;
+  likes: number;
+  shares: number;
+  comments: number;
+  pinned: boolean;
+  postDate: string;
+  text: string;
+  profileData: ProfileUserData;
+  removeLike: (id: number) => void;
+  likePost: (id: number) => void;
+  pinPost: (id: number) => void;
+}
+
+export const Post: React.FC<PostProps> = (props) => {
   const {
     text,
     likes,
@@ -23,52 +39,48 @@ export const Post: React.FC<PostData> = (props) => {
     id,
   } = props;
   const [isLiked, setLiked] = React.useState<boolean>(false);
-  console.log("11", profileData);
+
   const handleLikePost = () => {
     if (isLiked) removeLike(id);
     else likePost(id);
     setLiked(!isLiked);
   };
+
   return (
-    <div className={styles.post}>
-      <img src={profileData.photos?.large || userAvatarUrl} alt="avatar" />
-      <div className={styles["post-content"]}>
-        <div className={styles["user-info"]}>
-          <span>{profileData.fullName}</span>
-          <span>
-            {new Date(new Date().toJSON()).toLocaleString("en-GB", {
-              day: "numeric",
-              month: "long",
-            })}
-          </span>
-        </div>
-        <span className={styles.content}>{text}</span>
-        <div className={styles["post-navbar"]}>
-          <div className={`${styles.statistic} ${isLiked ? styles.liked : ""}`}>
-            <img
-              src={isLiked ? activeLike : likeUrl}
-              alt="like"
-              onClick={handleLikePost}
-            />
-            <span>{likes}</span>
-          </div>
-          <div className={styles.statistic}>
-            <img src={commentUrl} alt="comment" />
-            <span>{comments}</span>
-          </div>
-          <div className={styles.statistic}>
-            <img src={shareUrl} alt="share" />
-            <span>{shares}</span>
-          </div>
-          <div className={styles.statistic}>
-            <img
-              src={pinned ? pinnedUrl : pinUrl}
-              alt="pin"
-              onClick={() => pinPost(id)}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <List.Item
+      actions={[
+        <IconText
+          icon={pinned ? StarOutlined : StarFilled}
+          key="list-vertical-star-o"
+          handleClick={() => pinPost(id)}
+        />,
+        <IconText
+          icon={isLiked ? LikeOutlined : LikeFilled}
+          key="list-vertical-like-o"
+          handleClick={handleLikePost}
+          text={String(likes)}
+        />,
+        <IconText
+          icon={MessageOutlined}
+          text={String(comments)}
+          key="list-vertical-message"
+        />,
+        <IconText
+          icon={ShareAltOutlined}
+          key="list-vertical-share-o"
+          text={String(shares)}
+        />,
+      ]}
+    >
+      <List.Item.Meta
+        avatar={<Avatar src={profileData.photos?.large} size="large" />}
+        title={<span>{profileData.fullName}</span>}
+        description={new Date(new Date().toJSON()).toLocaleString("en-GB", {
+          day: "numeric",
+          month: "long",
+        })}
+      />
+      {text}
+    </List.Item>
   );
 };

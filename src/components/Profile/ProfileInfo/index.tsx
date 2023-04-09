@@ -1,11 +1,9 @@
+import { Button } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ProfileUserData } from "../../../interfaces/profile";
-import {
-  saveProfilePhotoThunk,
-  updateStatusDataThunk,
-} from "../../../redux/reducers/ProfileReducer";
+import { saveProfilePhotoThunk } from "../../../redux/reducers/ProfileReducer";
 import { UserDetails } from "../UserDetails";
 import userImg from "./../../../assets/avatar.png";
 import styles from "./style.module.css";
@@ -33,14 +31,17 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = (props) => {
       <div className={styles["profile-bg"]} />
       <div className={styles["user-info"]}>
         <div>
-          <img
-            src={photos.small ? photos.small : userImg}
-            alt={fullName + "avatar"}
-          />
-          {/* {ownProfile && <input type="file" onChange={changePhoto} />} */}
+          {photos && (
+            <img
+              src={photos.small ? photos.small : userImg}
+              alt={fullName + "avatar"}
+            />
+          )}
+          {ownProfile && <input type="file" onChange={changePhoto} />}
         </div>
-        <NavLink className={styles["edit-data-btn"]} to="/settings">
-          Edit profile
+
+        <NavLink to="/settings">
+          <Button size="large">Edit profile</Button>
         </NavLink>
         <UserDetails status={status} profileData={profileData} />
       </div>

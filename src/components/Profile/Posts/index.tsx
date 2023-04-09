@@ -1,3 +1,4 @@
+import { List } from "antd";
 import { Formik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -28,17 +29,22 @@ export const Posts: React.FC<PostsProps> = React.memo(
           <PostForm handleSubmit={sendPostData} profileData={profileData} />
         </div>
         <div>
-          {posts.map(({ id, ...data }) => (
-            <Post
-              key={id}
-              id={id}
-              profileData={profileData}
-              likePost={likePost}
-              removeLike={removeLike}
-              pinPost={pinPost}
-              {...data}
-            />
-          ))}
+          <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={posts}
+            renderItem={({ id, ...data }) => (
+              <Post
+                key={id}
+                id={id}
+                profileData={profileData}
+                likePost={likePost}
+                removeLike={removeLike}
+                pinPost={pinPost}
+                {...data}
+              />
+            )}
+          />
         </div>
       </div>
     );

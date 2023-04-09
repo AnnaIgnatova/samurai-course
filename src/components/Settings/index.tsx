@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import React from "react";
 import { ProfileInfoForm } from "../Profile/ProfileInfoForm";
 import { UserDetails } from "../Profile/UserDetails";
@@ -18,7 +19,9 @@ export const Settings: React.FC<any> = (props) => {
       {!isEditMode ? (
         <>
           <UserDetails {...props} />
-          <button onClick={() => setEditMode(true)}>edit data</button>
+          <Button size="large" onClick={() => setEditMode(true)}>
+            Edit profile
+          </Button>
         </>
       ) : (
         <ProfileInfoForm

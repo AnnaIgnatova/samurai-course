@@ -10,6 +10,7 @@ import { Loader } from "./components/UI/Loader";
 import React from "react";
 import { LoginForm } from "./components/Login";
 
+
 const Profile = React.lazy(() => import("./components/Profile"));
 
 const DialogsContainer = React.lazy(
