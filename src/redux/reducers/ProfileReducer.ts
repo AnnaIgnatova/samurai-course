@@ -209,9 +209,9 @@ export const profileReducer = (
 };
 
 export const getUserDataThunk =
-  (userId: string): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
+  (userId?: string): ThunkAction<Promise<void>, StateData, unknown, AnyAction> =>
   async (dispatch) => {
-    const data = await UsersAPI.getUserData(userId);
+    const data = userId && await UsersAPI.getUserData(userId);
     dispatch(ProfileActionCreators.setProfileData(data));
   };
 

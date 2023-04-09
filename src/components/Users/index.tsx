@@ -1,12 +1,12 @@
-import { UserData, UsersPageData } from "../../interfaces";
+import { UserData } from "../../interfaces";
 import styles from "./style.module.css";
 import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { Pagination } from "./Pagination";
-import { FilledButton } from "../UI/Button";
 import { useDispatch } from "react-redux";
+import { Button } from "antd";
 
 export interface UsersProps {
   users: UserData[];
@@ -47,19 +47,22 @@ export const Users: React.FC<UsersProps> = ({
                 <span>{name}</span>
                 {status && <span>{status}</span>}
               </div>
-              {followed && (
-                <FilledButton
+              {followed ? (
+                <Button
+                  size="large"
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={() => dispatch(unfollowUserThunk(id))}
-                  text="unfollow"
-                />
-              )}
-              {!followed && (
-                <FilledButton
+                >
+                  unfollow
+                </Button>
+              ) : (
+                <Button
+                  size="large"
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={() => dispatch(followUserThunk(id))}
-                  text="follow"
-                />
+                >
+                  follow
+                </Button>
               )}
             </div>
           ))}

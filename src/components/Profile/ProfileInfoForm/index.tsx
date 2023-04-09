@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { saveProfileInfoThunk } from "../../../redux/reducers/ProfileReducer";
@@ -86,9 +87,9 @@ export const ProfileInfoForm: React.FC<any> = ({ profile, toggleEditMode }) => {
               </label>
             </div>
           ))}
-          <button type="submit" disabled={isSubmitting}>
+          <Button type="primary" size="large" disabled={isSubmitting}>
             Save
-          </button>
+          </Button>
         </form>
       )}
     </Formik>
