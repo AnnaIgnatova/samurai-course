@@ -4,9 +4,8 @@ import imgUrl from "./../../assets/avatar.png";
 import React from "react";
 import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
-import { Pagination } from "./Pagination";
 import { useDispatch } from "react-redux";
-import { Button } from "antd";
+import { Button, Pagination } from "antd";
 
 export interface UsersProps {
   users: UserData[];
@@ -32,6 +31,7 @@ export const Users: React.FC<UsersProps> = ({
   followUserThunk,
 }) => {
   const dispatch: any = useDispatch();
+
   return (
     <div className={styles.container}>
       {isFetchingData ? (
@@ -68,12 +68,13 @@ export const Users: React.FC<UsersProps> = ({
           ))}
         </>
       )}
-      <Pagination
-        currentPage={currentPage}
-        handlePage={handlePage}
-        totalCount={totalCount}
-        pageCount={pageCount}
-      />
+      <div className={styles["pagination-container"]}>
+        <Pagination
+          defaultCurrent={1}
+          total={totalCount}
+          onChange={handlePage}
+        />
+      </div>
     </div>
   );
 };

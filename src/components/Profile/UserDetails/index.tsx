@@ -1,3 +1,4 @@
+import { Space, Tag } from "antd";
 import React from "react";
 import { ProfileUserData } from "../../../interfaces/profile";
 import { Status } from "../Status";
@@ -31,15 +32,17 @@ export const UserDetails: React.FC<UserDetailsProps> = ({
       <span className={styles["user-details"]}>
         {lookingForAJobDescription}
       </span>
-      {Object.entries(contacts).map(([key, value]) => (
-        <>
-          {value && (
-            <span className={styles["user-link"]}>
-              {key}: {value}
-            </span>
-          )}
-        </>
-      ))}
+      <Space size={[0, 8]} wrap>
+        {Object.entries(contacts).map(([key, value]) => (
+          <>
+            {value && (
+              <Tag color="cyan">
+                <a href={value}>{value}</a>
+              </Tag>
+            )}
+          </>
+        ))}
+      </Space>
     </div>
   );
 };
