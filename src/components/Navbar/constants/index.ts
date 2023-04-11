@@ -9,7 +9,7 @@ export const navbarRoutes = [
   {
     name: "Profile",
     imgUrl: homeIcon,
-    path: "/profile/27789",
+    path: "/profile",
   },
   {
     name: "Users",

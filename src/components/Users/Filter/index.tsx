@@ -1,6 +1,7 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { Button, Input, Select, Space } from "antd";
 
 export interface FilterFormProps {
   setFilterTerm: any;
@@ -25,22 +26,21 @@ export const FilterForm: React.FC<FilterFormProps> = ({
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <input
-            type="term"
-            name="term"
-            onChange={handleChange}
-            value={values.term}
-          />
-          <select
-            name="friendType"
-            value={String(values.friendType)}
-            onChange={handleChange}
-          >
-            <option value="null">All</option>
-            <option value="true">followed</option>
-            <option value="false">not followed</option>
-          </select>
-          <button type="submit">Find</button>
+          <Space>
+            <Input name="term" onChange={handleChange} value={values.term} />
+            <Select
+              defaultValue={String(values.friendType)}
+              style={{ width: 120 }}
+              onChange={handleChange}
+              onSelect={handleChange}
+              options={[
+                { value: "null", label: "All" },
+                { value: "true", label: "followed" },
+                { value: "false", label: "not followed" },
+              ]}
+            />
+            <Button htmlType="submit">Find</Button>
+          </Space>
         </form>
       )}
     </Formik>
