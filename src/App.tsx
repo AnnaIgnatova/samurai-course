@@ -28,6 +28,7 @@ const App: React.FC = () => {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/profile/27789" />} />
+            <Route path="/profile/" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/news" element={<News />} />
