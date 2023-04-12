@@ -1,11 +1,11 @@
 import { UserData } from "../../interfaces";
 import styles from "./style.module.css";
-import imgUrl from "./../../assets/avatar.png";
+import { UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { Loader } from "../UI/Loader";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button, Pagination } from "antd";
+import { Avatar, Button, Pagination, Space } from "antd";
 
 export interface UsersProps {
   users: UserData[];
@@ -41,11 +41,16 @@ export const Users: React.FC<UsersProps> = ({
           {users.map(({ id, name, photos, followed, status }) => (
             <div key={id} className={styles.user}>
               <div>
-                <Link to={`/profile/${id}`}>
-                  <img src={photos.small ? photos.small : imgUrl} alt={name} />
-                </Link>
-                <span>{name}</span>
-                {status && <span>{status}</span>}
+                <Space size={20} wrap>
+                  <Link to={`/profile/${id}`}>
+                    {photos.small ? (
+                      <Avatar src={photos.large} size={80} />
+                    ) : (
+                      <Avatar icon={<UserOutlined />} size={80} />
+                    )}
+                  </Link>
+                  <span>{name}</span>
+                </Space>
               </div>
               {followed ? (
                 <Button
@@ -57,6 +62,7 @@ export const Users: React.FC<UsersProps> = ({
                 </Button>
               ) : (
                 <Button
+                  type="primary"
                   size="large"
                   disabled={isUsersFollow.some((val) => val === id)}
                   onClick={() => dispatch(followUserThunk(id))}
