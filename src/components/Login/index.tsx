@@ -1,69 +1,83 @@
+import { Button, Checkbox, Form, Input } from "antd";
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { StateData } from "../../interfaces";
 import { loginUserThunk } from "../../redux/reducers/AuthReducer";
 import styles from "./style.module.css";
 
 export const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const captcha = useSelector((state: StateData) => state.header.captcha);
+  const isAuth = useSelector((state: StateData) => state.header.isAuth);
   const dispatch: any = useDispatch();
+
+  const onFinish = (values: any) => {
+    dispatch(loginUserThunk({ ...values }));
+    navigate("/profile");
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
-    <Formik
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 600 }}
       initialValues={{
         email: "",
         password: "",
         rememberMe: false,
         captcha: "",
       }}
-      onSubmit={(values) => {
-        console.log(values);
-        dispatch(loginUserThunk(values));
-      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
     >
-      {({ values, handleChange, handleSubmit, isSubmitting }) => (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <h3>Log in to social network</h3>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            value={values.email}
-            className={styles["form-input"]}
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange}
-            className={styles["form-input"]}
-          />
-          <input
-            name="rememberMe"
-            type="checkbox"
-            className={styles["form-checkbox"]}
-          />
-          <label htmlFor="rememberMe">remember me</label>
-          <>
-            {captcha && (
-              <>
-                <img src={captcha} alt="captcha" />
-                <input
-                  name="captcha"
-                  type="text"
-                  className={styles["form-input"]}
-                  placeholder="type antibot symbols"
-                />
-              </>
-            )}
-          </>
-          <button type="submit" disabled={isSubmitting}>
-            Log in
-          </button>
-        </form>
+      <h3>Log in to social network</h3>
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: "Please input your email!" }]}
+      >
+        <Input type="email" />
+      </Form.Item>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: "Please input your password!" }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="rememberMe"
+        valuePropName="checked"
+        wrapperCol={{ offset: 8, span: 16 }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+      {captcha && (
+        <>
+          <img src={captcha} alt="captcha" />
+          <Form.Item
+            label="type antibot symbols"
+            name="captcha"
+            rules={[{ required: true, message: "Please type capthca" }]}
+          >
+            <Input />
+          </Form.Item>
+        </>
       )}
-    </Formik>
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
