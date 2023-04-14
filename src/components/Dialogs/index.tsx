@@ -1,31 +1,42 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DialogsPageData } from "../../interfaces";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
 
+const wsChannel = new WebSocket(
+  "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+);
+
 export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
   sendMessage,
 }) => {
-  const { dialogs, messages } = dialogsPage;
+  const { dialogs } = dialogsPage;
+  const [messages, setMessages] = useState([]);
 
   const createNewMessage = (message: string) => {
     sendMessage(message);
   };
 
+  useEffect(() => {
+    wsChannel.addEventListener("message", (e) => {
+      setMessages((prevState) => [...prevState, ...JSON.parse(e.data)]);
+    });
+  }, []);
+
   return (
     <>
       <div className={styles.container}>
-        <div className={styles["dialogs-items"]}>
+        {/* <div className={styles["dialogs-items"]}>
           {dialogs.map(({ id, name }) => (
             <Dialog key={id} id={id} name={name} />
           ))}
-        </div>
+        </div> */}
         <div className={styles["messages"]}>
-          {messages.map(({ id, text, from }) => (
-            <Message key={id} text={text} from={from} />
+          {messages.map(({ message }) => (
+            <Message text={message} />
           ))}
           <MessageForm handleSubmit={createNewMessage} />
         </div>
