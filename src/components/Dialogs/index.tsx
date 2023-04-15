@@ -1,30 +1,62 @@
-import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { DialogsPageData } from "../../interfaces";
-import { Dialog } from "./Dialog";
-import { Message } from "./Message";
-import styles from "./style.module.css";
+import { Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { DialogsPageData } from '../../interfaces';
+import { Dialog } from './Dialog';
+import { Message } from './Message';
+import styles from './style.module.css';
 
-const wsChannel = new WebSocket(
-  "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-);
+export interface MessageData {
+  message: string;
+  photo: string;
+  userId: number;
+  userName: string;
+}
 
 export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
   sendMessage,
 }) => {
   const { dialogs } = dialogsPage;
-  const [messages, setMessages] = useState([]);
+  const [wsChannel, setWsChannel] = useState<WebSocket | null>(null);
+  const [wsChannelStatus, setWsChannelStatus] = useState<'ready' | 'pending'>(
+    'pending'
+  );
+  const [messages, setMessages] = useState<MessageData[]>([]);
 
   const createNewMessage = (message: string) => {
     sendMessage(message);
   };
 
+  const createChannel = () => {
+    setWsChannel(
+      new WebSocket(
+        'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'
+      )
+    );
+  };
+
   useEffect(() => {
-    wsChannel.addEventListener("message", (e) => {
-      setMessages((prevState) => [...prevState, ...JSON.parse(e.data)]);
+    setMessages([]);
+    createChannel();
+
+    wsChannel?.addEventListener('open', () => {
+      setWsChannelStatus('ready');
     });
+    return () => {
+      
+    }
   }, []);
+
+  useEffect(() => {
+    const handleMessage = (e) => {
+      setMessages((prevState) => [...prevState, ...JSON.parse(e.data)]);
+    };
+    wsChannel?.addEventListener('message', handleMessage);
+
+    return () => {
+      wsChannel?.removeEventListener('message', handleMessage);
+    };
+  }, [wsChannel]);
 
   return (
     <>
@@ -34,9 +66,9 @@ export const Dialogs: React.FC<DialogsPageData> = ({
             <Dialog key={id} id={id} name={name} />
           ))}
         </div> */}
-        <div className={styles["messages"]}>
-          {messages.map(({ message }) => (
-            <Message text={message} />
+        <div className={styles['messages']}>
+          {messages.map((data) => (
+            <Message {...data} />
           ))}
           <MessageForm handleSubmit={createNewMessage} />
         </div>
@@ -49,7 +81,7 @@ const MessageForm: React.FC<any> = ({ handleSubmit }) => {
   return (
     <Formik
       initialValues={{
-        message: "",
+        message: '',
       }}
       onSubmit={(values) => {
         handleSubmit(values.message);
@@ -63,7 +95,7 @@ const MessageForm: React.FC<any> = ({ handleSubmit }) => {
             placeholder="Type something here"
             onChange={handleChange}
             value={values.message}
-            className={styles["form-input"]}
+            className={styles['form-input']}
           />
           <button type="submit" disabled={isSubmitting}>
             Send

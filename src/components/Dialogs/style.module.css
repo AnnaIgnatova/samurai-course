@@ -1,14 +1,12 @@
 .container {
   font-size: 20px;
   display: grid;
-  grid-template-columns: 2fr 10fr;
   padding: 20px;
   height: 100%;
 }
 
 .messages {
   background-color: #fff;
-  border: 1px solid #e5e5ea;
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
@@ -21,8 +19,8 @@
 .messages p {
   border-radius: 1.15rem;
   line-height: 1.25;
-  max-width: 75%;
-  padding: 0.5rem 0.875rem;
+  max-width: 55%;
+  padding: 1rem 0.875rem;
   position: relative;
   word-wrap: break-word;
 }
