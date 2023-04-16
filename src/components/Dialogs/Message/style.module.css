@@ -56,3 +56,14 @@ p.from-them::after {
   transform: translate(-30px, -2px);
   width: 10px;
 }
+
+.message {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.name {
+  margin-left: 5px;
+  font-size: 16px;
+}

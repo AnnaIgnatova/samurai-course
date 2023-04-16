@@ -11,9 +11,9 @@
   display: flex;
   flex-direction: column;
   font-size: 1.25rem;
-  margin: 0 auto 1rem;
   padding: 0.5rem 1.5rem;
-  width: 90%;
+  height: 600px;
+  overflow-y: auto;
 }
 
 .messages p {
