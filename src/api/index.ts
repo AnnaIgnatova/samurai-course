@@ -103,6 +103,10 @@ export const AuthAPI = {
   },
 };
 
+export const ChatAPI  = {
+  
+}
+
 export const ProfileAPI = {
   async getProfileStatus(id: string) {
     try {
