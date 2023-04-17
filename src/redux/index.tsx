@@ -6,6 +6,7 @@ import { navbarReducer } from "./reducers/NavbarReducer";
 import { authReducer } from "./reducers/AuthReducer";
 import { usersReducer } from "./reducers/UsersReducer";
 import { appReducer } from "./reducers/AppReducer";
+import { chatReducer } from "./reducers/ChatReducer";
 
 export const rootReducer = combineReducers({
   dialogsPage: dialogsReducer,
@@ -13,8 +14,8 @@ export const rootReducer = combineReducers({
   usersPage: usersReducer,
   navbar: navbarReducer,
   header: authReducer,
-  // form: formReducer,
   app: appReducer,
+  chat: chatReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
