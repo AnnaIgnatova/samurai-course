@@ -1,7 +1,7 @@
 import { Button, Form, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DialogsPageData } from "../../interfaces";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
@@ -18,6 +18,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({
   dialogsPage,
   sendMessage,
 }) => {
+  const bottomRef = useRef(null);
   const { dialogs } = dialogsPage;
   const [wsChannel, setWsChannel] = useState<WebSocket | null>(null);
   const [wsChannelStatus, setWsChannelStatus] = useState<"ready" | "pending">(
@@ -71,6 +72,11 @@ export const Dialogs: React.FC<DialogsPageData> = ({
     };
   }, [wsChannel]);
 
+  useEffect(() => {
+    bottomRef?.current &&
+      bottomRef?.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
     <>
       {wsChannelStatus === "ready" ? (
@@ -80,6 +86,7 @@ export const Dialogs: React.FC<DialogsPageData> = ({
               <Message {...data} />
             ))}
           </div>
+          <div ref={bottomRef} />
           <MessageForm handleSubmit={createNewMessage} />
         </div>
       ) : (
