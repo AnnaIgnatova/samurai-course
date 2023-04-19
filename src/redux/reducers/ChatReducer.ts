@@ -9,15 +9,21 @@ export type ChatReducerPayloadType = InferActionsType<
 >;
 
 export const ChatActionCreators = {
-  sendMessage: (data: any) =>
+  receiveMessages: (data: any) =>
     ({
-      type: "SOCIAL_NETWORK/CHAT/SEND_MESSAGE",
+      type: "SOCIAL_NETWORK/CHAT/MESSAGES_RECEIVED",
+      data,
+    } as const),
+  statusChanged: (data: "pending" | "ready") =>
+    ({
+      type: "SOCIAL_NETWORK/CHAT/STATUS_CHANGED",
       data,
     } as const),
 };
 
 export const initialState = {
   messages: [],
+  status: "pending",
 };
 
 // to do: messages received
@@ -28,10 +34,16 @@ export const chatReducer = (
 ) => {
   const { type } = payload;
   switch (type) {
-    case "SOCIAL_NETWORK/CHAT/SEND_MESSAGE": {
+    case "SOCIAL_NETWORK/CHAT/MESSAGES_RECEIVED": {
       return {
         ...state,
-        messages: [...state.messages, payload.data],
+        messages: [...state.messages, ...payload.data],
+      };
+    }
+    case "SOCIAL_NETWORK/CHAT/STATUS_CHANGED": {
+      return {
+        ...state,
+        status: payload.data,
       };
     }
     default: {
@@ -45,20 +57,34 @@ let newMessageHandler: ((messages: MessageType[]) => void) | null = null;
 const messagesHandleCreator = (dispatch: Dispatch) => {
   if (newMessageHandler === null)
     newMessageHandler = (messages) =>
-      dispatch(ChatActionCreators.sendMessage(messages));
+      dispatch(ChatActionCreators.receiveMessages(messages));
+
+  return newMessageHandler;
+};
+
+let _changeStatusHandler: ((status: "pending" | "ready") => void) | null = null;
+
+const changeStatusHandler = (dispatch: Dispatch) => {
+  if (_changeStatusHandler === null)
+    _changeStatusHandler = (status) =>
+      dispatch(ChatActionCreators.statusChanged(status));
+
+  return _changeStatusHandler;
 };
 
 export const startMessagesListening =
   (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
   async (dispatch) => {
     ChatAPI.start();
-    ChatAPI.subscribe(messagesHandleCreator(dispatch));
+    ChatAPI.subscribe("messages-received", messagesHandleCreator(dispatch));
+   // ChatAPI.subscribe("status-changed", changeStatusHandler(dispatch));
   };
 
 export const stopMessagesListening =
   (): ThunkAction<Promise<void>, AppState, unknown, Action<string>> =>
   async (dispatch) => {
-    ChatAPI.unsubscribe(messagesHandleCreator(dispatch));
+    ChatAPI.unsubscribe("messages-received", messagesHandleCreator(dispatch));
+    //ChatAPI.unsubscribe("status-changed", changeStatusHandler(dispatch));
     ChatAPI.stop();
   };
 

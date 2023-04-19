@@ -21,10 +21,10 @@ export interface MessageData {
 }
 
 export const Dialogs: React.FC<DialogsPageData> = () => {
-  const bottomRef = useRef(null);
+  const bottomRef = useRef<null | HTMLDivElement>(null);
   const messages = useSelector((state: StateData) => state.chat.messages);
   // const [messages, setMessages] = useState<MessageData[]>([]);
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   useEffect(() => {
     dispatch(startMessagesListening());
@@ -35,8 +35,10 @@ export const Dialogs: React.FC<DialogsPageData> = () => {
 
   useEffect(() => {
     bottomRef?.current &&
-      bottomRef?.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+      bottomRef?.current.scrollIntoView({
+        behavior: "smooth",
+      });
+  }, [messages]);
 
   const sendMessage = (message: string) => {
     dispatch(sendMessageThunkCreator(message));
@@ -50,8 +52,9 @@ export const Dialogs: React.FC<DialogsPageData> = () => {
           {messages.map((data) => (
             <Message {...data} />
           ))}
+          <div ref={bottomRef} />
         </div>
-        <div ref={bottomRef} />
+
         <MessageForm handleSubmit={sendMessage} />
       </div>
       {/* ) : (

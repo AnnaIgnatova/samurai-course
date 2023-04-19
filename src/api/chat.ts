@@ -5,15 +5,23 @@ export type MessageType = {
   userName: string;
 };
 
-type SubscriberType = (messages: MessageType[]) => void;
+type StatusType = "pending" | "ready";
+type SubscriberType = "messages-received" | "status-changed";
 
-let subscribers = [] as SubscriberType[];
+type MessageReceivedSubscriberType = (messages: MessageType[]) => void;
+type StatusChangedSubscriberType = (status: StatusType) => void;
+
+let subscribers = {
+  "messages-received": [] as MessageReceivedSubscriberType[],
+  "status-changed": [] as StatusChangedSubscriberType[],
+};
+
 let ws: WebSocket | null = null;
 
 const cleanUp = () => {
   ws?.removeEventListener("close", closeChannel);
   ws?.removeEventListener("message", handleMessage);
-  ws?.close();
+  ws?.removeEventListener("open", openHandler);
 };
 
 const closeChannel = () => {
@@ -21,18 +29,29 @@ const closeChannel = () => {
   setTimeout(createChannel, 3000);
 };
 
+const openHandler = () => {
+  notifyAboutStatus("ready");
+};
+
+const notifyAboutStatus = (status: StatusType) => {
+  subscribers["status-changed"].forEach((s) => s(status));
+};
+
 const handleMessage = (e: MessageEvent) => {
   const messages = JSON.parse(e.data);
-  subscribers.forEach((s) => s(messages));
+  subscribers["messages-received"].forEach((s) => s(messages));
 };
 
 const createChannel = () => {
-  //cleanUp();
+  cleanUp();
+  ws?.close();
   ws = new WebSocket(
     "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
   );
-//  ws.addEventListener("close", closeChannel);
+  notifyAboutStatus("pending");
+  ws.addEventListener("close", closeChannel);
   ws.addEventListener("message", handleMessage);
+  ws.addEventListener("open", openHandler);
 };
 
 export const ChatAPI = {
@@ -40,17 +59,25 @@ export const ChatAPI = {
     createChannel();
   },
   stop() {
-    subscribers = [];
-  //  cleanUp();
+    subscribers["messages-received"] = [];
+    subscribers["status-changed"] = [];
+    cleanUp();
+    ws?.close();
   },
-  subscribe(cb: SubscriberType) {
-    subscribers.push(cb);
-    return () => {
-      subscribers = subscribers.filter((s) => s !== cb);
-    };
+  subscribe(
+    eventName: SubscriberType,
+    cb: MessageReceivedSubscriberType | StatusChangedSubscriberType
+  ) {
+    // @ts-ignore
+    subscribers[eventName].push(cb);
   },
-  unsubscribe(cb: SubscriberType) {
-    subscribers = subscribers.filter((s) => s !== cb);
+  unsubscribe(
+    eventName: SubscriberType,
+    cb: MessageReceivedSubscriberType | StatusChangedSubscriberType
+  ) {
+    // @ts-ignore
+    console.log(subscribers);
+    subscribers = subscribers[eventName].filter((s) => s !== cb);
   },
   sendMessage(message: string) {
     ws?.send(message);
