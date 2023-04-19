@@ -42,6 +42,15 @@ export interface NavbarData {
   friendsIds: number[];
 }
 
+export interface ChatData {
+  messages: {
+    message: string;
+    photo: string;
+    userId: number;
+    userName: string;
+  }[];
+}
+
 export interface StateData {
   profilePage: ProfileData;
   dialogsPage: DialogsData;
@@ -49,6 +58,7 @@ export interface StateData {
   navbar: NavbarData;
   header: AuthData;
   app: AppData;
+  chat: ChatData;
 }
 
 export interface DialogsData {

@@ -2,7 +2,13 @@ import { Button, Form, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
-import { DialogsPageData } from "../../interfaces";
+import { useDispatch, useSelector } from "react-redux";
+import { DialogsPageData, StateData } from "../../interfaces";
+import {
+  sendMessageThunkCreator,
+  startMessagesListening,
+  stopMessagesListening,
+} from "../../redux/reducers/ChatReducer";
 import { Dialog } from "./Dialog";
 import { Message } from "./Message";
 import styles from "./style.module.css";
@@ -14,84 +20,46 @@ export interface MessageData {
   userName: string;
 }
 
-export const Dialogs: React.FC<DialogsPageData> = ({
-  dialogsPage,
-  sendMessage,
-}) => {
-  const bottomRef = useRef(null);
-  const { dialogs } = dialogsPage;
-  const [wsChannel, setWsChannel] = useState<WebSocket | null>(null);
-  const [wsChannelStatus, setWsChannelStatus] = useState<"ready" | "pending">(
-    "pending"
-  );
-  const [messages, setMessages] = useState<MessageData[]>([]);
-
-  const createNewMessage = (message: string) => {
-    wsChannel?.send(message);
-  };
-
-  const createChannel = () => {
-    setWsChannel(
-      new WebSocket(
-        "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-      )
-    );
-  };
-
-  const openChannel = () => {
-    setWsChannelStatus("ready");
-  };
-
-  const closeChannel = () => {
-    setMessages([]);
-    wsChannel?.close();
-    setWsChannelStatus("pending");
-  };
+export const Dialogs: React.FC<DialogsPageData> = () => {
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+  const messages = useSelector((state: StateData) => state.chat.messages);
+  // const [messages, setMessages] = useState<MessageData[]>([]);
+  const dispatch: any = useDispatch();
 
   useEffect(() => {
-    closeChannel();
-    createChannel();
+    dispatch(startMessagesListening());
+    return () => {
+      dispatch(stopMessagesListening());
+    };
   }, []);
-
-  useEffect(() => {
-    wsChannel?.addEventListener("open", openChannel);
-    return () => {
-      wsChannel?.removeEventListener("open", openChannel);
-      closeChannel();
-    };
-  }, [wsChannel]);
-
-  useEffect(() => {
-    const handleMessage = (e) => {
-      setMessages((prevState) => [...prevState, ...JSON.parse(e.data)]);
-    };
-    wsChannel?.addEventListener("message", handleMessage);
-
-    return () => {
-      wsChannel?.removeEventListener("message", handleMessage);
-    };
-  }, [wsChannel]);
 
   useEffect(() => {
     bottomRef?.current &&
-      bottomRef?.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+      bottomRef?.current.scrollIntoView({
+        behavior: "smooth",
+      });
+  }, [messages]);
+
+  const sendMessage = (message: string) => {
+    dispatch(sendMessageThunkCreator(message));
+  };
 
   return (
     <>
-      {wsChannelStatus === "ready" ? (
-        <div className={styles.container}>
-          <div className={styles["messages"]}>
-            {messages.map((data) => (
-              <Message {...data} />
-            ))}
-          </div>
+      {/* {wsChannelStatus === "ready" ? ( */}
+      <div className={styles.container}>
+        <div className={styles["messages"]}>
+          {messages.map((data) => (
+            <Message {...data} />
+          ))}
           <div ref={bottomRef} />
-          <MessageForm handleSubmit={createNewMessage} />
         </div>
-      ) : (
+
+        <MessageForm handleSubmit={sendMessage} />
+      </div>
+      {/* ) : (
         <Spin size="large" />
-      )}
+      )} */}
     </>
   );
 };
